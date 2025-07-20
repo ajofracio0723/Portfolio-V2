@@ -210,7 +210,7 @@ const AboutPage = () => {
   // Memoized calculations
   const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
     // Using fallback values since localStorage isn't available in artifacts
-    const totalProjects = 1; // fallback value
+    const totalProjects = 2; // fallback value
     const totalCertificates = 1; // fallback value
     
     const startDate = new Date("2021-11-06");
