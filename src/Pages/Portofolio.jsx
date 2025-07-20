@@ -104,21 +104,65 @@ function a11yProps(index) {
   };
 }
 
-// techStacks tetap sama
-const techStacks = [
-  { icon: "html.svg", language: "HTML" },
-  { icon: "css.svg", language: "CSS" },
-  { icon: "javascript.svg", language: "JavaScript" },
-  { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "reactjs.svg", language: "ReactJS" },
-  { icon: "vite.svg", language: "Vite" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "bootstrap.svg", language: "Bootstrap" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "MUI.svg", language: "Material UI" },
-  { icon: "vercel.svg", language: "Vercel" },
-  { icon: "SweetAlert.svg", language: "SweetAlert2" },
-];
+// Organized tech stacks by categories
+const techStackCategories = {
+  frontend: {
+    title: "Frontend",
+    color: "from-blue-500 to-purple-500",
+    technologies: [
+      { icon: "html.svg", language: "HTML" },
+      { icon: "css.svg", language: "CSS" },
+      { icon: "javascript.svg", language: "JavaScript" },
+      { icon: "reactjs.svg", language: "ReactJS" },
+      { icon: "tailwind.svg", language: "Tailwind CSS" },
+      { icon: "bootstrap.svg", language: "Bootstrap" },
+      { icon: "MUI.svg", language: "Material UI" },
+      { icon: "SweetAlert.svg", language: "SweetAlert2" },
+    ]
+  },
+  backend: {
+    title: "Backend & Database",
+    color: "from-green-500 to-teal-500",
+    technologies: [
+      { icon: "nodejs.svg", language: "Node JS" },
+      { icon: "supabase.svg", language: "Supabase" },
+      { icon: "mongodb.svg", language: "MongoDB" },
+      { icon: "solidity.svg", language: "Solidity" },
+      { icon: "vbnet.svg", language: "VB.NET" },
+    ]
+  },
+  tools: {
+    title: "Tools & Platforms",
+    color: "from-orange-500 to-red-500",
+    technologies: [
+      { icon: "vite.svg", language: "Vite" },
+      { icon: "vercel.svg", language: "Vercel" },
+      { icon: "figma.svg", language: "Figma" },
+      { icon: "canva.svg", language: "Canva" },
+      { icon: "vscode.svg", language: "VS Code" },
+    ]
+  }
+};
+
+const TechStackCategory = ({ category, technologies, title, color }) => (
+  <div className="mb-8" data-aos="fade-up" data-aos-duration="1000">
+    <h3 className={`text-xl font-semibold mb-6 text-center bg-gradient-to-r ${color} bg-clip-text text-transparent`}>
+      {title}
+    </h3>
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+      {technologies.map((stack, index) => (
+        <div
+          key={`${category}-${index}`}
+          data-aos="zoom-in"
+          data-aos-duration="800"
+          data-aos-delay={index * 100}
+        >
+          <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 export default function FullWidthTabs() {
   const theme = useTheme();
@@ -355,18 +399,16 @@ export default function FullWidthTabs() {
           </TabPanel>
 
           <TabPanel value={value} index={2}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
-                {techStacks.map((stack, index) => (
-                  <div
-                    key={index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
-                  </div>
-                ))}
-              </div>
+            <div className="container mx-auto overflow-hidden pb-[5%]">
+              {Object.entries(techStackCategories).map(([category, data]) => (
+                <TechStackCategory
+                  key={category}
+                  category={category}
+                  technologies={data.technologies}
+                  title={data.title}
+                  color={data.color}
+                />
+              ))}
             </div>
           </TabPanel>
         </div>

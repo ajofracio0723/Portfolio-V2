@@ -61,7 +61,7 @@ const ProjectStats = ({ project }) => {
         </div>
         <div className="flex-grow">
           <div className="text-lg md:text-xl font-semibold text-blue-200">{techStackCount}</div>
-          <div className="text-[10px] md:text-xs text-gray-400">TTotal Technology</div>
+          <div className="text-[10px] md:text-xs text-gray-400">Total Technology</div>
         </div>
       </div>
 

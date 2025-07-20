@@ -214,7 +214,7 @@ const AboutPage = () => {
               data-aos="fade-right"
               data-aos-duration="1500"
             >
-             I'm Abe Jay Ofracio, a passionate web developer based in Sorsogon City with expertise in building modern, responsive websites and web applications. With a keen eye for design and a strong understanding of development principles, I create digital experiences that are both visually appealing and highly functional.
+             a passionate Fullstack developer based in Sorsogon City with expertise in building modern, responsive websites and web applications. With a keen eye for design and a strong understanding of development principles, I create digital experiences that are both visually appealing and highly functional.
 
 My journey in web development began with a curiosity about how websites work, which quickly turned into a career. I love solving complex problems and turning ideas into reality through clean, efficient code.
             </p>
