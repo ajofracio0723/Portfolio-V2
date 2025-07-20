@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, memo } from "react"
 import { Github, Linkedin, Mail, ExternalLink, Instagram, Sparkles, Facebook } from "lucide-react"
-import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -16,6 +15,11 @@ const StatusBadge = memo(() => (
         </span>
       </div>
     </div>
+  </div>
+));
+
+const NameTitle = memo(() => (
+  <div className="space-y-1" data-aos="fade-up" data-aos-delay="500">
   </div>
 ));
 
@@ -71,6 +75,72 @@ const SocialLink = memo(({ icon: Icon, link }) => (
       </div>
     </button>
   </a>
+));
+
+// Profile Image Component
+const ProfileImage = memo(({ isHovering }) => (
+  <div className="relative w-full h-full flex flex-col items-center justify-center space-y-6">
+    {/* Image Section */}
+    <div className="relative flex items-center justify-center">
+      {/* Glowing background effect */}
+      <div className={`absolute inset-0 bg-gradient-to-r from-[#6366f1]/20 to-[#a855f7]/20 rounded-full blur-3xl transition-all duration-700 ${
+        isHovering ? "opacity-60 scale-110" : "opacity-30 scale-100"
+      }`}></div>
+      
+      {/* Image container */}
+      <div className={`relative z-10 w-80 h-80 lg:w-96 lg:h-96 xl:w-[400px] xl:h-[400px] rounded-full overflow-hidden border-4 border-gradient-to-r from-[#6366f1] to-[#a855f7] shadow-2xl transition-all duration-500 ${
+        isHovering ? "scale-105 shadow-[0_0_50px_rgba(99,102,241,0.3)]" : "scale-100"
+      }`}>
+        {/* Gradient border effect */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-full blur-sm"></div>
+        
+        {/* Actual image */}
+        <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+          {/* Your profile image */}
+          <img
+            src="/profile.jpg"
+            alt="AJ Ofracio"
+            className={`w-full h-full object-cover transition-all duration-500 ${
+              isHovering ? "scale-110" : "scale-100"
+            }`}
+          />
+          
+          {/* Overlay gradient for better effect */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-30"></div>
+        </div>
+      </div>
+      
+      {/* Floating particles effect */}
+      <div className={`absolute inset-0 pointer-events-none transition-all duration-700 ${
+        isHovering ? "opacity-100" : "opacity-70"
+      }`}>
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-ping"></div>
+        <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-purple-400 rounded-full animate-ping animation-delay-1000"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-indigo-400 rounded-full animate-ping animation-delay-2000"></div>
+      </div>
+    </div>
+    
+    {/* Name below image */}
+    <div className="text-center" data-aos="fade-up" data-aos-delay="800">
+      <div className="relative group">
+        {/* Simple subtle glow */}
+        <div className="absolute -inset-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] blur-xl opacity-10 group-hover:opacity-20 transition-all duration-500"></div>
+        
+        <h2 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-bold tracking-tight">
+          <span className="relative bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent">
+            Abe Jay Ofracio
+          </span>
+        </h2>
+        
+        {/* Simple subtitle */}
+        <div className="mt-3" data-aos="fade-up" data-aos-delay="1000">
+          <p className="text-sm sm:text-base text-gray-400 font-medium tracking-wider">
+            "CODE • CREATE • INNOVATE"
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 ));
 
 // Constants
@@ -142,27 +212,10 @@ const Home = () => {
     return () => clearTimeout(timeout);
   }, [handleTyping]);
 
-  // Lottie configuration
-  const lottieOptions = {
-    src: "https://lottie.host/58753882-bb6a-49f5-a2c0-950eda1e135a/NLbpVqGegK.lottie",
-    loop: true,
-    autoplay: true,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-      progressiveLoad: true,
-    },
-    style: { width: "100%", height: "100%" },
-    className: `w-full h-full transition-all duration-500 ${
-      isHovering 
-        ? "scale-[180%] sm:scale-[160%] md:scale-[150%] lg:scale-[145%] rotate-2" 
-        : "scale-[175%] sm:scale-[155%] md:scale-[145%] lg:scale-[140%]"
-    }`
-  };
-
   return (
-    <div className="min-h-screen bg-[#030014] overflow-hidden px-[5%] sm:px-[5%] lg:px-[10%] " id="Home">
+    <div className="min-h-screen bg-[#030014] overflow-hidden px-[5%] sm:px-[5%] lg:px-[10%]" id="Home">
       <div className={`relative z-10 transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
-        <div className="container mx-auto  min-h-screen ">
+        <div className="container mx-auto min-h-screen">
           <div className="flex flex-col lg:flex-row items-center justify-center h-screen md:justify-between gap-0 sm:gap-12 lg:gap-20">
             {/* Left Column */}
             <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8 text-left lg:text-left order-1 lg:order-1 lg:mt-0"
@@ -170,6 +223,7 @@ const Home = () => {
               data-aos-delay="200">
               <div className="space-y-4 sm:space-y-6">
                 <StatusBadge />
+                <NameTitle />
                 <MainTitle />
 
                 {/* Typing Effect */}
@@ -209,37 +263,74 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Right Column - Optimized Lottie Animation */}
+            {/* Right Column - Profile Image */}
             <div className="w-full py-[10%] sm:py-0 lg:w-1/2 h-auto lg:h-[600px] xl:h-[750px] relative flex items-center justify-center order-2 lg:order-2 mt-8 lg:mt-0"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
               data-aos="fade-left"
               data-aos-delay="600">
-              <div className="relative w-full opacity-90">
-                <div className={`absolute inset-0 bg-gradient-to-r from-[#6366f1]/10 to-[#a855f7]/10 rounded-3xl blur-3xl transition-all duration-700 ease-in-out ${
-                  isHovering ? "opacity-50 scale-105" : "opacity-20 scale-100"
-                }`}>
-                </div>
-
-                <div className={`relative lg:left-12 z-10 w-full opacity-90 transform transition-transform duration-500 ${
-                  isHovering ? "scale-105" : "scale-100"
-                }`}>
-                  <DotLottieReact {...lottieOptions} />
-                </div>
-
-                <div className={`absolute inset-0 pointer-events-none transition-all duration-700 ${
-                  isHovering ? "opacity-50" : "opacity-20"
-                }`}>
-                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-indigo-500/10 to-purple-500/10 blur-3xl animate-[pulse_6s_cubic-bezier(0.4,0,0.6,1)_infinite] transition-all duration-700 ${
-                    isHovering ? "scale-110" : "scale-100"
-                  }`}>
-                  </div>
-                </div>
-              </div>
+              <ProfileImage isHovering={isHovering} />
             </div>
           </div>
         </div>
       </div>
+
+      {/* Custom CSS for animations */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes blink {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+        }
+        
+        @keyframes gradient-x {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-blink {
+          animation: blink 1s infinite;
+        }
+        
+        .animate-gradient-x {
+          animation: gradient-x 3s ease infinite;
+        }
+        
+        .animate-shimmer {
+          background-size: 200% 100%;
+          animation: shimmer 2s infinite;
+        }
+        
+        .animation-delay-100 {
+          animation-delay: 0.1s;
+        }
+        
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+        }
+        
+        .animation-delay-1000 {
+          animation-delay: 1s;
+        }
+        
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+      `}</style>
     </div>
   );
 };
