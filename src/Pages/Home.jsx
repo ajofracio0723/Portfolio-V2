@@ -147,13 +147,13 @@ const ProfileImage = memo(({ isHovering }) => (
 const TYPING_SPEED = 100;
 const ERASING_SPEED = 50;
 const PAUSE_DURATION = 2000;
-const WORDS = ["Information Technology.", "Tech Enthusiast.", "Junior Web Developer.", "Blockchain Developer."];
+const WORDS = ["Information Technology.", "Virtual Assistant", "Tech Enthusiast.", "Junior Web Developer.", "Blockchain Developer."];
 const TECH_STACK = ["React", "Javascript", "Node.js", "Tailwind"];
 const SOCIAL_LINKS = [
   { icon: Github, link: "https://github.com/ajofracio0723" },
-  { icon: Linkedin, link: "https://www.linkedin.com/in/aj-ofracio-401449355/" },
-  { icon: Instagram, link: "https://www.facebook.com/ajofracio7" },
-  { icon: Facebook, link: "https://www.facebook.com/your-facebook-profile" }
+  { icon: Linkedin, link: "https://www.linkedin.com/in/abe-jay-ofracio-401449355/" },
+  { icon: Instagram, link: "https://www.instagram.com/aj.ofracio/" },
+  { icon: Facebook, link: "https://www.facebook.com/ajofracio7" }
 ];
 
 const Home = () => {

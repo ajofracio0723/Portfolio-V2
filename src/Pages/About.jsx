@@ -210,8 +210,8 @@ const AboutPage = () => {
   // Memoized calculations
   const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
     // Using fallback values since localStorage isn't available in artifacts
-    const totalProjects = 2; // fallback value
-    const totalCertificates = 1; // fallback value
+    const totalProjects = 5; // fallback value
+    const totalCertificates = 12; // fallback value
     
     const startDate = new Date("2021-11-06");
     const today = new Date();
@@ -331,10 +331,17 @@ const AboutPage = () => {
             </h2>
             
             <p className="text-base sm:text-lg lg:text-xl text-gray-400 leading-relaxed text-justify pb-4 sm:pb-0">
-              a passionate Fullstack developer based in Sorsogon City with expertise in building modern, responsive websites and web applications. With a keen eye for design and a strong understanding of development principles, I create digital experiences that are both visually appealing and highly functional.
+              I'm a passionate Fullstack Developer based in Sorsogon City, with expertise in building modern, responsive websites and web applications. With a keen eye for design and a strong understanding of development principles, I create digital experiences that are both visually appealing and highly functional.
 
-              My journey in web development began with a curiosity about how websites work, which quickly turned into a career. I love solving complex problems and turning ideas into reality through clean, efficient code.
+              My journey in web development began with a curiosity about how websites work, which quickly turned into a career. I enjoy solving complex problems and turning ideas into reality through clean, efficient code using tools like React, Vite, Supabase, MongoDB, Git, and more.
             </p>
+
+            <hr className="my-4 border-gray-600" />
+
+            <p className="text-base sm:text-lg lg:text-xl text-gray-400 leading-relaxed text-justify pb-4 sm:pb-0">
+              In addition to my development skills, I also have experience working as a Virtual Assistant (VA). I provide support in data entry, file organization, document management, and IT troubleshooting, making me adaptable to both technical and administrative roles. My ability to balance creative design, technical development, and virtual assistance allows me to deliver well-rounded solutions to clients and teams.
+            </p>
+
 
             {/* Quote Section */}
             <div className="relative bg-gradient-to-br from-[#6366f1]/5 via-transparent to-[#a855f7]/5 border border-gradient-to-r border-[#6366f1]/30 rounded-2xl p-4 my-6 backdrop-blur-md shadow-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="300">
@@ -356,7 +363,7 @@ const AboutPage = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full" data-aos="fade-up" data-aos-delay="400">
-              <a href="https://drive.google.com/file/d/1GTHNL2NqSv-H5jdY7g5klmLtqjQzrTCo/view?usp=sharing" className="w-full lg:w-auto">
+              <a href="https://drive.google.com/file/d/17-VZwdLxfeqDvOJwPosvlgaaSTl9-Bu7/view?usp=sharing" className="w-full lg:w-auto">
                 <button className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 shadow-lg hover:shadow-xl">
                   <FileText className="w-4 h-4 sm:w-5 sm:h-5" /> Download CV
                 </button>
