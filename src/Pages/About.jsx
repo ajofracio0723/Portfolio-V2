@@ -213,7 +213,7 @@ const AboutPage = () => {
     const totalProjects = 25; // fallback value
     const totalCertificates = 12; // fallback value
     
-    const startDate = new Date("2020-01-01"); // Change this date to your desired start date
+    const startDate = new Date("2018-01-01"); // Change this date to your desired start date
     const today = new Date();
     const experience = today.getFullYear() - startDate.getFullYear() -
       (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);

@@ -113,7 +113,10 @@ const techStackCategories = {
       { icon: "html.svg", language: "HTML" },
       { icon: "css.svg", language: "CSS" },
       { icon: "javascript.svg", language: "JavaScript" },
+      { icon: "typescript.svg", language: "TypeScript" },
       { icon: "reactjs.svg", language: "ReactJS" },
+      { icon: "nextjs.svg", language: "Next.js" },
+      { icon: "nuxt.svg", language: "nuxt.js" },
       { icon: "tailwind.svg", language: "Tailwind CSS" },
       { icon: "bootstrap.svg", language: "Bootstrap" },
       { icon: "MUI.svg", language: "Material UI" },
@@ -125,8 +128,11 @@ const techStackCategories = {
     title: "Backend & Database",
     color: "from-green-500 to-teal-500",
     technologies: [
-      { icon: "nodejs.svg", language: "Node JS" },
+      { icon: "nodejs.svg", language: "Node.js" },
+      { icon: "express.svg", language: "Express.js" },
       { icon: "supabase.svg", language: "Supabase" },
+      { icon: "postgresql.svg", language: "PostgreSQL" },
+      { icon: "graphql.svg", language: "GraphQL" },
       { icon: "mongodb.svg", language: "MongoDB" },
       { icon: "solidity.svg", language: "Solidity" },
       { icon: "vbnet.svg", language: "VB.NET" },
@@ -137,11 +143,15 @@ const techStackCategories = {
     title: "Tools & Platforms",
     color: "from-orange-500 to-red-500",
     technologies: [
+      { icon: "github.svg", language: "Github/Git" },
+      { icon: "vscode.svg", language: "VS Code" },
+      { icon: "cursorai.svg", language: "Cursor" },
+      { icon: "windsurf.svg", language: "Windsurf" },
       { icon: "vite.svg", language: "Vite" },
       { icon: "vercel.svg", language: "Vercel" },
       { icon: "figma.svg", language: "Figma" },
       { icon: "canva.svg", language: "Canva" },
-      { icon: "vscode.svg", language: "VS Code" },
+      { icon: "storybook.svg", language: "Storybook" },
     ]
   }
 };

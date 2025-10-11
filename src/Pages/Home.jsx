@@ -147,7 +147,7 @@ const ProfileImage = memo(({ isHovering }) => (
 const TYPING_SPEED = 100;
 const ERASING_SPEED = 50;
 const PAUSE_DURATION = 2000;
-const WORDS = ["Information Technology.", "Virtual Assistant", "Tech Enthusiast.", "Junior Web Developer.", "Blockchain Developer."];
+const WORDS = ["Information Technology.", "Virtual Assistant", "Tech Enthusiast.", "Web Developer.", "Blockchain Developer." , "Problem Solver",, "Software Engineer",];
 const TECH_STACK = ["React", "Javascript", "Node.js", "Tailwind"];
 const SOCIAL_LINKS = [
   { icon: Github, link: "https://github.com/ajofracio0723" },
