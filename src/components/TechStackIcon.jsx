@@ -8,7 +8,7 @@ const TechStackIcon = ({ TechStackIcon, Language }) => {
         <img 
           src={TechStackIcon} 
           alt={`${Language} icon`} 
-          className="relative h-16 w-16 md:h-20 md:w-20 transform transition-transform duration-300"
+          className="relative h-16 w-16 md:h-20 md:w-20 object-contain transform transition-transform duration-300"
         />
       </div>
       <span className="text-slate-300 font-semibold text-sm md:text-base tracking-wide group-hover:text-white transition-colors duration-300">

@@ -1,5 +1,5 @@
 import { useEffect, memo, useMemo, useState } from "react"
-import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles, Star, Monitor, Smartphone, Database, Settings } from "lucide-react"
+import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles, Star, Monitor, Workflow, Layout, Plug, Building2, Bot } from "lucide-react"
 
 // AOS Library (using CDN)
 const loadAOS = () => {
@@ -263,35 +263,53 @@ const AboutPage = () => {
   ], [totalProjects, totalCertificates, YearExperience]);
 
   const skills = [
-    "Html", "CSS", "React", "Node.js", "JavaScript",
-    "MongoDB", "PostgreSQL", "Tailwind CSS", "Next.js", "Express.js",
-    "Git", "REST APIs"
+    "React", "TypeScript", "Next.js", "Node.js", "JavaScript",
+    "Tailwind CSS", "Supabase", "MongoDB", "PostgreSQL", "REST APIs",
+    "GoHighLevel", "Zapier", "Make", "Stripe", "Git", "Lovable",
   ];
 
   const services = [
-    { 
-      icon: Monitor, 
-      title: "Full-Stack Web Development", 
-      description: "Complete web applications from concept to deployment with modern technologies",
-      color: "text-blue-400" 
+    {
+      icon: Monitor,
+      title: "Full-Stack Web Development",
+      description:
+        "Modern React and TypeScript apps from concept to deployment - dashboards, auth, databases, APIs, and clean UI systems that scale.",
+      color: "text-blue-400",
     },
-    { 
-      icon: Smartphone, 
-      title: "Responsive Design", 
-      description: "Mobile-first designs that work seamlessly across all devices and screen sizes",
-      color: "text-green-400" 
+    {
+      icon: Building2,
+      title: "CRM & GoHighLevel Ops",
+      description:
+        "Sub-account setup, pipelines, A2P compliance, domains, email infrastructure, and day-to-day CRM management for agencies and client brands.",
+      color: "text-indigo-400",
     },
-    { 
-      icon: Database, 
-      title: "Database Integration", 
-      description: "Efficient data management with MongoDB, PostgreSQL, and API development",
-      color: "text-purple-400" 
+    {
+      icon: Workflow,
+      title: "Workflow Automation",
+      description:
+        "Multi-branch automations for lead routing, nurture sequences, appointment reminders, no-show recovery, and payment-triggered onboarding.",
+      color: "text-cyan-400",
     },
-    { 
-      icon: Settings, 
-      title: "Performance Optimization", 
-      description: "Fast-loading, SEO-friendly websites with clean, maintainable code",
-      color: "text-orange-400" 
+    {
+      icon: Layout,
+      title: "Funnels & Websites",
+      description:
+        "High-converting sites, landing pages, and funnels across industries - from solar and healthcare to coaching, wellness, and local services.",
+      color: "text-emerald-400",
+    },
+    {
+      icon: Plug,
+      title: "Integrations & Payments",
+      description:
+        "Native and private API connections, Stripe products and invoices, webhooks, and Make/Zapier syncs that keep CRM data accurate in production.",
+      color: "text-sky-400",
+    },
+    {
+      icon: Bot,
+      title: "AI-Assisted Delivery",
+      description:
+        "Faster builds with Cursor, Claude, ChatGPT, Lovable, and Bolt - used for scaffolding, SOPs, debugging, and shipping production-ready work. Actively investing more knowledge into AI.",
+      color: "text-violet-400",
     },
   ];
 
@@ -331,15 +349,21 @@ const AboutPage = () => {
             </h2>
             
             <p className="text-base sm:text-lg lg:text-xl text-gray-400 leading-relaxed text-justify pb-4 sm:pb-0">
-              I&apos;m a passionate Fullstack Developer based in Sorsogon City, with expertise in building modern, responsive websites and web applications. With a keen eye for design and a strong understanding of development principles, I create digital experiences that are both visually appealing and highly functional.
-
-              My journey in web development began with a curiosity about how websites work, which quickly turned into a career. I enjoy solving complex problems and turning ideas into reality through clean, efficient code using tools like React, Vite, Supabase, MongoDB, Git, and more.
+              I&apos;m a Fullstack Developer based in Sorsogon City who builds modern, responsive
+              websites and web apps end to end. I care about clear UI, solid architecture, and
+              code that stays easy to maintain. Day to day that means React, TypeScript, Vite,
+              Supabase, APIs, and clean component systems - shipping products that feel fast and
+              look intentional. I&apos;m also investing more of my learning into AI so I can keep
+              leveling up how I build and ship.
             </p>
 
             <hr className="my-4 border-gray-600" />
 
             <p className="text-base sm:text-lg lg:text-xl text-gray-400 leading-relaxed text-justify pb-4 sm:pb-0">
-              In addition to my development skills, I also have experience working as a Virtual Assistant (VA). I provide support in data entry, file organization, document management, and IT troubleshooting, making me adaptable to both technical and administrative roles. My ability to balance creative design, technical development, and virtual assistance allows me to deliver well-rounded solutions to clients and teams.
+              Alongside product work, I run GoHighLevel technical ops for agencies: CRM setup,
+              multi-branch workflows, funnels, Stripe payments, integrations, A2P, domains, and
+              deliverability. When needed I also support teams with VA tasks like data ops, docs,
+              and IT troubleshooting.
             </p>
 
 
@@ -363,14 +387,19 @@ const AboutPage = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full" data-aos="fade-up" data-aos-delay="400">
-              <a href="https://drive.google.com/file/d/1Cl_gz0ikmeCui6vQVXZTBCW013w1XAU0/view?usp=sharing" className="w-full lg:w-auto">
+              <a href="https://drive.google.com/file/d/1iAdysX-VSNaAgUv4Q38XFDZGXkfFJxSF/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="w-full lg:w-auto">
                 <button className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 shadow-lg hover:shadow-xl">
                   <FileText className="w-4 h-4 sm:w-5 sm:h-5" /> Download CV
                 </button>
               </a>
-              <a href="#Portofolio" className="w-full lg:w-auto">
+              <a href="#Experience" className="w-full lg:w-auto">
                 <button className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg border border-[#a855f7]/50 text-[#a855f7] font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 hover:bg-[#a855f7]/10">
-                  <Code className="w-4 h-4 sm:w-5 sm:h-5" /> View Projects
+                  <Code className="w-4 h-4 sm:w-5 sm:h-5" /> View Experience
+                </button>
+              </a>
+              <a href="#Portofolio" className="w-full lg:w-auto">
+                <button className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg border border-white/20 text-gray-200 font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 hover:bg-white/5">
+                  <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" /> View Projects
                 </button>
               </a>
             </div>
@@ -418,13 +447,13 @@ const AboutPage = () => {
               What I Can Offer
             </h3>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Professional services tailored to bring your digital vision to life
+              Agency CRM operations, automation, funnels, and modern web builds - shipped end to end
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {services.map((service, index) => (
               <div 
-                key={index} 
+                key={service.title} 
                 className="bg-gray-900/30 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:scale-105 transition-all duration-300 group relative overflow-hidden" 
                 data-aos="fade-up" 
                 data-aos-duration="800" 

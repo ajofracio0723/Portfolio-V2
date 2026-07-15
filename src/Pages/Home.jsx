@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, memo } from "react"
-import { Github, Linkedin, Mail, ExternalLink, Instagram, Sparkles, Facebook } from "lucide-react"
+import { Github, Linkedin, Instagram, Sparkles, Facebook, Briefcase, ExternalLink } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -11,7 +11,7 @@ const StatusBadge = memo(() => (
       <div className="relative px-3 sm:px-4 py-2 rounded-full bg-black/40 backdrop-blur-xl border border-white/10">
         <span className="bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-transparent bg-clip-text sm:text-sm text-[0.7rem] font-medium flex items-center">
           <Sparkles className="sm:w-4 sm:h-4 w-3 h-3 mr-2 text-blue-400" />
-          Ready to Innovate
+          Fullstack + Agency Ops
         </span>
       </div>
     </div>
@@ -43,9 +43,16 @@ const MainTitle = memo(() => (
   </div>
 ));
 
-const TechStack = memo(({ tech }) => (
-  <div className="px-4 py-2 hidden sm:block rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-sm text-gray-300 hover:bg-white/10 transition-colors">
-    {tech}
+const TechStack = memo(({ tech, icon }) => (
+  <div className="px-3 py-1.5 flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-sm text-gray-300 hover:bg-white/10 transition-colors">
+    {icon && (
+      <img
+        src={`/${icon}`}
+        alt=""
+        className="h-4 w-4 object-contain rounded-sm shrink-0"
+      />
+    )}
+    <span>{tech}</span>
   </div>
 ));
 
@@ -98,7 +105,7 @@ const ProfileImage = memo(({ isHovering }) => (
         <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
           {/* Your profile image */}
           <img
-            src="/profile.jpg"
+            src="/profile.png"
             alt="AJ Ofracio"
             className={`w-full h-full object-cover transition-all duration-500 ${
               isHovering ? "scale-110" : "scale-100"
@@ -147,8 +154,25 @@ const ProfileImage = memo(({ isHovering }) => (
 const TYPING_SPEED = 100;
 const ERASING_SPEED = 50;
 const PAUSE_DURATION = 2000;
-const WORDS = ["Information Technology.", "Virtual Assistant", "Tech Enthusiast.", "Web Developer.", "Blockchain Developer." , "Problem Solver",, "Software Engineer",];
-const TECH_STACK = ["React", "Javascript", "Node.js", "Tailwind"];
+const WORDS = [
+  "Fullstack Developer.",
+  "CRM Automation Specialist.",
+  "GoHighLevel Ops.",
+  "Funnel & Workflow Builder.",
+  "AI-Assisted Delivery.",
+  "Problem Solver.",
+];
+const TECH_STACK = [
+  { tech: "React", icon: "reactjs.svg" },
+  { tech: "TypeScript", icon: "typescript.svg" },
+  { tech: "Node.js", icon: "nodejs.svg" },
+  { tech: "GoHighLevel", icon: "gohighlevel.png" },
+  { tech: "Zapier", icon: "zapier.png" },
+  { tech: "Make", icon: "make.svg" },
+  { tech: "Stripe", icon: "stripe.png" },
+  { tech: "Cursor", icon: "cursor.png" },
+  { tech: "Claude", icon: "claude.png" },
+];
 const SOCIAL_LINKS = [
   { icon: Github, link: "https://github.com/ajofracio0723" },
   { icon: Linkedin, link: "https://www.linkedin.com/in/abe-jay-ofracio-401449355/" },
@@ -238,20 +262,20 @@ const Home = () => {
                 <p className="text-base md:text-lg text-gray-400 max-w-xl leading-relaxed font-light"
                   data-aos="fade-up"
                   data-aos-delay="1000">
-                  Creating an Innovative, Functional, and User-Friendly Website for Digital Solutions.
+                  Full-stack apps, GHL multi-branch CRM, Zapier/Make workflows, Stripe billing, API integrations, and funnel systems - shipped with AI as a force multiplier.
                 </p>
 
                 {/* Tech Stack */}
                 <div className="flex flex-wrap gap-3 justify-start" data-aos="fade-up" data-aos-delay="1200">
-                  {TECH_STACK.map((tech, index) => (
-                    <TechStack key={index} tech={tech} />
+                  {TECH_STACK.map((item) => (
+                    <TechStack key={item.tech} tech={item.tech} icon={item.icon} />
                   ))}
                 </div>
 
                 {/* CTA Buttons */}
                 <div className="flex flex-row gap-3 w-full justify-start" data-aos="fade-up" data-aos-delay="1400">
+                  <CTAButton href="#Experience" text="Experience" icon={Briefcase} />
                   <CTAButton href="#Portofolio" text="Projects" icon={ExternalLink} />
-                  <CTAButton href="#Contact" text="Contact" icon={Mail} />
                 </div>
 
                 {/* Social Links */}

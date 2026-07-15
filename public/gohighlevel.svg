@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GoHighLevel">
+  <!-- HighLevel brand mark: three upward arrows (Capture Yellow / Nurture Blue / Close Green) -->
+  <rect width="64" height="64" rx="14" fill="#041E42"/>
+  <!-- Left -->
+  <path fill="#F5C518" fill-rule="evenodd" d="M12 47V27.5L20 13l8 14.5V47H12Zm5 0h6V28.8L20 19.5l-3 9.3V47Z"/>
+  <!-- Center (shorter) -->
+  <path fill="#2B7DE9" fill-rule="evenodd" d="M24 47V33.5L32 21l8 12.5V47H24Zm5 0h6V34.8L32 26.5l-3 8.3V47Z"/>
+  <!-- Right -->
+  <path fill="#2BB673" fill-rule="evenodd" d="M36 47V27.5L44 13l8 14.5V47H36Zm5 0h6V28.8L44 19.5l-3 9.3V47Z"/>
+</svg>

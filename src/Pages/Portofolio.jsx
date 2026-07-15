@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 
-import { supabase } from "../supabase"; 
+import { projects as localProjects, certificates as localCertificates } from "../data/portfolio";
 
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
@@ -145,13 +145,36 @@ const techStackCategories = {
     technologies: [
       { icon: "github.svg", language: "Github/Git" },
       { icon: "vscode.svg", language: "VS Code" },
-      { icon: "cursorai.svg", language: "Cursor" },
+      { icon: "cursor.png", language: "Cursor" },
       { icon: "windsurf.svg", language: "Windsurf" },
       { icon: "vite.svg", language: "Vite" },
       { icon: "vercel.svg", language: "Vercel" },
       { icon: "figma.svg", language: "Figma" },
       { icon: "canva.svg", language: "Canva" },
       { icon: "storybook.svg", language: "Storybook" },
+    ]
+  },
+  crm: {
+    title: "CRM & Automation",
+    color: "from-indigo-500 to-cyan-500",
+    technologies: [
+      { icon: "gohighlevel.png", language: "GoHighLevel" },
+      { icon: "zapier.png", language: "Zapier" },
+      { icon: "make.svg", language: "Make" },
+      { icon: "stripe.png", language: "Stripe" },
+      { icon: "slack.png", language: "Slack" },
+      { icon: "cloudflare.png", language: "Cloudflare" },
+    ]
+  },
+  ai: {
+    title: "AI Tools",
+    color: "from-violet-500 to-fuchsia-500",
+    technologies: [
+      { icon: "cursor.png", language: "Cursor" },
+      { icon: "claude.png", language: "Claude" },
+      { icon: "chatgpt.svg", language: "ChatGPT" },
+      { icon: "lovable.png", language: "Lovable" },
+      { icon: "bolt.svg", language: "Bolt" },
     ]
   }
 };
@@ -192,45 +215,12 @@ export default function FullWidthTabs() {
     });
   }, []);
 
-  const fetchData = useCallback(async () => {
-    try {
-      // Mengambil data dari Supabase secara paralel
-      const [projectsResponse, certificatesResponse] = await Promise.all([
-        supabase.from("projects").select("*").order('id', { ascending: true }),
-        supabase.from("certificates").select("*").order('id', { ascending: true }), 
-      ]);
-
-      // Error handling untuk setiap request
-      if (projectsResponse.error) throw projectsResponse.error;
-      if (certificatesResponse.error) throw certificatesResponse.error;
-
-      // Supabase mengembalikan data dalam properti 'data'
-      const projectData = projectsResponse.data || [];
-      const certificateData = certificatesResponse.data || [];
-
-      setProjects(projectData);
-      setCertificates(certificateData);
-
-      // Store in localStorage (fungsionalitas ini tetap dipertahankan)
-      localStorage.setItem("projects", JSON.stringify(projectData));
-      localStorage.setItem("certificates", JSON.stringify(certificateData));
-    } catch (error) {
-      console.error("Error fetching data from Supabase:", error.message);
-    }
-  }, []);
-
   useEffect(() => {
-    // Coba ambil dari localStorage dulu untuk load lebih cepat
-    const cachedProjects = localStorage.getItem('projects');
-    const cachedCertificates = localStorage.getItem('certificates');
-
-    if (cachedProjects && cachedCertificates) {
-        setProjects(JSON.parse(cachedProjects));
-        setCertificates(JSON.parse(cachedCertificates));
-    }
-    
-    fetchData(); // Tetap panggil fetchData untuk sinkronisasi data terbaru
-  }, [fetchData]);
+    setProjects(localProjects);
+    setCertificates(localCertificates);
+    localStorage.setItem("projects", JSON.stringify(localProjects));
+    localStorage.setItem("certificates", JSON.stringify(localCertificates));
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
