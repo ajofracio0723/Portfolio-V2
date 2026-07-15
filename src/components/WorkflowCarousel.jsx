@@ -367,11 +367,11 @@ function GhlLinearCanvas({ nodes, animateKey }) {
   const vbH = height + padY * 2;
 
   return (
-    <div className="relative w-full overflow-auto n8n-scroll" style={{ maxHeight: 520 }}>
+    <div className="relative w-full overflow-auto n8n-scroll max-h-[320px] sm:max-h-[400px] md:max-h-[520px]">
       <svg
         key={animateKey}
         viewBox={`0 0 ${vbW} ${vbH}`}
-        className="w-full max-w-[520px] h-auto mx-auto opacity-95"
+        className="w-full max-w-[520px] h-auto mx-auto opacity-95 min-w-[280px]"
         role="img"
         aria-label="GoHighLevel style workflow canvas"
       >
@@ -512,11 +512,11 @@ function GhlBranchCanvas({ nodes, animateKey }) {
   const cx = 280;
 
   return (
-    <div className="relative w-full overflow-auto n8n-scroll" style={{ maxHeight: 520 }}>
+    <div className="relative w-full overflow-auto n8n-scroll max-h-[320px] sm:max-h-[400px] md:max-h-[520px]">
       <svg
         key={animateKey}
         viewBox={`0 0 ${vbW} ${vbH}`}
-        className="w-full max-w-[620px] h-auto mx-auto opacity-95"
+        className="w-full max-w-[620px] h-auto mx-auto opacity-95 min-w-[320px]"
         role="img"
         aria-label="Branched workflow canvas"
       >
@@ -765,8 +765,8 @@ function WorkflowBuilderChrome({ title, children, accent }) {
       </div>
 
       {/* Left tool rail */}
-      <div className="flex min-h-[360px] md:min-h-[480px]">
-        <div className="hidden sm:flex w-11 flex-col items-center gap-2 py-3 border-r border-slate-700/80 bg-[#0f172a]">
+      <div className="flex min-h-[280px] sm:min-h-[360px] md:min-h-[480px]">
+        <div className="hidden md:flex w-11 flex-col items-center gap-2 py-3 border-r border-slate-700/80 bg-[#0f172a]">
           {[Zap, GitBranch, Mail, MessageSquare, Webhook, Database, Bell].map((Icon, i) => (
             <div
               key={i}
@@ -886,7 +886,7 @@ export default function WorkflowCarousel({ responsibilities = [], technologies =
           <p className="text-xs uppercase tracking-wider text-indigo-400/80 mb-3 font-medium">
             Responsibilities
           </p>
-          <ul className="space-y-1 max-h-[280px] md:max-h-[460px] overflow-y-auto pr-1 custom-wf-scroll">
+          <ul className="space-y-1 max-h-[200px] sm:max-h-[280px] md:max-h-[460px] overflow-y-auto pr-1 custom-wf-scroll">
             {slides.map((item, i) => {
               const active = i === index;
               return (

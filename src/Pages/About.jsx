@@ -397,7 +397,7 @@ const AboutPage = () => {
                   <Code className="w-4 h-4 sm:w-5 sm:h-5" /> View Experience
                 </button>
               </a>
-              <a href="#Portofolio" className="w-full lg:w-auto">
+              <a href="#Portfolio" className="w-full lg:w-auto">
                 <button className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg border border-white/20 text-gray-200 font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 hover:bg-white/5">
                   <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" /> View Projects
                 </button>
@@ -409,7 +409,7 @@ const AboutPage = () => {
         </div>
 
         {/* Stats Section */}
-        <a href="#Portofolio">
+        <a href="#Portfolio">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 cursor-pointer">
             {statsData.map((stat, index) => (
               <StatCard key={stat.label} {...stat} index={index} />

@@ -57,13 +57,16 @@ export default function WorkflowOrbitCarousel() {
       onMouseLeave={() => setPaused(false)}
     >
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="text-xs uppercase tracking-wider text-indigo-400/90 font-medium">
             Workflow Previews
           </p>
-          <p className="text-sm text-slate-400">
-            {slide.label}
-            <span className="text-slate-600"> · {slide.hint}</span>
+          <p className="text-sm text-slate-400 leading-snug">
+            <span className="block sm:inline">{slide.label}</span>
+            <span className="hidden sm:inline text-slate-600"> · </span>
+            <span className="block sm:inline text-slate-500 sm:text-slate-600 text-xs sm:text-sm mt-0.5 sm:mt-0">
+              {slide.hint}
+            </span>
           </p>
         </div>
         <div className="flex items-center gap-2">

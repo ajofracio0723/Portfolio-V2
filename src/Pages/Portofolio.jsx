@@ -184,7 +184,7 @@ const TechStackCategory = ({ category, technologies, title, color }) => (
     <h3 className={`text-xl font-semibold mb-6 text-center bg-gradient-to-r ${color} bg-clip-text text-transparent`}>
       {title}
     </h3>
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5">
       {technologies.map((stack, index) => (
         <div
           key={`${category}-${index}`}
@@ -206,13 +206,22 @@ export default function FullWidthTabs() {
   const [certificates, setCertificates] = useState([]);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
-  const isMobile = window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : true
+  );
   const initialItems = isMobile ? 4 : 6;
 
   useEffect(() => {
     AOS.init({
       once: false,
     });
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   useEffect(() => {
@@ -238,7 +247,7 @@ export default function FullWidthTabs() {
   const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
 
   return (
-    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden" id="Portofolio">
+    <div className="md:px-[10%] px-4 sm:px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-x-hidden" id="Portfolio">
       {/* Header section */}
       <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
         <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">

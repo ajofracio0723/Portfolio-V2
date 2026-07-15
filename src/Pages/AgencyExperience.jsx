@@ -45,14 +45,14 @@ const ICON_MAP = {
 
 const StatCard = ({ value, label }) => (
   <div
-    className="relative group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/40 hover:bg-white/[0.06] "
+    className="relative group overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.03] p-3.5 sm:p-5 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/40 hover:bg-white/[0.06] "
   >
     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     <div className="relative">
-      <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent mb-2">
+      <div className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent mb-1 sm:mb-2">
         {value}
       </div>
-      <p className="text-sm text-slate-400 leading-snug">{label}</p>
+      <p className="text-xs sm:text-sm text-slate-400 leading-snug">{label}</p>
     </div>
   </div>
 );
@@ -157,11 +157,11 @@ const AccordionSection = ({ section, isOpen, onToggle }) => {
       <button
         type="button"
         onClick={onToggle}
-        className="w-full flex items-center gap-4 p-5 md:p-6 text-left"
+        className="w-full flex items-center gap-3 sm:gap-4 p-4 sm:p-5 md:p-6 text-left"
         aria-expanded={isOpen}
       >
         <div
-          className={`flex-shrink-0 p-3 rounded-xl  ${
+          className={`flex-shrink-0 p-2.5 sm:p-3 rounded-xl  ${
             isOpen
               ? "bg-gradient-to-br from-indigo-500/30 to-purple-500/30 text-indigo-200"
               : "bg-white/5 text-indigo-400"
@@ -170,7 +170,7 @@ const AccordionSection = ({ section, isOpen, onToggle }) => {
           <Icon className="w-5 h-5 md:w-6 md:h-6" />
         </div>
         <div className="flex-grow min-w-0">
-          <h3 className="text-lg md:text-xl font-semibold text-white mb-1">
+          <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1 pr-1">
             {section.title}
           </h3>
           <div className="hidden sm:flex flex-wrap gap-1.5">
@@ -192,7 +192,7 @@ const AccordionSection = ({ section, isOpen, onToggle }) => {
       </button>
 
       {isOpen && (
-        <div className="px-5 md:px-6 pb-6 pt-0 border-t border-white/5 ">
+        <div className="px-3 sm:px-5 md:px-6 pb-5 sm:pb-6 pt-0 border-t border-white/5 ">
             {section.id === "workflows" ? (
               <WorkflowCarousel
                 responsibilities={section.responsibilities}
@@ -384,7 +384,7 @@ export default function AgencyExperience() {
   return (
     <section
       id="Experience"
-      className="md:px-[10%] px-[5%] w-full py-16 md:py-24 bg-[#030014] overflow-hidden relative"
+      className="md:px-[10%] px-4 sm:px-[5%] w-full py-12 sm:py-16 md:py-24 bg-[#030014] overflow-x-hidden relative"
     >
       <div className="absolute top-20 left-1/4 w-72 h-72 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-40 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -409,7 +409,7 @@ export default function AgencyExperience() {
         </div>
 
         {/* Metrics */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4 mb-16">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 md:gap-4 mb-12 sm:mb-16">
           {agencyStats.map((stat) => (
             <StatCard key={stat.label} {...stat} />
           ))}

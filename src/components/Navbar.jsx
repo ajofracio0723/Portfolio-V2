@@ -10,7 +10,7 @@ const Navbar = () => {
         { href: "#Home", label: "Home" },
         { href: "#About", label: "About" },
         { href: "#Experience", label: "Experience" },
-        { href: "#Portofolio", label: "Portofolio" },
+        { href: "#Portfolio", label: "Portfolio" },
         { href: "#Contact", label: "Contact" },
     ];
 
@@ -89,15 +89,15 @@ const Navbar = () => {
                         </a>
                     </div>
         
-                    {/* Desktop Navigation */}
+                    {/* Desktop / tablet Navigation */}
                     <div className="hidden md:block">
-                        <div className="ml-4 lg:ml-8 flex items-center space-x-4 lg:space-x-8">
+                        <div className="ml-2 lg:ml-8 flex items-center space-x-2 md:space-x-3 lg:space-x-8">
                             {navItems.map((item) => (
                                 <a
                                     key={item.label}
                                     href={item.href}
                                     onClick={(e) => scrollToSection(e, item.href)}
-                                    className="group relative px-1 py-2 text-sm font-medium"
+                                    className="group relative px-0.5 lg:px-1 py-2 text-xs lg:text-sm font-medium whitespace-nowrap"
                                 >
                                     <span
                                         className={`relative z-10 transition-colors duration-300 ${
@@ -140,25 +140,25 @@ const Navbar = () => {
         
             {/* Mobile Menu */}
             <div
-                className={`md:hidden transition-all duration-300 ease-in-out ${
+                className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
                     isOpen
-                        ? "max-h-screen opacity-100"
-                        : "max-h-0 opacity-0 overflow-hidden"
+                        ? "max-h-[calc(100dvh-4rem)] opacity-100"
+                        : "max-h-0 opacity-0"
                 }`}
             >
-                <div className="px-4 py-6 space-y-4">
+                <div className="px-4 py-4 sm:py-6 space-y-1 overflow-y-auto max-h-[calc(100dvh-4.5rem)]">
                     {navItems.map((item, index) => (
                         <a
                             key={item.label}
                             href={item.href}
                             onClick={(e) => scrollToSection(e, item.href)}
-                            className={`block px-4 py-3 text-lg font-medium transition-all duration-300 ease ${
+                            className={`block px-4 py-3.5 text-base sm:text-lg font-medium rounded-xl transition-all duration-300 ${
                                 activeSection === item.href.substring(1)
-                                    ? "bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent font-semibold"
-                                    : "text-[#e2d3fd] hover:text-white"
+                                    ? "bg-white/5 bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent font-semibold"
+                                    : "text-[#e2d3fd] hover:text-white hover:bg-white/5"
                             }`}
                             style={{
-                                transitionDelay: `${index * 100}ms`,
+                                transitionDelay: `${index * 60}ms`,
                                 transform: isOpen ? "translateX(0)" : "translateX(50px)",
                                 opacity: isOpen ? 1 : 0,
                             }}
