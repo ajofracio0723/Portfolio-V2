@@ -1,6 +1,6 @@
 export const agencyStats = [
   { value: "5+", label: "Years GoHighLevel Experience" },
-  { value: "15+", label: "Client Sub-Accounts Managed" },
+  { value: "20+", label: "Client Sub-Accounts Managed" },
   { value: "100+", label: "Workflows & Automations Built" },
   { value: "50+", label: "Funnels & Websites" },
   { value: "20+", label: "Third-Party Integrations" },
@@ -11,7 +11,7 @@ export const agencyRole = {
   company: "Marketing Agency (Confidential)",
   role: "GoHighLevel Technical Operations & Automation Specialist",
   responsibilities: [
-    "Managed and maintained 15+ GoHighLevel client sub-accounts across multiple industries including healthcare, wellness, coaching, solar, home services, and service-based businesses.",
+    "Managed and maintained 20+ GoHighLevel client sub-accounts across multiple industries including healthcare, wellness, coaching, solar, home services, and service-based businesses.",
     "Owned the technical implementation, CRM management, automation, websites, funnels, integrations, troubleshooting, and ongoing optimization for agency clients.",
   ],
 };
@@ -22,7 +22,7 @@ export const agencySections = [
     title: "CRM Management",
     icon: "Database",
     responsibilities: [
-      "Managed 15+ GoHighLevel client sub-accounts across healthcare, wellness, coaching, solar, home services, and service-based businesses",
+      "Managed 20+ GoHighLevel client sub-accounts across healthcare, wellness, coaching, solar, home services, and service-based businesses",
       "CRM setup and organization",
       "Pipelines and opportunity management",
       "Smart Lists",
@@ -47,8 +47,8 @@ export const agencySections = [
       },
       {
         file: "crm-subaccounts.png",
-        title: "15+ Sub-Accounts Managed",
-        caption: "Day-to-day ownership of 15+ client sub-accounts in GoHighLevel",
+        title: "20+ Sub-Accounts Managed",
+        caption: "Day-to-day ownership of 20+ client sub-accounts in GoHighLevel",
       },
     ],
   },
@@ -105,10 +105,11 @@ export const agencySections = [
       "Built landing pages",
       "Sales funnels",
       "Lead capture funnels",
-      "Booking pages",
+      "Booking pages with calendar widgets",
+      "Appointment scheduling & tour booking",
       "Forms",
       "Surveys",
-      "Calendars",
+      "GHL calendars & availability windows",
       "Membership pages",
       "Mobile responsive layouts",
       "Funnel optimization",
@@ -120,6 +121,46 @@ export const agencySections = [
         file: "funnels-lovable-library.png",
         title: "Lovable Sites Library",
         caption: "Multi-project site & funnel builds in Lovable",
+      },
+      {
+        file: "funnel-booking-calendar.png",
+        title: "GHL Calendar Booking Page",
+        caption: "Embedded calendar widget with timezone & time slots",
+      },
+      {
+        file: "funnel-booking-coaching.png",
+        title: "Coaching Strategy Call Booking",
+        caption: "High-ticket discovery call calendar booking flow",
+      },
+      {
+        file: "funnel-booking-dental.png",
+        title: "Dental Appointment Calendar",
+        caption: "Clinic cleaning booking with date & time slots",
+      },
+      {
+        file: "funnel-booking-spa.png",
+        title: "Spa Day Booking Calendar",
+        caption: "Service select + calendar availability for appointments",
+      },
+      {
+        file: "funnel-booking-realestate.png",
+        title: "Private Showing Scheduler",
+        caption: "Luxury tour booking calendar for property viewings",
+      },
+      {
+        file: "funnel-booking-hvac.png",
+        title: "HVAC Service Booking",
+        caption: "Technician visit scheduling with calendar slots",
+      },
+      {
+        file: "funnel-booking-fitness.png",
+        title: "Fitness Class Booking",
+        caption: "Studio class reserve calendar & weekly schedule",
+      },
+      {
+        file: "funnel-booking-therapy.png",
+        title: "Therapy Session Booking",
+        caption: "Telehealth / in-person counseling calendar",
       },
       {
         file: "funnel-solar.png",
@@ -626,7 +667,7 @@ export const agencySections = [
 ];
 
 export const agencyAchievements = [
-  "Managed 15+ GoHighLevel Sub-Accounts",
+  "Managed 20+ GoHighLevel Sub-Accounts",
   "Built 100+ Automations",
   "Built 50+ Websites & Funnels",
   "Configured 20+ Integrations",

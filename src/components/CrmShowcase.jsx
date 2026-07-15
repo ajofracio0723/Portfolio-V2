@@ -18,12 +18,12 @@ export default function CrmShowcase({
   }, []);
 
   useEffect(() => {
-    if (screenshots.length < 2) return undefined;
+    if (lightbox || screenshots.length < 2) return undefined;
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % screenshots.length);
     }, 4500);
     return () => window.clearInterval(id);
-  }, [screenshots.length]);
+  }, [screenshots.length, lightbox]);
 
   // Prefetch adjacent slides so next/prev feels instant
   useEffect(() => {

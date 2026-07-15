@@ -212,7 +212,7 @@ const AccordionSection = ({ section, isOpen, onToggle }) => {
                 technologies={section.technologies}
                 showcaseLabel="Live CRM Screens"
                 highlight={{
-                  value: "15+",
+                  value: "20+",
                   label: "GoHighLevel sub-accounts managed",
                   note: "Healthcare · Wellness · Coaching · Solar · Home services",
                 }}
