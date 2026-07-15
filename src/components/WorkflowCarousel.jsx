@@ -358,20 +358,24 @@ function nodeMeta(type) {
   return TYPE_META[type] || TYPE_META.action;
 }
 
+const CARD_HALF = 28;
+const LINEAR_STEP = 118; // centers; leaves ~62px gap for connectors
+const BRANCH_STEP = 110; // centers; leaves ~54px gap for connectors
+
 /** Vertical GHL-style canvas for linear flows */
 function GhlLinearCanvas({ nodes, animateKey }) {
-  const height = Math.max(360, nodes.length * 88 + 48);
+  const height = Math.max(360, nodes.length * LINEAR_STEP + 48);
   const padX = 80;
   const padY = 40;
   const vbW = 360 + padX * 2;
   const vbH = height + padY * 2;
 
   return (
-    <div className="relative w-full overflow-auto n8n-scroll max-h-[320px] sm:max-h-[400px] md:max-h-[520px]">
+    <div className="relative w-full">
       <svg
         key={animateKey}
         viewBox={`0 0 ${vbW} ${vbH}`}
-        className="w-full max-w-[520px] h-auto mx-auto opacity-95 min-w-[280px]"
+        className="w-full h-auto mx-auto opacity-95 min-w-[280px]"
         role="img"
         aria-label="GoHighLevel style workflow canvas"
       >
@@ -380,9 +384,9 @@ function GhlLinearCanvas({ nodes, animateKey }) {
             <circle cx="1" cy="1" r="1" fill="#64748b" opacity="0.35" />
           </pattern>
           <linearGradient id="ghlWire" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.2" />
+            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.25" />
             <stop offset="50%" stopColor="#60a5fa" stopOpacity="1" />
-            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.4" />
           </linearGradient>
           <filter id="ghlGlow">
             <feGaussianBlur stdDeviation="2" result="b" />
@@ -399,18 +403,18 @@ function GhlLinearCanvas({ nodes, animateKey }) {
         <g transform={`translate(${padX}, ${padY})`}>
         {/* Connector rails + animated packet */}
         {nodes.slice(0, -1).map((_, i) => {
-          const y1 = 56 + i * 88 + 28;
-          const y2 = 56 + (i + 1) * 88 - 28;
+          const y1 = 56 + i * LINEAR_STEP + CARD_HALF;
+          const y2 = 56 + (i + 1) * LINEAR_STEP - CARD_HALF;
           return (
             <g key={`wire-${i}`}>
-              <line x1="180" y1={y1} x2="180" y2={y2} stroke="#334155" strokeWidth="2" />
+              <line x1="180" y1={y1} x2="180" y2={y2} stroke="#64748b" strokeWidth="2.5" />
               <line
                 x1="180"
                 y1={y1}
                 x2="180"
                 y2={y2}
                 stroke="url(#ghlWire)"
-                strokeWidth="2.5"
+                strokeWidth="3"
                 strokeDasharray="6 10"
                 filter="url(#ghlGlow)"
                 className="ghl-packet"
@@ -422,13 +426,13 @@ function GhlLinearCanvas({ nodes, animateKey }) {
 
         {nodes.map((n, i) => {
           const meta = nodeMeta(n.type);
-          const y = 56 + i * 88;
+          const y = 56 + i * LINEAR_STEP;
           const isTrigger = n.type === "trigger";
           return (
             <g key={`${animateKey}-${i}`} className="ghl-node" style={{ animationDelay: `${i * 70}ms` }}>
               <rect
                 x="70"
-                y={y - 28}
+                y={y - CARD_HALF}
                 width="220"
                 height="56"
                 rx={isTrigger ? 28 : 10}
@@ -437,11 +441,13 @@ function GhlLinearCanvas({ nodes, animateKey }) {
                 strokeWidth={isTrigger ? 2 : 1.4}
               />
               {!isTrigger && (
-                <rect x="70" y={y - 28} width="5" height="56" rx="2" fill={meta.color} />
+                <rect x="70" y={y - CARD_HALF} width="5" height="56" rx="2" fill={meta.color} />
               )}
-              {i > 0 && <circle cx="180" cy={y - 28} r="4" fill="#111827" stroke={meta.color} strokeWidth="1.5" />}
+              {i > 0 && (
+                <circle cx="180" cy={y - CARD_HALF} r="4" fill="#111827" stroke={meta.color} strokeWidth="1.5" />
+              )}
               {i < nodes.length - 1 && (
-                <circle cx="180" cy={y + 28} r="4" fill="#111827" stroke="#60a5fa" strokeWidth="1.5" />
+                <circle cx="180" cy={y + CARD_HALF} r="4" fill="#111827" stroke="#60a5fa" strokeWidth="1.5" />
               )}
               <rect
                 x="84"
@@ -490,33 +496,83 @@ function GhlBranchCanvas({ nodes, animateKey }) {
     0,
     nodes.findIndex((n) => n.type === "condition" && !n.branch)
   );
-  const condition = nodes[conditionIndex] || nodes.find((n) => n.type === "condition") || nodes[1];
   const trunk = nodes.slice(0, conditionIndex + 1).filter((n) => !n.branch);
   const yesNodes = nodes.filter((n) => n.branch === "yes");
   const noNodes = nodes.filter((n) => n.branch === "no");
   const sideNodes = nodes.filter((n) => n.branch === "side");
   const mergeTail = nodes.filter(
-    (n, i) => i > conditionIndex && !n.branch && n !== condition
+    (n, i) => i > conditionIndex && !n.branch
   );
 
-  const step = 72;
-  const trunkH = Math.max(trunk.length, 1) * step;
-  const colH = Math.max(yesNodes.length, noNodes.length, sideNodes.length || 0, 1);
-  const branchTop = trunkH + 36;
-  const mergeTop = branchTop + colH * step + 36;
-  const height = mergeTop + Math.max(mergeTail.length, 0) * step + 48;
+  const step = BRANCH_STEP;
+  const trunkStart = 40;
+  const forkGap = 72; // space from condition bottom → first branch tops
+  const mergeGap = 72;
+
+  const yesCx = 120;
+  const noCx = 440;
+  const sideCx = 280;
+  const trunkCx = 280;
+
+  const trunkYs = trunk.map((_, i) => trunkStart + i * step);
+  const lastTrunkY = trunkYs[trunkYs.length - 1] ?? trunkStart;
+  const conditionBottom = lastTrunkY + CARD_HALF;
+
+  const branchTop = conditionBottom + forkGap + CARD_HALF;
+  const yesYs = yesNodes.map((_, i) => branchTop + i * step);
+  const noYs = noNodes.map((_, i) => branchTop + i * step);
+  const sideYs = sideNodes.map((_, i) => branchTop + i * step);
+
+  const branchBottoms = [
+    yesYs.length ? yesYs[yesYs.length - 1] + CARD_HALF : null,
+    noYs.length ? noYs[noYs.length - 1] + CARD_HALF : null,
+    sideYs.length ? sideYs[sideYs.length - 1] + CARD_HALF : null,
+  ].filter((v) => v != null);
+  const lastBranchBottom = branchBottoms.length
+    ? Math.max(...branchBottoms)
+    : conditionBottom;
+
+  const mergeTop = mergeTail.length
+    ? lastBranchBottom + mergeGap + CARD_HALF
+    : lastBranchBottom + mergeGap;
+  const mergeYs = mergeTail.map((_, i) => mergeTop + i * step);
+
+  const height =
+    (mergeYs.length
+      ? mergeYs[mergeYs.length - 1] + CARD_HALF
+      : lastBranchBottom) + 48;
   const padX = 40;
   const padY = 28;
   const vbW = 560 + padX * 2;
   const vbH = height + padY * 2;
-  const cx = 280;
+
+  const hubY = conditionBottom + forkGap * 0.42;
+  const mergeHubY = mergeTail.length
+    ? mergeYs[0] - CARD_HALF - mergeGap * 0.42
+    : lastBranchBottom + mergeGap * 0.5;
+
+  const Wire = ({ d, animated }) => (
+    <>
+      <path d={d} stroke="#64748b" strokeWidth="2.5" fill="none" />
+      {animated && (
+        <path
+          d={d}
+          stroke="url(#branchWire)"
+          strokeWidth="3"
+          fill="none"
+          strokeDasharray="5 8"
+          className="ghl-packet"
+        />
+      )}
+    </>
+  );
 
   return (
-    <div className="relative w-full overflow-auto n8n-scroll max-h-[320px] sm:max-h-[400px] md:max-h-[520px]">
+    <div className="relative w-full">
       <svg
         key={animateKey}
         viewBox={`0 0 ${vbW} ${vbH}`}
-        className="w-full max-w-[620px] h-auto mx-auto opacity-95 min-w-[320px]"
+        className="w-full h-auto mx-auto opacity-95 min-w-[320px]"
         role="img"
         aria-label="Branched workflow canvas"
       >
@@ -525,155 +581,129 @@ function GhlBranchCanvas({ nodes, animateKey }) {
             <circle cx="1" cy="1" r="1" fill="#64748b" opacity="0.35" />
           </pattern>
           <linearGradient id="branchWire" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.9" />
+            <stop offset="0%" stopColor="#a855f7" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.95" />
           </linearGradient>
         </defs>
         <rect width={vbW} height={vbH} fill="#111827" />
         <rect width={vbW} height={vbH} fill="url(#ghlDots2)" />
 
         <g transform={`translate(${padX}, ${padY})`}>
-          {trunk.map((n, i) => {
-            const y = 32 + i * step;
+          {/* Trunk connectors */}
+          {trunkYs.slice(1).map((y, i) => {
+            const prev = trunkYs[i];
+            const d = `M${trunkCx} ${prev + CARD_HALF} L${trunkCx} ${y - CARD_HALF}`;
             return (
-              <g key={`t-${i}`}>
-                {i > 0 && (
-                  <>
-                    <line
-                      x1={cx}
-                      y1={32 + (i - 1) * step + 28}
-                      x2={cx}
-                      y2={y - 28}
-                      stroke="#475569"
-                      strokeWidth="2"
-                    />
-                    <line
-                      x1={cx}
-                      y1={32 + (i - 1) * step + 28}
-                      x2={cx}
-                      y2={y - 28}
-                      stroke="url(#branchWire)"
-                      strokeWidth="2.5"
-                      strokeDasharray="5 8"
-                      className="ghl-packet"
-                    />
-                  </>
-                )}
-                <WorkflowCardSvg x={cx - 110} y={y} node={n} wide={220} />
+              <g key={`tw-${i}`}>
+                <Wire d={d} animated />
               </g>
             );
           })}
 
-          {/* split guides */}
-          <path
-            d={`M${cx} ${trunkH + 4} L${cx} ${branchTop - 20} L120 ${branchTop - 20} L120 ${branchTop}`}
-            stroke="#475569"
-            strokeWidth="2"
-            fill="none"
-          />
-          <path
-            d={`M${cx} ${trunkH + 4} L${cx} ${branchTop - 20} L440 ${branchTop - 20} L440 ${branchTop}`}
-            stroke="#475569"
-            strokeWidth="2"
-            fill="none"
-          />
-          {sideNodes.length > 0 && (
-            <path
-              d={`M${cx} ${trunkH + 4} L${cx} ${branchTop}`}
-              stroke="#475569"
-              strokeWidth="2"
-              fill="none"
+          {/* Fork from condition to each branch top port */}
+          {yesYs.length > 0 && (
+            <Wire
+              d={`M${trunkCx} ${conditionBottom} L${trunkCx} ${hubY} L${yesCx} ${hubY} L${yesCx} ${yesYs[0] - CARD_HALF}`}
+              animated
             />
           )}
-          <text x="95" y={branchTop - 26} fill="#22c55e" fontSize="10" fontFamily="system-ui" fontWeight="700">
-            Yes
-          </text>
-          <text x="450" y={branchTop - 26} fill="#f43f5e" fontSize="10" fontFamily="system-ui" fontWeight="700">
-            No
-          </text>
-          {sideNodes.length > 0 && (
-            <text x={cx + 8} y={branchTop - 26} fill="#38bdf8" fontSize="10" fontFamily="system-ui" fontWeight="700">
+          {noYs.length > 0 && (
+            <Wire
+              d={`M${trunkCx} ${conditionBottom} L${trunkCx} ${hubY} L${noCx} ${hubY} L${noCx} ${noYs[0] - CARD_HALF}`}
+              animated
+            />
+          )}
+          {sideYs.length > 0 && (
+            <Wire
+              d={`M${trunkCx} ${conditionBottom} L${trunkCx} ${sideYs[0] - CARD_HALF}`}
+              animated
+            />
+          )}
+
+          {/* Labels near fork */}
+          {yesYs.length > 0 && (
+            <text x={yesCx - 18} y={hubY - 8} fill="#22c55e" fontSize="10" fontFamily="system-ui" fontWeight="700">
+              Yes
+            </text>
+          )}
+          {noYs.length > 0 && (
+            <text x={noCx - 10} y={hubY - 8} fill="#f43f5e" fontSize="10" fontFamily="system-ui" fontWeight="700">
+              No
+            </text>
+          )}
+          {sideYs.length > 0 && (
+            <text x={sideCx + 10} y={hubY - 8} fill="#38bdf8" fontSize="10" fontFamily="system-ui" fontWeight="700">
               Alt
             </text>
           )}
 
-          {yesNodes.map((n, i) => (
-            <g key={`y-${i}`}>
-              {i > 0 && (
-                <line
-                  x1="120"
-                  y1={branchTop + (i - 1) * step + 28}
-                  x2="120"
-                  y2={branchTop + i * step - 28}
-                  stroke="#334155"
-                  strokeWidth="2"
-                />
-              )}
-              <WorkflowCardSvg x={30} y={branchTop + i * step} node={n} wide={180} />
-            </g>
+          {/* Column internal wires */}
+          {yesYs.slice(1).map((y, i) => (
+            <Wire
+              key={`yw-${i}`}
+              d={`M${yesCx} ${yesYs[i] + CARD_HALF} L${yesCx} ${y - CARD_HALF}`}
+            />
           ))}
-          {noNodes.map((n, i) => (
-            <g key={`n-${i}`}>
-              {i > 0 && (
-                <line
-                  x1="440"
-                  y1={branchTop + (i - 1) * step + 28}
-                  x2="440"
-                  y2={branchTop + i * step - 28}
-                  stroke="#334155"
-                  strokeWidth="2"
-                />
-              )}
-              <WorkflowCardSvg x={350} y={branchTop + i * step} node={n} wide={180} />
-            </g>
+          {noYs.slice(1).map((y, i) => (
+            <Wire
+              key={`nw-${i}`}
+              d={`M${noCx} ${noYs[i] + CARD_HALF} L${noCx} ${y - CARD_HALF}`}
+            />
           ))}
-          {sideNodes.map((n, i) => (
-            <g key={`s-${i}`}>
-              {i > 0 && (
-                <line
-                  x1={cx}
-                  y1={branchTop + (i - 1) * step + 28}
-                  x2={cx}
-                  y2={branchTop + i * step - 28}
-                  stroke="#334155"
-                  strokeWidth="2"
-                />
-              )}
-              <WorkflowCardSvg x={cx - 90} y={branchTop + i * step} node={n} wide={180} />
-            </g>
+          {sideYs.slice(1).map((y, i) => (
+            <Wire
+              key={`sw-${i}`}
+              d={`M${sideCx} ${sideYs[i] + CARD_HALF} L${sideCx} ${y - CARD_HALF}`}
+            />
           ))}
 
+          {/* Merge into tail */}
           {mergeTail.length > 0 && (
             <>
-              <path
-                d={`M120 ${branchTop + Math.max(yesNodes.length - 1, 0) * step + 28} C120 ${mergeTop - 24}, ${cx} ${mergeTop - 24}, ${cx} ${mergeTop - 28}`}
-                stroke="#475569"
-                strokeWidth="2"
-                fill="none"
-              />
-              <path
-                d={`M440 ${branchTop + Math.max(noNodes.length - 1, 0) * step + 28} C440 ${mergeTop - 24}, ${cx} ${mergeTop - 24}, ${cx} ${mergeTop - 28}`}
-                stroke="#475569"
-                strokeWidth="2"
-                fill="none"
-              />
-              {mergeTail.map((n, i) => (
-                <g key={`m-${i}`}>
-                  {i > 0 && (
-                    <line
-                      x1={cx}
-                      y1={mergeTop + (i - 1) * step + 28}
-                      x2={cx}
-                      y2={mergeTop + i * step - 28}
-                      stroke="#334155"
-                      strokeWidth="2"
-                    />
-                  )}
-                  <WorkflowCardSvg x={cx - 110} y={mergeTop + i * step} node={n} wide={220} />
-                </g>
+              {yesYs.length > 0 && (
+                <Wire
+                  d={`M${yesCx} ${yesYs[yesYs.length - 1] + CARD_HALF} L${yesCx} ${mergeHubY} L${trunkCx} ${mergeHubY} L${trunkCx} ${mergeYs[0] - CARD_HALF}`}
+                  animated
+                />
+              )}
+              {noYs.length > 0 && (
+                <Wire
+                  d={`M${noCx} ${noYs[noYs.length - 1] + CARD_HALF} L${noCx} ${mergeHubY} L${trunkCx} ${mergeHubY} L${trunkCx} ${mergeYs[0] - CARD_HALF}`}
+                  animated
+                />
+              )}
+              {sideYs.length > 0 && (
+                <Wire
+                  d={`M${sideCx} ${sideYs[sideYs.length - 1] + CARD_HALF} L${trunkCx} ${mergeYs[0] - CARD_HALF}`}
+                  animated
+                />
+              )}
+              {mergeYs.slice(1).map((y, i) => (
+                <Wire
+                  key={`mw-${i}`}
+                  d={`M${trunkCx} ${mergeYs[i] + CARD_HALF} L${trunkCx} ${y - CARD_HALF}`}
+                  animated
+                />
               ))}
             </>
           )}
+
+          {/* Nodes (drawn after wires so cards sit on top) */}
+          {trunk.map((n, i) => (
+            <WorkflowCardSvg key={`t-${i}`} x={trunkCx - 110} y={trunkYs[i]} node={n} wide={220} />
+          ))}
+          {yesNodes.map((n, i) => (
+            <WorkflowCardSvg key={`y-${i}`} x={yesCx - 90} y={yesYs[i]} node={n} wide={180} />
+          ))}
+          {noNodes.map((n, i) => (
+            <WorkflowCardSvg key={`n-${i}`} x={noCx - 90} y={noYs[i]} node={n} wide={180} />
+          ))}
+          {sideNodes.map((n, i) => (
+            <WorkflowCardSvg key={`s-${i}`} x={sideCx - 90} y={sideYs[i]} node={n} wide={180} />
+          ))}
+          {mergeTail.map((n, i) => (
+            <WorkflowCardSvg key={`m-${i}`} x={trunkCx - 110} y={mergeYs[i]} node={n} wide={220} />
+          ))}
         </g>
       </svg>
     </div>
@@ -688,7 +718,7 @@ function WorkflowCardSvg({ x, y, node, wide = 200 }) {
     <g className="ghl-node">
       <rect
         x={x}
-        y={y - 28}
+        y={y - CARD_HALF}
         width={wide}
         height="56"
         rx={isTrigger ? 28 : 10}
@@ -696,9 +726,9 @@ function WorkflowCardSvg({ x, y, node, wide = 200 }) {
         stroke={meta.color}
         strokeWidth={isTrigger ? 2 : 1.4}
       />
-      {!isTrigger && <rect x={x} y={y - 28} width="5" height="56" rx="2" fill={meta.color} />}
-      <circle cx={cx} cy={y - 28} r="3.5" fill="#111827" stroke={meta.color} strokeWidth="1.4" />
-      <circle cx={cx} cy={y + 28} r="3.5" fill="#111827" stroke="#60a5fa" strokeWidth="1.4" />
+      {!isTrigger && <rect x={x} y={y - CARD_HALF} width="5" height="56" rx="2" fill={meta.color} />}
+      <circle cx={cx} cy={y - CARD_HALF} r="3.5" fill="#111827" stroke={meta.color} strokeWidth="1.4" />
+      <circle cx={cx} cy={y + CARD_HALF} r="3.5" fill="#111827" stroke="#60a5fa" strokeWidth="1.4" />
       <text
         x={cx}
         y={y}
@@ -724,7 +754,15 @@ function WorkflowCardSvg({ x, y, node, wide = 200 }) {
   );
 }
 
-function WorkflowBuilderChrome({ title, children, accent }) {
+function WorkflowBuilderChrome({
+  title,
+  children,
+  accent,
+  zoom = 1,
+  onZoomIn,
+  onZoomOut,
+  onZoomReset,
+}) {
   return (
     <div className="rounded-xl overflow-hidden border border-slate-700/80 bg-[#0b1220] shadow-2xl shadow-black/40">
       {/* Top bar - like GHL / n8n editor */}
@@ -752,13 +790,32 @@ function WorkflowBuilderChrome({ title, children, accent }) {
             <CheckCircle2 className="w-3 h-3" />
             Published
           </span>
-          <button type="button" className="p-1 rounded bg-slate-800 text-slate-400 border border-slate-700" aria-hidden>
+          <span className="hidden sm:inline text-[10px] text-slate-500 tabular-nums w-9 text-center">
+            {Math.round(zoom * 100)}%
+          </span>
+          <button
+            type="button"
+            onClick={onZoomOut}
+            className="p-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white transition-colors"
+            aria-label="Zoom out"
+          >
             <Minus className="w-3 h-3" />
           </button>
-          <button type="button" className="p-1 rounded bg-slate-800 text-slate-400 border border-slate-700" aria-hidden>
+          <button
+            type="button"
+            onClick={onZoomIn}
+            className="p-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white transition-colors"
+            aria-label="Zoom in"
+          >
             <Plus className="w-3 h-3" />
           </button>
-          <button type="button" className="p-1 rounded bg-slate-800 text-slate-400 border border-slate-700" aria-hidden>
+          <button
+            type="button"
+            onClick={onZoomReset}
+            className="p-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white transition-colors"
+            aria-label="Reset zoom"
+            title="Reset zoom"
+          >
             <Maximize2 className="w-3 h-3" />
           </button>
         </div>
@@ -777,15 +834,20 @@ function WorkflowBuilderChrome({ title, children, accent }) {
           ))}
         </div>
 
-        <div className="relative flex-1 bg-[#111827]">
-          {children}
+        <div className="relative flex-1 bg-[#111827] overflow-auto n8n-scroll max-h-[320px] sm:max-h-[400px] md:max-h-[520px]">
+          <div
+            className="mx-auto transition-[width] duration-200 ease-out py-3"
+            style={{ width: `${Math.round(zoom * 100)}%`, minWidth: 260 }}
+          >
+            {children}
+          </div>
           {/* Status chip */}
-          <div className="absolute bottom-2 left-2 flex items-center gap-1.5 text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2 py-1 rounded-md backdrop-blur-sm">
+          <div className="absolute bottom-2 left-2 flex items-center gap-1.5 text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2 py-1 rounded-md backdrop-blur-sm pointer-events-none z-10">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             Executing…
           </div>
           {/* Minimap stub */}
-          <div className="absolute bottom-2 right-2 w-16 h-12 rounded border border-slate-600/60 bg-slate-900/80 opacity-80 pointer-events-none overflow-hidden">
+          <div className="absolute bottom-2 right-2 w-16 h-12 rounded border border-slate-600/60 bg-slate-900/80 opacity-80 pointer-events-none overflow-hidden z-10">
             <div className="absolute inset-1 grid grid-cols-3 gap-0.5 p-0.5">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} className="rounded-[1px] bg-slate-600/70" />
@@ -800,8 +862,29 @@ function WorkflowBuilderChrome({ title, children, accent }) {
 
 function MiniWorkflowGraph({ slide, animateKey }) {
   const branched = Boolean(slide.branched);
+  const [zoom, setZoom] = useState(1);
+
+  useEffect(() => {
+    setZoom(1);
+  }, [animateKey]);
+
+  const zoomIn = useCallback(() => {
+    setZoom((z) => Math.min(1.75, Math.round((z + 0.15) * 100) / 100));
+  }, []);
+  const zoomOut = useCallback(() => {
+    setZoom((z) => Math.max(0.55, Math.round((z - 0.15) * 100) / 100));
+  }, []);
+  const zoomReset = useCallback(() => setZoom(1), []);
+
   return (
-    <WorkflowBuilderChrome title={slide.title} accent={slide.accent}>
+    <WorkflowBuilderChrome
+      title={slide.title}
+      accent={slide.accent}
+      zoom={zoom}
+      onZoomIn={zoomIn}
+      onZoomOut={zoomOut}
+      onZoomReset={zoomReset}
+    >
       {branched ? (
         <GhlBranchCanvas nodes={slide.nodes} animateKey={animateKey} />
       ) : (

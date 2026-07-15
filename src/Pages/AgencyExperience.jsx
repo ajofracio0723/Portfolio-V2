@@ -25,6 +25,7 @@ import {
   agencyAchievements,
   agencyTechStack,
 } from "../data/agencyExperience";
+import { resolveTechLogo } from "../data/techLogos";
 import WorkflowOrbitCarousel from "../components/WorkflowOrbitCarousel";
 import WorkflowCarousel from "../components/WorkflowCarousel";
 import CrmShowcase from "../components/CrmShowcase";
@@ -57,11 +58,17 @@ const StatCard = ({ value, label }) => (
   </div>
 );
 
-const TechBadge = ({ tech }) => (
-  <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
-    {tech}
-  </span>
-);
+const TechBadge = ({ tech }) => {
+  const logo = resolveTechLogo(tech);
+  return (
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+      {logo && (
+        <img src={logo} alt="" className="w-3.5 h-3.5 object-contain shrink-0" />
+      )}
+      {tech}
+    </span>
+  );
+};
 
 const DetailBlocksShowcase = ({
   section,

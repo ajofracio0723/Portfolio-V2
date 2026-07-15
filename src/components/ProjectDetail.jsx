@@ -2,30 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, ExternalLink, Github, Code2, Star,
-  ChevronRight, Layers, Layout, Globe, Package, Cpu, Code,
+  ChevronRight, Layers, Package,
 } from "lucide-react";
 import Swal from 'sweetalert2';
 import { projects as localProjects } from "../data/portfolio";
-
-const TECH_ICONS = {
-  React: Globe,
-  Tailwind: Layout,
-  Express: Cpu,
-  Python: Code,
-  Javascript: Code,
-  HTML: Code,
-  CSS: Code,
-  default: Package,
-};
+import { resolveTechLogo } from "../data/techLogos";
 
 const TechBadge = ({ tech }) => {
-  const Icon = TECH_ICONS[tech] || TECH_ICONS["default"];
-  
+  const logo = resolveTechLogo(tech);
+
   return (
     <div className="group relative overflow-hidden px-3 py-2 md:px-4 md:py-2.5 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-xl border border-blue-500/10 hover:border-blue-500/30 transition-all duration-300 cursor-default">
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/10 group-hover:to-purple-500/10 transition-all duration-500" />
       <div className="relative flex items-center gap-1.5 md:gap-2">
-        <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-blue-400 group-hover:text-blue-300 transition-colors" />
+        {logo ? (
+          <img
+            src={logo}
+            alt=""
+            className="w-3.5 h-3.5 md:w-4 md:h-4 object-contain shrink-0"
+          />
+        ) : (
+          <Package className="w-3.5 h-3.5 md:w-4 md:h-4 text-blue-400 group-hover:text-blue-300 transition-colors shrink-0" />
+        )}
         <span className="text-xs md:text-sm font-medium text-blue-300/90 group-hover:text-blue-200 transition-colors">
           {tech}
         </span>
@@ -103,14 +101,7 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    let storedProjects = [];
-    try {
-      storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    } catch {
-      storedProjects = [];
-    }
-    const allProjects = storedProjects.length > 0 ? storedProjects : localProjects;
-    const selectedProject = allProjects.find((p) => String(p.id) === id);
+    const selectedProject = localProjects.find((p) => String(p.id) === id);
     
     if (selectedProject) {
       const enhancedProject = {
