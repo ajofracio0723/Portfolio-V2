@@ -422,6 +422,139 @@ export const WORKFLOW_DETAILS = {
         "Incoming support posts get AI-assisted replies and lifecycle tracking without manual copy-paste between Circle and Airtable.",
     },
   },
+  "AI Invoice Processing": {
+    keyFunctions: [
+      "Webhook invoice intake",
+      "AI field extraction (OpenRouter + parser)",
+      "High-value branch with Slack approval + Sheets logging",
+    ],
+    businessImpact: [
+      { icon: "trend", text: "Invoices parsed and routed without manual data entry" },
+      { icon: "trend", text: "High-value invoices flagged for Slack approval" },
+      { icon: "clock", text: "~5 hrs/week saved on AP triage" },
+    ],
+    caseStudy: {
+      title: "AI Invoice Processing",
+      problem:
+        "Finance teams retyped invoice data from emails/PDFs, then decided which bills needed manager approval — slow and easy to miss high-value items.",
+      solution:
+        "Built an n8n flow: webhook receives the invoice → AI Invoice Agent extracts structured fields → Parse Invoice Fields → If High Value? logs to a flagged Google Sheet and requests Slack approval (else standard sheet log) → returns a webhook confirmation.",
+      tools: [
+        { name: "n8n", tone: "orange" },
+        { name: "OpenAI", tone: "emerald" },
+        { name: "Google Sheets", tone: "cyan" },
+        { name: "Slack", tone: "pink" },
+      ],
+      result:
+        "Invoices are extracted, logged, and escalated automatically, with confirmation returned to the caller.",
+    },
+  },
+  "GHL Stale Lead - AI Email + Slack Approval": {
+    keyFunctions: [
+      "Daily GHL stale-lead scan",
+      "AI email draft (Grok via OpenRouter)",
+      "Slack approval gate before GHL send",
+    ],
+    businessImpact: [
+      { icon: "trend", text: "Reactivates dormant leads without manual copywriting" },
+      { icon: "trend", text: "Human approval in Slack before any email sends" },
+      { icon: "clock", text: "~4 hrs/week saved on stale-lead outreach" },
+    ],
+    caseStudy: {
+      title: "GHL Stale Lead - AI Email + Slack Approval",
+      problem:
+        "Non-client leads went cold in GoHighLevel. Reps rarely wrote personal win-back emails, and anything automated risked sending the wrong tone without review.",
+      solution:
+        "Built an n8n job that runs daily at 9 AM, pulls GHL contacts, filters stale non-clients, loops each lead, drafts an email with AI (Grok via OpenRouter), posts it to Slack for approval, waits, then either sends via GHL + confirms in Slack or logs the rejection.",
+      tools: [
+        { name: "n8n", tone: "orange" },
+        { name: "GoHighLevel", tone: "emerald" },
+        { name: "Slack", tone: "pink" },
+        { name: "OpenAI", tone: "violet" },
+      ],
+      result:
+        "Stale leads get timely, AI-written outreach with a Slack approval checkpoint before anything hits the inbox.",
+    },
+  },
+  "Cold Email Sender — Outreach": {
+    keyFunctions: [
+      "Nightly schedule (10 PM PHT) + sheet lead pull",
+      "Skip already-emailed leads",
+      "Personalized send loop via Gmail with paced waits + sheet status update",
+    ],
+    businessImpact: [
+      { icon: "trend", text: "Outbound sends run overnight without manual copy-paste" },
+      { icon: "trend", text: "Leads are paced and marked so nothing double-sends" },
+      { icon: "clock", text: "~6 hrs/week saved on cold outreach ops" },
+    ],
+    caseStudy: {
+      title: "Cold Email Sender — Outreach",
+      problem:
+        "Cold outreach depended on someone opening a sheet, writing each email, and tracking who already got a message — easy to miss rows or blast too fast.",
+      solution:
+        "Built an n8n outreach flow: daily 10 PM PHT trigger → email config → read leads from Google Sheets → If Not Yet Emailed? → compose personalized copy → Split In Batches → send via Gmail → wait 30s → mark emailed in sheet → wait 15s and loop until the batch is done.",
+      tools: [
+        { name: "n8n", tone: "orange" },
+        { name: "Google Sheets", tone: "cyan" },
+        { name: "Gmail", tone: "pink" },
+      ],
+      result:
+        "Leads get personalized cold emails on a schedule, one at a time, with sheet tracking so each contact is only contacted once.",
+    },
+  },
+  "Stripe Revenue Tracking": {
+    keyFunctions: [
+      "Stripe payment webhook intake + event parse",
+      "AI revenue categorization (OpenRouter + structured parser)",
+      "Sheets logging + Slack alert on anomaly",
+    ],
+    businessImpact: [
+      { icon: "trend", text: "Every Stripe payment is categorized and logged automatically" },
+      { icon: "trend", text: "Anomalies surface in Slack instead of burying in Sheets" },
+      { icon: "clock", text: "~5 hrs/week saved on revenue ops review" },
+    ],
+    caseStudy: {
+      title: "Stripe Revenue Tracking",
+      problem:
+        "Finance manually categorized Stripe payment events and only noticed weird amounts days later when reconciling a spreadsheet.",
+      solution:
+        "Built an n8n flow: Stripe Payment Event → Parse Stripe Event → AI Revenue Categorization (OpenRouter + Structured Output Parser) → Parse Revenue Fields → Log to Revenue Tracker sheet → If Anomaly Detected? Slack alert → Acknowledge Stripe.",
+      tools: [
+        { name: "n8n", tone: "orange" },
+        { name: "Stripe", tone: "violet" },
+        { name: "Google Sheets", tone: "cyan" },
+        { name: "Slack", tone: "pink" },
+      ],
+      result:
+        "Payments are categorized and tracked live, with Slack alerts when revenue looks off — and Stripe gets an acknowledgment every run.",
+    },
+  },
+  "Missed Opportunity Recovery System (AI Follow-Up)": {
+    keyFunctions: [
+      "Dual triggers: reactivation tag + SMS reply",
+      "AI reply classification + personalized SMS/email on Contact Reply",
+      "Timeout path: follow-up SMS → final outreach → sales rescue task",
+    ],
+    businessImpact: [
+      { icon: "trend", text: "Replies get AI-routed to a closer instead of sitting in SMS" },
+      { icon: "trend", text: "No-reply contacts still get a timed second + final chase" },
+      { icon: "clock", text: "~4 hrs/week saved on missed-opportunity follow-up" },
+    ],
+    caseStudy: {
+      title: "Missed Opportunity Recovery System (AI Follow-Up)",
+      problem:
+        "Reactivation leads and SMS replies sat in GHL without a consistent next step — warm contacts either waited too long or got generic blasts.",
+      solution:
+        "Built a GHL flow: Contact Tag (Reactivation Campaign) + Customer Replied (SMS) → initial reactivation SMS → wait / wait-for-reply → If Contact Replied? → AI classify intent, personalize SMS, booking email, assign closer, warm pipeline · else follow-up SMS → final SMS/email → cold tag + sales rescue task → log outcome and clear campaign tag.",
+      tools: [
+        { name: "GoHighLevel", tone: "emerald" },
+        { name: "SMS", tone: "cyan" },
+        { name: "OpenAI", tone: "violet" },
+      ],
+      result:
+        "Missed and reactivation opportunities run a full reply-aware recovery path with AI on the engaged branch and a sales handoff when they go quiet.",
+    },
+  },
 };
 
 export function getWorkflowDetails(title) {

@@ -16,7 +16,6 @@ import {
   Play,
   ChevronLeft,
   FormInput,
-  UserPlus,
   MoreHorizontal,
   BarChart2,
   Copy,
@@ -26,7 +25,48 @@ import {
   HardDrive,
   Bug,
   Braces,
+  Globe,
+  Pause,
+  Pencil,
+  RefreshCw,
+  Bot,
+  Signpost,
+  ChevronsLeftRight,
+  CalendarDays,
+  CalendarCheck2,
+  Link2,
+  Tags,
+  Tag,
+  ListTodo,
+  Contact2,
+  UserRound,
+  Rss,
+  CircleCheckBig,
+  BellRing,
 } from "lucide-react";
+
+/** Per-node Lucide overrides for authentic n8n node icons */
+const N8N_ICON_MAP = {
+  globe: Globe,
+  webhook: Webhook,
+  pause: Pause,
+  pencil: Pencil,
+  loop: RefreshCw,
+  bot: Bot,
+  clock: Clock,
+  braces: Braces,
+  angles: ChevronsLeftRight,
+  signpost: Signpost,
+  gitBranch: GitBranch,
+  zap: Zap,
+  mail: Mail,
+  bell: Bell,
+  sparkles: Sparkles,
+  bug: Bug,
+  settings: Settings2,
+};
+
+const N8N_AGENT_PORTS = ["Chat Model", "Memory", "Tool", "Output Parser"];
 
 /** Shared type → visual meta */
 export const TYPE_META = {
@@ -64,11 +104,23 @@ export const TYPE_META = {
   },
   email: {
     icon: Mail,
-    color: "#8b5cf6",
-    label: "Email",
-    app: "Email by Zapier",
-    ghlColor: "#6366f1",
-    n8nColor: "#818cf8",
+    color: "#EA4335",
+    label: "Gmail",
+    app: "Gmail",
+    ghlColor: "#EA4335",
+    n8nColor: "#EA4335",
+    makeColor: "#EA4335",
+    logo: "/gmail.svg",
+  },
+  gmail: {
+    icon: Mail,
+    color: "#EA4335",
+    label: "Gmail",
+    app: "Gmail",
+    ghlColor: "#EA4335",
+    n8nColor: "#EA4335",
+    makeColor: "#EA4335",
+    logo: "/gmail.svg",
   },
   sms: {
     icon: MessageSquare,
@@ -103,16 +155,6 @@ export const TYPE_META = {
     ghlColor: "#e11d48",
     n8nColor: "#f472b6",
     logo: "/slack.png",
-  },
-  gmail: {
-    icon: Mail,
-    color: "#EA4335",
-    label: "Gmail",
-    app: "Gmail",
-    ghlColor: "#EA4335",
-    n8nColor: "#EA4335",
-    makeColor: "#EA4335",
-    logo: "/gmail.svg",
   },
   openai: {
     icon: Sparkles,
@@ -351,6 +393,7 @@ function useCanvasPan(animateKey) {
 function ZapStepCard({ node, stepNumber, animateDelay = 0 }) {
   const meta = nodeMeta(node.type);
   const Icon = meta.icon;
+  const logo = typeof node.logo === "string" ? node.logo : meta.logo;
   const isTrigger = node.type === "trigger";
 
   return (
@@ -363,8 +406,8 @@ function ZapStepCard({ node, stepNumber, animateDelay = 0 }) {
           className="w-8 h-8 rounded-lg flex items-center justify-center border border-black/5"
           style={{ background: `${meta.color}14` }}
         >
-          {meta.logo ? (
-            <img src={meta.logo} alt="" className="w-5 h-5 object-contain" />
+          {logo ? (
+            <img src={logo} alt="" className="w-5 h-5 object-contain" />
           ) : (
             <Icon className="w-4 h-4" style={{ color: meta.color }} strokeWidth={2.2} />
           )}
@@ -399,41 +442,32 @@ function ZapArrow() {
   );
 }
 
-/** Zapier path split: vertical trunk → horizontal T-bar → two down arrows */
+/** Zapier path split: trunk → T-bar → legs aligned to equal column centers */
 function ZapPathJunction({ labels = ["Path A", "Path B"] }) {
   const cols = Math.max(labels.length, 2);
+  const centers = Array.from({ length: cols }, (_, i) => ((i + 0.5) / cols) * 100);
+  const left = centers[0];
+  const right = centers[centers.length - 1];
   return (
     <div className="w-full max-w-xl mx-auto" aria-hidden>
       <div className="relative h-14">
-        <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 400 56"
-          preserveAspectRatio="none"
-        >
-          {/* trunk down to T */}
-          <line x1="200" y1="0" x2="200" y2="20" stroke="#8b7cf6" strokeWidth="1.75" />
-          {/* horizontal crossbar */}
-          <line
-            x1={cols === 3 ? 50 : 80}
-            y1="20"
-            x2={cols === 3 ? 350 : 320}
-            y2="20"
-            stroke="#8b7cf6"
-            strokeWidth="1.75"
-          />
-          {/* down stubs into columns */}
-          {(cols === 3 ? [50, 200, 350] : [80, 320]).map((x) => (
-            <g key={x}>
-              <line x1={x} y1="20" x2={x} y2="44" stroke="#8b7cf6" strokeWidth="1.75" />
-              <path d={`M${x - 4},44 L${x},52 L${x + 4},44 Z`} fill="#8b7cf6" />
-            </g>
-          ))}
-        </svg>
+        <div className="absolute left-1/2 top-0 h-5 w-[1.75px] -translate-x-1/2 bg-[#8b7cf6]" />
+        <div
+          className="absolute top-5 h-[1.75px] bg-[#8b7cf6]"
+          style={{ left: `${left}%`, right: `${100 - right}%` }}
+        />
+        {centers.map((pct) => (
+          <div
+            key={pct}
+            className="absolute top-5 bottom-0 w-[1.75px] -translate-x-1/2 bg-[#8b7cf6]"
+            style={{ left: `${pct}%` }}
+          >
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 border-l-[5px] border-r-[5px] border-t-[7px] border-l-transparent border-r-transparent border-t-[#8b7cf6]" />
+          </div>
+        ))}
       </div>
       <div
-        className={`grid gap-4 -mt-1 ${
-          cols === 3 ? "grid-cols-3" : "grid-cols-2"
-        }`}
+        className={`grid -mt-1 ${cols === 3 ? "grid-cols-3" : "grid-cols-2"}`}
       >
         {labels.map((label) => (
           <div key={label} className="flex justify-center">
@@ -493,12 +527,12 @@ export function ZapierCanvas({ nodes, branched, animateKey, title }) {
             </div>
             <ZapPathJunction labels={pathLabels} />
             <div
-              className={`grid gap-4 mt-3 ${
+              className={`grid mt-3 ${
                 colCount === 1
                   ? "grid-cols-1 max-w-[300px] mx-auto"
                   : colCount === 2
-                    ? "grid-cols-1 sm:grid-cols-2"
-                    : "grid-cols-1 sm:grid-cols-3"
+                    ? "grid-cols-2"
+                    : "grid-cols-3"
               }`}
             >
               {yesNodes.length > 0 && (
@@ -590,19 +624,287 @@ export function ZapierCanvas({ nodes, branched, animateKey, title }) {
 
 /* ═══════════════════════════════════════════
    GOHIGHLEVEL — light Standard Builder
+   Icons matched to GHL Actions menu (Recent / Contact / Communication / Internal / Send data)
    ═══════════════════════════════════════════ */
 
-function GhlNode({ node, animateDelay = 0 }) {
+/**
+ * Soft-box = tinted tile + colored glyph (Recent Actions style)
+ * Solid = filled tile + white glyph (Communication Send email/SMS style)
+ */
+const GHL_NODE_VISUAL = {
+  trigger: {
+    Icon: CalendarCheck2,
+    soft: true,
+    iconColor: "#0D9488",
+    bg: "#CCFBF1",
+    label: "Trigger",
+  },
+  wait: {
+    Icon: Clock,
+    soft: true,
+    iconColor: "#9333EA",
+    bg: "#F3E8FF",
+    label: "Wait",
+  },
+  condition: {
+    Icon: GitBranch,
+    soft: true,
+    iconColor: "#7C3AED",
+    bg: "#EDE9FE",
+    label: "If / Else",
+  },
+  // Communication — Recent Actions soft green tiles
+  email: {
+    Icon: Mail,
+    soft: true,
+    iconColor: "#16A34A",
+    bg: "#DCFCE7",
+    label: "Email",
+  },
+  sms: {
+    Icon: MessageSquare,
+    soft: true,
+    iconColor: "#16A34A",
+    bg: "#DCFCE7",
+    label: "SMS",
+  },
+  // Apps → Gmail only when type is explicitly gmail
+  gmail: {
+    logo: "/gmail.svg",
+    soft: true,
+    bg: "#FFFFFF",
+    border: true,
+    label: "Gmail",
+  },
+  // Send data — blue webhook glyph
+  webhook: {
+    Icon: Rss,
+    soft: true,
+    iconColor: "#2563EB",
+    bg: "#DBEAFE",
+    label: "Webhook",
+  },
+  // Contact — blue soft boxes
+  crm: {
+    Icon: Contact2,
+    soft: true,
+    iconColor: "#2563EB",
+    bg: "#DBEAFE",
+    label: "Contact",
+  },
+  action: {
+    Icon: CircleCheckBig,
+    soft: true,
+    iconColor: "#2563EB",
+    bg: "#DBEAFE",
+    label: "Action",
+  },
+  // Default internal notification = green bell (Slack logo when label mentions Slack)
+  notify: {
+    Icon: BellRing,
+    soft: true,
+    iconColor: "#16A34A",
+    bg: "#DCFCE7",
+    label: "Notification",
+  },
+  openai: {
+    logo: "/chatgpt.svg",
+    soft: true,
+    bg: "#FFFFFF",
+    border: true,
+    label: "AI",
+  },
+  sheets: {
+    logo: "/googlesheets.svg",
+    soft: true,
+    bg: "#FFFFFF",
+    border: true,
+    label: "Google Sheets",
+  },
+};
+
+function resolveGhlVisual(node) {
   const meta = nodeMeta(node.type);
-  const Icon =
-    node.type === "trigger"
-      ? FormInput
-      : node.type === "wait"
-        ? Clock
-        : node.type === "condition"
-          ? GitBranch
-          : meta.icon;
-  const color = meta.ghlColor;
+  const label = node.label || "";
+  const preset = GHL_NODE_VISUAL[node.type] || {
+    Icon: meta.icon || Settings2,
+    soft: true,
+    iconColor: meta.ghlColor || "#2563EB",
+    bg: `${meta.ghlColor || "#2563EB"}22`,
+    label: meta.label,
+  };
+
+  // Appointment booked / calendar triggers
+  if (node.type === "trigger") {
+    if (/contact tag|tag added|reactiv/i.test(label) || node.ghlIcon === "tag") {
+      return {
+        Icon: Tag,
+        soft: true,
+        iconColor: "#2563EB",
+        bg: "#DBEAFE",
+        label: "Trigger",
+      };
+    }
+    if (/replied|customer replied|reply/i.test(label) || node.ghlIcon === "sms-reply") {
+      return {
+        Icon: MessageSquare,
+        soft: false,
+        bg: "#22C55E",
+        label: "Trigger",
+      };
+    }
+    if (/appointment|booked|calendar/i.test(label)) {
+      return {
+        Icon: CalendarCheck2,
+        soft: true,
+        iconColor: "#2563EB",
+        bg: "#DBEAFE",
+        label: "Trigger",
+      };
+    }
+    if (/form|submit/i.test(label)) {
+      return {
+        Icon: FormInput,
+        soft: true,
+        iconColor: "#0D9488",
+        bg: "#CCFBF1",
+        label: "Trigger",
+      };
+    }
+    if (/payment|stripe|checkout\.session/i.test(label) || /stripe|checkout/i.test(node.detail || "")) {
+      return {
+        logo: "/stripe.svg",
+        soft: false,
+        bg: "#FFFFFF",
+        border: true,
+        label: "Trigger",
+      };
+    }
+  }
+
+  // GHL If / Else on canvas often shows braces
+  if (node.type === "condition") {
+    return {
+      Icon: Braces,
+      soft: false,
+      bg: "#3B82F6",
+      label: "If / Else",
+    };
+  }
+
+  // Wait — purple clock (canvas style)
+  if (node.type === "wait") {
+    return {
+      Icon: Clock,
+      soft: false,
+      bg: "#A855F7",
+      label: "Wait",
+    };
+  }
+
+  // Contact: tags
+  if (
+    node.type === "crm" &&
+    (/^tag:/i.test(label) || /add tag|remove tag|contact tag/i.test(label))
+  ) {
+    return {
+      Icon: Tag,
+      soft: true,
+      iconColor: "#2563EB",
+      bg: "#DBEAFE",
+      label: "Contact",
+    };
+  }
+
+  // Contact: update custom / write fields
+  if (node.type === "crm" && /field|custom|write appt|upsert|sync|timeline|note/i.test(label)) {
+    return {
+      Icon: Contact2,
+      soft: true,
+      iconColor: "#2563EB",
+      bg: "#DBEAFE",
+      label: "Contact",
+    };
+  }
+
+  // Contact / opportunity pipeline
+  if (node.type === "crm" && /pipeline|stage|opportunity|move/i.test(label)) {
+    return {
+      Icon: GitBranch,
+      soft: true,
+      iconColor: "#2563EB",
+      bg: "#DBEAFE",
+      label: "Contact",
+    };
+  }
+
+  // Assign to user
+  if (/assign/i.test(label) && (node.type === "action" || node.type === "crm")) {
+    return {
+      Icon: UserRound,
+      soft: true,
+      iconColor: "#2563EB",
+      bg: "#DBEAFE",
+      label: "Contact",
+    };
+  }
+
+  // Add task
+  if (node.type === "action" && /task|checklist/i.test(label)) {
+    return {
+      Icon: CircleCheckBig,
+      soft: true,
+      iconColor: "#2563EB",
+      bg: "#DBEAFE",
+      label: "Action",
+    };
+  }
+
+  // Slack app vs Send internal notification
+  if (node.type === "notify") {
+    if (/slack/i.test(label)) {
+      return {
+        logo: "/slack.png",
+        soft: true,
+        bg: "#FFFFFF",
+        border: true,
+        label: "Slack",
+      };
+    }
+    return {
+      Icon: BellRing,
+      soft: true,
+      iconColor: "#16A34A",
+      bg: "#DCFCE7",
+      label: "Notification",
+    };
+  }
+
+  // Webhook / ICS hook stays Send data blue
+  if (node.type === "webhook") {
+    return {
+      Icon: Rss,
+      soft: true,
+      iconColor: "#2563EB",
+      bg: "#DBEAFE",
+      label: "Webhook",
+    };
+  }
+
+  return {
+    Icon: preset.Icon || meta.icon,
+    logo: typeof node.logo === "string" ? node.logo : preset.logo,
+    soft: preset.soft !== false,
+    iconColor: preset.iconColor,
+    bg: preset.bg,
+    border: preset.border,
+    label: preset.label || meta.label,
+  };
+}
+
+function GhlNode({ node, animateDelay = 0 }) {
+  const visual = resolveGhlVisual(node);
+  const Icon = visual.Icon || Settings2;
 
   return (
     <div
@@ -611,15 +913,27 @@ function GhlNode({ node, animateDelay = 0 }) {
     >
       <div className="flex items-start gap-2.5 p-3">
         <div
-          className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-          style={{ background: `${color}18` }}
+          className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+            visual.border ? "border border-zinc-200" : ""
+          }`}
+          style={{ background: visual.bg }}
         >
-          <Icon className="w-4.5 h-4.5" style={{ color, width: 18, height: 18 }} />
+          {visual.logo ? (
+            <img src={visual.logo} alt="" className="w-5 h-5 object-contain" />
+          ) : visual.soft ? (
+            <Icon
+              className="w-[18px] h-[18px]"
+              style={{ color: visual.iconColor }}
+              strokeWidth={2.1}
+            />
+          ) : (
+            <Icon className="w-[18px] h-[18px] text-white" strokeWidth={2.25} />
+          )}
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-[13px] font-semibold text-zinc-800 leading-snug">{node.label}</p>
-          <p className="text-[11px] text-zinc-500 mt-0.5 capitalize">
-            {node.type === "trigger" ? "Trigger" : meta.label}
+          <p className="text-[11px] text-zinc-500 mt-0.5 line-clamp-2">
+            {node.detail || node.subtitle || visual.label}
           </p>
         </div>
       </div>
@@ -635,130 +949,265 @@ function GhlNode({ node, animateDelay = 0 }) {
 
 function GhlPlusConnector() {
   return (
-    <div className="relative flex flex-col items-center w-full h-12" aria-hidden>
-      <svg width="40" height="48" viewBox="0 0 40 48" className="overflow-visible">
-        <line x1="20" y1="0" x2="20" y2="16" stroke="#94a3b8" strokeWidth="1.5" />
-        <circle cx="20" cy="24" r="10" fill="#ffffff" stroke="#94a3b8" strokeWidth="1.5" />
-        <line x1="20" y1="19" x2="20" y2="29" stroke="#64748b" strokeWidth="1.75" />
-        <line x1="15" y1="24" x2="25" y2="24" stroke="#64748b" strokeWidth="1.75" />
-        <line x1="20" y1="32" x2="20" y2="48" stroke="#94a3b8" strokeWidth="1.5" />
+    <div
+      className="relative flex flex-col items-center justify-start w-full h-11 shrink-0 -my-px"
+      aria-hidden
+    >
+      <svg
+        width="40"
+        height="44"
+        viewBox="0 0 40 44"
+        className="overflow-visible block mx-auto"
+      >
+        <line x1="20" y1="0" x2="20" y2="12" stroke="#cbd5e1" strokeWidth="1.75" />
+        <circle cx="20" cy="22" r="9" fill="#ffffff" stroke="#94a3b8" strokeWidth="1.5" />
+        <line x1="20" y1="17" x2="20" y2="27" stroke="#64748b" strokeWidth="1.75" />
+        <line x1="15" y1="22" x2="25" y2="22" stroke="#64748b" strokeWidth="1.75" />
+        <line x1="20" y1="31" x2="20" y2="44" stroke="#cbd5e1" strokeWidth="1.75" />
       </svg>
     </div>
   );
 }
 
-/** GHL: merge multi-triggers then fork into Yes/Timeout with orthogonal bars */
+function GhlWireStub({ h = 16 }) {
+  return (
+    <div
+      className="w-[1.75px] bg-slate-300 shrink-0 -my-px rounded-full mx-auto"
+      style={{ height: h }}
+      aria-hidden
+    />
+  );
+}
+
+/** Fork trunk into two equal column centers (25% / 75%) */
 function GhlBranchJunction() {
   return (
-    <div className="w-full max-w-lg mx-auto h-16 relative" aria-hidden>
-      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 64" preserveAspectRatio="none">
-        <line x1="200" y1="0" x2="200" y2="18" stroke="#94a3b8" strokeWidth="1.5" />
-        <circle cx="200" cy="28" r="9" fill="#fff" stroke="#94a3b8" strokeWidth="1.5" />
-        <line x1="200" y1="23" x2="200" y2="33" stroke="#64748b" strokeWidth="1.5" />
-        <line x1="195" y1="28" x2="205" y2="28" stroke="#64748b" strokeWidth="1.5" />
-        <line x1="200" y1="37" x2="200" y2="44" stroke="#94a3b8" strokeWidth="1.5" />
-        <line x1="100" y1="44" x2="300" y2="44" stroke="#94a3b8" strokeWidth="1.5" />
-        <line x1="100" y1="44" x2="100" y2="64" stroke="#94a3b8" strokeWidth="1.5" />
-        <line x1="300" y1="44" x2="300" y2="64" stroke="#94a3b8" strokeWidth="1.5" />
-      </svg>
+    <div className="w-full h-16 relative shrink-0 -my-px" aria-hidden>
+      <div className="absolute left-1/2 top-0 h-4 w-[1.75px] -translate-x-1/2 bg-slate-300" />
+      <div className="absolute left-1/2 top-4 z-[1] flex h-[18px] w-[18px] -translate-x-1/2 items-center justify-center rounded-full border-[1.5px] border-slate-400 bg-white text-slate-500">
+        <Plus className="h-2.5 w-2.5" strokeWidth={2.5} />
+      </div>
+      <div className="absolute left-1/2 top-[34px] h-2 w-[1.75px] -translate-x-1/2 bg-slate-300" />
+      <div className="absolute left-[25%] right-[25%] top-9 h-[1.75px] bg-slate-300" />
+      <div className="absolute left-[25%] top-9 bottom-0 w-[1.75px] -translate-x-1/2 bg-slate-300" />
+      <div className="absolute left-[75%] top-9 bottom-0 w-[1.75px] -translate-x-1/2 bg-slate-300" />
     </div>
   );
 }
 
-function GhlTriggerMerge() {
+/**
+ * Join trigger columns (including Add New Trigger) into one trunk.
+ * CSS %-based so wires stay locked to column centers (no SVG stretch gaps).
+ */
+function GhlTriggerMerge({ columns = 1 }) {
+  if (columns <= 1) {
+    return (
+      <div className="w-full h-6 relative shrink-0 -my-px" aria-hidden>
+        <div className="absolute left-1/2 top-0 bottom-0 w-[1.75px] -translate-x-1/2 bg-slate-300" />
+      </div>
+    );
+  }
+
+  const centers = Array.from({ length: columns }, (_, i) => ((i + 0.5) / columns) * 100);
+  const left = centers[0];
+  const right = centers[centers.length - 1];
+
   return (
-    <div className="w-full max-w-lg mx-auto h-10 relative" aria-hidden>
-      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 40" preserveAspectRatio="none">
-        <line x1="100" y1="0" x2="100" y2="16" stroke="#94a3b8" strokeWidth="1.5" />
-        <line x1="300" y1="0" x2="300" y2="16" stroke="#94a3b8" strokeWidth="1.5" />
-        <line x1="100" y1="16" x2="300" y2="16" stroke="#94a3b8" strokeWidth="1.5" />
-        <line x1="200" y1="16" x2="200" y2="40" stroke="#94a3b8" strokeWidth="1.5" />
-      </svg>
+    <div className="w-full h-12 relative shrink-0 -my-px" aria-hidden>
+      {centers.map((pct) => (
+        <div
+          key={pct}
+          className="absolute top-0 h-[18px] w-[1.75px] -translate-x-1/2 bg-slate-300"
+          style={{ left: `${pct}%` }}
+        />
+      ))}
+      {/* left arm */}
+      <div
+        className="absolute top-[18px] h-[1.75px] bg-slate-300"
+        style={{ left: `${left}%`, width: `calc(${50 - left}%)` }}
+      />
+      {/* right arm */}
+      <div
+        className="absolute top-[18px] h-[1.75px] bg-slate-300"
+        style={{ left: "50%", width: `calc(${right - 50}%)` }}
+      />
+      {/* trunk down into the next + connector */}
+      <div className="absolute left-1/2 top-[18px] bottom-0 w-[1.75px] -translate-x-1/2 bg-slate-300" />
     </div>
   );
 }
 
-export function GhlCanvas({ nodes, branched, animateKey, title }) {
-  const { zoom, zoomIn, zoomOut, zoomReset } = useZoom(animateKey);
-  const { ref: panRef, isDragging, offset, panProps } = useCanvasPan(animateKey);
-  const { trunk, yesNodes, noNodes, sideNodes, mergeTail } = splitBranches(nodes);
+/** Join two lanes (25% / 75%) back to trunk */
+function GhlBranchMerge() {
+  return (
+    <div className="w-full h-11 relative shrink-0 -my-px" aria-hidden>
+      <div className="absolute left-[25%] top-0 h-3 w-[1.75px] -translate-x-1/2 bg-slate-300" />
+      <div className="absolute left-[75%] top-0 h-3 w-[1.75px] -translate-x-1/2 bg-slate-300" />
+      <div className="absolute left-[25%] right-[25%] top-3 h-[1.75px] bg-slate-300" />
+      <div className="absolute left-1/2 top-3 bottom-0 w-[1.75px] -translate-x-1/2 bg-slate-300" />
+    </div>
+  );
+}
 
-  const yesStart = 0;
-  const body = branched ? (
-    <div className="flex flex-col items-center max-w-3xl mx-auto px-2 py-5">
-      <div className="flex flex-wrap justify-center gap-2 w-full max-w-lg">
-        {trunk.slice(0, 1).map((n, i) => (
-          <div key={`trig-${i}`} className="flex-1 min-w-[140px] max-w-[200px]">
-            <GhlNode node={{ ...n, type: "trigger" }} animateDelay={0} />
+function GhlAddTriggerCard() {
+  return (
+    <div className="w-full max-w-[280px] mx-auto rounded-xl border-2 border-dashed border-sky-400 bg-transparent min-h-[92px] h-full flex items-center justify-center px-3 py-4">
+      <div className="flex items-center justify-center gap-2">
+        <span className="w-6 h-6 rounded-md bg-sky-100 text-sky-600 flex items-center justify-center flex-shrink-0">
+          <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
+        </span>
+        <span className="text-[12px] sm:text-[13px] font-medium text-sky-600 text-center leading-snug">
+          Add New Trigger
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Real triggers + Add New Trigger as equal columns; wires merge on-center into the trunk.
+ */
+function GhlTriggerRow({ triggers }) {
+  const list = triggers.length ? triggers : [{ label: "Trigger", type: "trigger" }];
+  const cols = list.length + 1; // + Add New Trigger
+  const widthClass = cols >= 3 ? "max-w-3xl" : "max-w-xl";
+  return (
+    <div className={`relative w-full mx-auto overflow-visible ${widthClass}`}>
+      <div
+        className="w-full grid items-end"
+        style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+      >
+        {list.map((node, i) => (
+          <div key={`trig-${i}`} className="flex flex-col items-center min-w-0 px-1.5 sm:px-2.5">
+            <GhlNode node={node} animateDelay={i * 35} />
           </div>
         ))}
-        <div className="flex-1 min-w-[120px] max-w-[160px] rounded-xl border-2 border-dashed border-zinc-300 bg-white/60 flex items-center justify-center gap-1.5 text-xs text-zinc-400 py-6">
-          <Plus className="w-3.5 h-3.5" /> Add New Trigger
+        <div className="flex flex-col items-center min-w-0 px-1.5 sm:px-2.5 self-stretch">
+          <GhlAddTriggerCard />
         </div>
       </div>
-      <GhlTriggerMerge />
-      {trunk.slice(1).map((n, i) => (
-        <React.Fragment key={`t-${i}`}>
-          {i > 0 && <GhlPlusConnector />}
-          <GhlNode node={n} animateDelay={(i + 1) * 45} />
-        </React.Fragment>
-      ))}
-      {(yesNodes.length > 0 || noNodes.length > 0 || sideNodes.length > 0) && (
-        <>
-          <GhlBranchJunction />
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col items-center relative">
-              <span className="mb-2 text-[10px] font-bold uppercase tracking-wide text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded z-10">
-                Contact Reply
-              </span>
-              {yesNodes.map((n, i) => (
-                <React.Fragment key={`y-${i}`}>
-                  {i > 0 && <GhlPlusConnector />}
-                  <GhlNode node={n} animateDelay={(yesStart + i) * 40} />
-                </React.Fragment>
-              ))}
-            </div>
-            <div className="flex flex-col items-center relative">
-              <span className="mb-2 text-[10px] font-bold uppercase tracking-wide text-orange-600 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded z-10">
-                Time Out
-              </span>
-              {(noNodes.length ? noNodes : sideNodes).map((n, i) => (
-                <React.Fragment key={`n-${i}`}>
-                  {i > 0 && <GhlPlusConnector />}
-                  <GhlNode node={n} animateDelay={(i + 8) * 40} />
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
-      {mergeTail.map((n, i) => (
-        <React.Fragment key={`m-${i}`}>
-          <GhlPlusConnector />
-          <GhlNode node={n} animateDelay={(i + 12) * 40} />
-        </React.Fragment>
-      ))}
+      <GhlTriggerMerge columns={cols} />
     </div>
-  ) : (
-    <div className="flex flex-col items-center px-3 py-5">
-      <div className="flex flex-wrap justify-center gap-2 w-full max-w-lg">
-        <div className="flex-1 min-w-[140px] max-w-[220px]">
-          <GhlNode
-            node={nodes[0] || { label: "Trigger", type: "trigger" }}
-            animateDelay={0}
-          />
-        </div>
-        <div className="flex-1 min-w-[120px] max-w-[160px] rounded-xl border-2 border-dashed border-zinc-300 bg-white/60 flex items-center justify-center gap-1.5 text-xs text-zinc-400 py-6">
-          <UserPlus className="w-3.5 h-3.5" /> Add New Trigger
-        </div>
-      </div>
-      <GhlTriggerMerge />
-      {nodes.slice(1).map((n, i) => (
-        <React.Fragment key={`L-${i}`}>
-          <GhlPlusConnector />
-          <GhlNode node={n} animateDelay={(i + 1) * 45} />
+  );
+}
+
+function GhlBranchLane({ label, tone, nodes, animateBase, showMergeStub }) {
+  const pill =
+    tone === "yes"
+      ? "text-emerald-600 bg-emerald-50 border-emerald-200"
+      : "text-orange-600 bg-orange-50 border-orange-200";
+  return (
+    <div className="flex flex-col items-center w-full h-full relative px-1">
+      <GhlWireStub h={22} />
+      <span
+        className={`absolute top-0 text-[10px] font-bold uppercase tracking-wide border px-2 py-0.5 rounded z-10 ${pill}`}
+      >
+        {label}
+      </span>
+      {nodes.map((node, i) => (
+        <React.Fragment key={`${label}-${i}`}>
+          {i > 0 && <GhlPlusConnector />}
+          <GhlNode node={node} animateDelay={(animateBase + i) * 40} />
         </React.Fragment>
       ))}
+      {showMergeStub && (
+        <div className="w-[1.75px] flex-1 min-h-[18px] bg-slate-300 mx-auto -my-px rounded-full" />
+      )}
+    </div>
+  );
+}
+
+export function GhlCanvas({ nodes, branched, animateKey, title, branchLabels }) {
+  const multiTrigger =
+    (nodes || []).filter((n) => n.type === "trigger" && !n.branch).length > 1;
+  const { zoom, zoomIn, zoomOut, zoomReset } = useZoom(
+    animateKey,
+    multiTrigger ? 0.7 : 0.9
+  );
+  const { ref: panRef, isDragging, offset, panProps } = useCanvasPan(animateKey);
+  const { trunk, yesNodes, noNodes, sideNodes, mergeTail } = splitBranches(
+    branched ? nodes : nodes.map((n) => ({ ...n, branch: undefined }))
+  );
+
+  const sourceNodes = branched ? trunk : nodes;
+  const triggerNodes = [];
+  let trunkIdx = 0;
+  while (trunkIdx < sourceNodes.length && sourceNodes[trunkIdx]?.type === "trigger") {
+    triggerNodes.push(sourceNodes[trunkIdx]);
+    trunkIdx += 1;
+  }
+  if (!triggerNodes.length && sourceNodes[0]) {
+    triggerNodes.push({ ...sourceNodes[0], type: "trigger" });
+    trunkIdx = Math.min(1, sourceNodes.length);
+  }
+  const trunkActions = sourceNodes.slice(trunkIdx);
+  const timeoutNodes = noNodes.length ? noNodes : sideNodes;
+  const yesLabel = branchLabels?.yes || "Yes";
+  const noLabel = branchLabels?.no || "No";
+  const hasBranches = branched && (yesNodes.length > 0 || timeoutNodes.length > 0);
+  // Always room for trigger + Add New (2 cols); wider when dual real triggers
+  const flowWidth = triggerNodes.length > 1 ? "max-w-3xl" : "max-w-xl";
+
+  const body = (
+    <div className="relative flex flex-col items-center max-w-4xl mx-auto px-2 py-5 overflow-visible">
+      <div className={`w-full mx-auto flex flex-col items-center overflow-visible ${flowWidth}`}>
+        <GhlTriggerRow
+          triggers={
+            triggerNodes.length
+              ? triggerNodes
+              : [{ label: "Trigger", type: "trigger" }]
+          }
+        />
+
+        {trunkActions.map((n, i) => (
+          <React.Fragment key={`trunk-${i}`}>
+            <GhlPlusConnector />
+            <GhlNode node={n} animateDelay={(i + 1) * 45} />
+          </React.Fragment>
+        ))}
+
+        {hasBranches && (
+          <>
+            <GhlBranchJunction />
+            <div className="w-full grid grid-cols-2 items-stretch">
+              <GhlBranchLane
+                label={yesLabel}
+                tone="yes"
+                nodes={yesNodes}
+                animateBase={0}
+                showMergeStub={mergeTail.length > 0}
+              />
+              <GhlBranchLane
+                label={noLabel}
+                tone="no"
+                nodes={timeoutNodes}
+                animateBase={8}
+                showMergeStub={mergeTail.length > 0}
+              />
+            </div>
+            {mergeTail.length > 0 && (
+              <>
+                <GhlBranchMerge />
+                {mergeTail.map((n, i) => (
+                  <React.Fragment key={`merge-${i}`}>
+                    {i > 0 ? <GhlPlusConnector /> : null}
+                    <GhlNode node={n} animateDelay={(i + 12) * 40} />
+                  </React.Fragment>
+                ))}
+              </>
+            )}
+          </>
+        )}
+
+        {branched &&
+          !hasBranches &&
+          mergeTail.map((n, i) => (
+            <React.Fragment key={`merge-only-${i}`}>
+              <GhlPlusConnector />
+              <GhlNode node={n} animateDelay={(i + 12) * 40} />
+            </React.Fragment>
+          ))}
+      </div>
     </div>
   );
 
@@ -839,7 +1288,7 @@ export function GhlCanvas({ nodes, branched, animateKey, title }) {
         <div
           ref={panRef}
           {...panProps}
-          className={`relative flex-1 overflow-hidden max-h-[300px] sm:max-h-[380px] md:max-h-[500px] touch-none select-none ${
+          className={`relative flex-1 overflow-hidden max-h-[320px] sm:max-h-[420px] md:max-h-[560px] touch-none select-none ${
             isDragging ? "cursor-grabbing" : "cursor-grab"
           }`}
           style={{
@@ -918,10 +1367,12 @@ function layoutN8nGraph({
 }) {
   const placed = [];
   const edges = [];
+  const byKey = {};
   let idSeq = 0;
   const add = (node, x, y) => {
     const id = `n${idSeq++}`;
     placed.push({ id, node, x, y });
+    if (node.key) byKey[node.key] = id;
     return id;
   };
 
@@ -932,42 +1383,88 @@ function layoutN8nGraph({
   };
 
   const lanes = [
-    yesNodes.length && { key: "yes", label: labels.yes, nodes: yesNodes },
-    noNodes.length && { key: "no", label: labels.no, nodes: noNodes },
-    sideNodes.length && { key: "side", label: labels.side, nodes: sideNodes },
+    yesNodes.length > 0 && { key: "yes", label: labels.yes, nodes: yesNodes },
+    // Include an empty false lane when a merge tail exists (false → merge with no nodes)
+    (noNodes.length > 0 ||
+      (mergeTail.length > 0 && yesNodes.length > 0)) && {
+      key: "no",
+      label: labels.no,
+      nodes: noNodes,
+    },
+    sideNodes.length > 0 && { key: "side", label: labels.side, nodes: sideNodes },
   ].filter(Boolean);
 
   const laneCount = Math.max(lanes.length, 1);
   const branchBlockH =
     laneCount * N8N_NODE_H + Math.max(0, laneCount - 1) * N8N_V_LANE;
   const hasAgentSubs = trunk.some((n) => n.subs?.length);
+  const allNodes = [
+    ...trunk,
+    ...yesNodes,
+    ...noNodes,
+    ...sideNodes,
+    ...mergeTail,
+    ...(errorNodes || []),
+  ];
+  const hasLoop = allNodes.some((n) => n.loopBackTo);
   const midY =
-    N8N_PAD + Math.max(0, (branchBlockH - N8N_NODE_H) / 2) + (hasAgentSubs ? 40 : 0);
+    N8N_PAD +
+    Math.max(0, (branchBlockH - N8N_NODE_H) / 2) +
+    (hasAgentSubs ? 72 : 0) +
+    (hasLoop ? 24 : 0);
 
   let x = N8N_PAD;
   let prevId = null;
+  const pendingLoops = [];
 
   const chain = trunk.length ? trunk : [];
-  chain.forEach((node) => {
+  chain.forEach((node, ni) => {
     const id = add(node, x, midY);
     if (prevId) {
-      edges.push({ from: prevId, to: id, label: "1 item", tone: "run" });
+      const fromNode = chain[ni - 1];
+      edges.push({
+        from: prevId,
+        to: id,
+        label: fromNode?.wireLabel || "1 item",
+        meta: fromNode?.wireMeta || null,
+        tone: "run",
+      });
     }
     if (node.subs?.length) {
-      const subY = midY + N8N_NODE_H + 56;
-      const spread = N8N_NODE_W + 36;
-      const startX = x - ((node.subs.length - 1) * spread) / 2;
-      node.subs.forEach((sub, si) => {
-        const sid = add(sub, startX + si * spread, subY);
+      // Attach chat model / parser under agent ports (n8n Tools Agent layout)
+      const subY = midY + N8N_NODE_H + 72;
+      const span = Math.max(N8N_NODE_W + 120, N8N_AGENT_PORTS.length * 52);
+      const left = x + N8N_NODE_W / 2 - span / 2;
+      node.subs.forEach((sub) => {
+        const port = sub.port || "Chat Model";
+        let pi = N8N_AGENT_PORTS.findIndex(
+          (p) => p.toLowerCase() === port.toLowerCase()
+        );
+        if (pi < 0) {
+          if (/model/i.test(port)) pi = 0;
+          else if (/parser/i.test(port)) pi = 3;
+          else pi = 0;
+        }
+        const slotX =
+          left +
+          (pi + 0.5) * (span / N8N_AGENT_PORTS.length) -
+          N8N_NODE_W / 2;
+        const sid = add(sub, slotX, subY);
         edges.push({
           from: id,
           to: sid,
-          label: sub.port || "",
+          label: port,
           tone: "sub",
           fromPort: "bottom",
           toPort: "top",
+          fromAnchorX:
+            x +
+            ((pi + 0.5) / N8N_AGENT_PORTS.length) * N8N_NODE_W,
         });
       });
+    }
+    if (node.loopBackTo) {
+      pendingLoops.push({ fromId: id, toKey: node.loopBackTo });
     }
     prevId = id;
     x += N8N_NODE_W + N8N_H_GAP;
@@ -982,9 +1479,22 @@ function layoutN8nGraph({
     lanes.forEach((lane, li) => {
       let bx = branchStartX;
       const ly = firstLaneY + li * (N8N_NODE_H + N8N_V_LANE);
+      if (!lane.nodes.length) {
+        laneMeta.push({
+          lastId: ifId,
+          endX: branchStartX,
+          empty: true,
+          branchLabel: lane.label,
+          viaY: ly + N8N_NODE_H / 2,
+        });
+        return;
+      }
       let lanePrev = null;
       lane.nodes.forEach((node, ni) => {
         const id = add(node, bx, ly);
+        if (node.loopBackTo) {
+          pendingLoops.push({ fromId: id, toKey: node.loopBackTo });
+        }
         if (ni === 0) {
           edges.push({
             from: ifId,
@@ -998,7 +1508,7 @@ function layoutN8nGraph({
         lanePrev = id;
         bx += N8N_NODE_W + N8N_H_GAP;
       });
-      laneMeta.push({ lastId: lanePrev, endX: bx - N8N_H_GAP });
+      laneMeta.push({ lastId: lanePrev, endX: bx - N8N_H_GAP, empty: false });
     });
 
     if (mergeTail.length && laneMeta.length) {
@@ -1008,7 +1518,14 @@ function layoutN8nGraph({
         const id = add(node, mergeX + i * (N8N_NODE_W + N8N_H_GAP), midY);
         if (i === 0) {
           laneMeta.forEach((l) => {
-            edges.push({ from: l.lastId, to: id, label: "1 item", tone: "merge" });
+            if (!l.lastId) return;
+            edges.push({
+              from: l.lastId,
+              to: id,
+              label: l.empty ? l.branchLabel : "1 item",
+              tone: l.empty ? "branch" : "merge",
+              viaY: l.empty ? l.viaY : undefined,
+            });
           });
         } else {
           edges.push({ from: mergePrev, to: id, label: "1 item", tone: "run" });
@@ -1025,8 +1542,23 @@ function layoutN8nGraph({
     });
   }
 
+  pendingLoops.forEach(({ fromId, toKey }) => {
+    const toId = byKey[toKey];
+    if (toId) {
+      edges.push({
+        from: fromId,
+        to: toId,
+        tone: "loop",
+        fromPort: "bottom",
+        toPort: "bottom",
+        label: "",
+      });
+    }
+  });
+
   let maxX = placed.reduce((m, p) => Math.max(m, p.x + N8N_NODE_W), 0) + N8N_PAD;
   let maxY = placed.reduce((m, p) => Math.max(m, p.y + N8N_NODE_H), 0) + N8N_PAD;
+  if (pendingLoops.length) maxY += 90;
 
   if (errorNodes?.length) {
     const ey = maxY + 36;
@@ -1074,16 +1606,98 @@ function layoutN8nLinear(nodes) {
   return { placed, edges, width: maxX, height: maxY };
 }
 
-function N8nNodeCard({ node, style, animateDelay = 0 }) {
+/** Resolve n8n card icon + optional brand logo (node overrides win). */
+function resolveN8nVisual(node) {
   const meta = nodeMeta(node.type);
-  const Icon = meta.icon;
-  const color = meta.n8nColor;
+  const sub = (node.subtitle || meta.n8nAction || "").toLowerCase();
+  const color = node.n8nColor || meta.n8nColor;
+
+  let iconKey = node.n8nIcon || null;
+  if (!iconKey) {
+    if (/scheduletrigger|cron/.test(sub) || /daily|schedule/i.test(node.label || "")) {
+      iconKey = "clock";
+    } else if (/waitwebhook|^wait$|wait\s/i.test(sub) || /^wait /i.test(node.label || "")) {
+      iconKey = "pause";
+    } else if (/splitinbatches|loop/i.test(sub)) {
+      iconKey = "loop";
+    } else if (/^manual$|edit fields|set /i.test(sub)) {
+      iconKey = "pencil";
+    } else if (
+      /http|get:|post:|put:|patch:|delete:/i.test(sub) ||
+      node.type === "webhook"
+    ) {
+      iconKey = "globe";
+    } else if (
+      /structuredoutputparser|outputparser/i.test(sub) ||
+      node.n8nIcon === "angles"
+    ) {
+      iconKey = "angles";
+    } else if (node.type === "parser" || /^code$/i.test(sub)) {
+      iconKey = "braces";
+    } else if (node.type === "condition") {
+      iconKey = "signpost";
+    } else if (node.type === "openai" || /agent|llm|tools agent|basic llm/i.test(sub)) {
+      iconKey = "bot";
+    } else if (node.type === "trigger") {
+      iconKey = "zap";
+    } else if (node.type === "error") {
+      iconKey = "bug";
+    } else if (node.type === "wait") {
+      iconKey = "pause";
+    } else if (node.type === "action") {
+      iconKey = "pencil";
+    }
+  }
+
+  // Prefer brand n8n mark over HTTP globe when provided
+  if (typeof node.logo === "string") {
+    iconKey = iconKey === "globe" ? null : iconKey;
+  }
+
+  const Icon =
+    (iconKey && N8N_ICON_MAP[iconKey]) || meta.icon || Settings2;
+
+  // Lucide-only node kinds (HTTP, Wait, Set, Code, If, Schedule) — no brand logo.
+  // Brand apps (Slack, Notion, OpenAI, GHL, …) keep TYPE_META.logo unless overridden.
+  const lucideOnly = [
+    "globe",
+    "pause",
+    "pencil",
+    "loop",
+    "braces",
+    "angles",
+    "signpost",
+    "clock",
+    "bug",
+    "bot",
+  ].includes(iconKey);
+
+  let logo = null;
+  if (node.logo === false || node.logo === null) {
+    logo = null;
+  } else if (typeof node.logo === "string") {
+    logo = node.logo;
+  } else if (node.type === "gmail" || node.type === "email") {
+    logo = "/gmail.svg";
+  } else if (!lucideOnly && meta.logo) {
+    logo = meta.logo;
+  }
+
+  return { Icon, color, logo, meta };
+}
+
+function N8nNodeCard({ node, style, animateDelay = 0 }) {
+  const { Icon, color, logo, meta } = resolveN8nVisual(node);
   const isTrigger =
+    node.trigger === true ||
     node.type === "trigger" ||
     node.type === "error" ||
-    /trigger/i.test(node.label || "");
+    /scheduletrigger|errortrigger/i.test(node.subtitle || "");
   const isCondition = node.type === "condition";
-  const subtitle = node.subtitle || meta.n8nAction || meta.label;
+  const subtitle =
+    node.hideSubtitle || node.subtitle === ""
+      ? null
+      : node.subtitle || meta.n8nAction || null;
 
   return (
     <div
@@ -1092,11 +1706,16 @@ function N8nNodeCard({ node, style, animateDelay = 0 }) {
     >
       <div
         className={`relative h-full w-full rounded-lg border bg-[#2d2e32] shadow-[0_4px_16px_rgba(0,0,0,0.35)] px-2.5 py-2 flex items-start gap-2 ${
-          isCondition ? "border-[#7e57c2]/80" : "border-[#40414a]"
+          isCondition ? "" : "border-[#40414a]"
         }`}
+        style={
+          isCondition
+            ? { borderColor: `${color}cc` }
+            : undefined
+        }
       >
         {isTrigger && node.type !== "error" && (
-          <span className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#ff6d5a] text-white flex items-center justify-center shadow z-10">
+          <span className="absolute -left-2 top-1.5 w-4 h-4 rounded-full bg-[#ff6d5a] text-white flex items-center justify-center shadow z-10">
             <Zap className="w-2.5 h-2.5 fill-white" strokeWidth={0} />
           </span>
         )}
@@ -1107,11 +1726,13 @@ function N8nNodeCard({ node, style, animateDelay = 0 }) {
           className="w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
           style={{ background: `${color}22` }}
         >
-          {meta.logo ? (
+          {logo ? (
             <img
-              src={meta.logo}
+              src={logo}
               alt=""
-              className={`w-5 h-5 object-contain ${node.type === "notion" ? "invert" : ""}`}
+              className={`w-5 h-5 object-contain ${
+                node.type === "notion" || node.logoInvert ? "invert" : ""
+              }`}
             />
           ) : (
             <Icon className="w-4 h-4" style={{ color }} strokeWidth={2} />
@@ -1121,7 +1742,9 @@ function N8nNodeCard({ node, style, animateDelay = 0 }) {
           <p className="text-[11px] font-semibold text-zinc-100 leading-snug line-clamp-2">
             {node.label}
           </p>
-          <p className="text-[9px] text-zinc-500 leading-tight mt-0.5 truncate">{subtitle}</p>
+          {subtitle ? (
+            <p className="text-[9px] text-zinc-500 leading-tight mt-0.5 truncate">{subtitle}</p>
+          ) : null}
         </div>
         <span className="absolute -bottom-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#2ecc71] text-white flex items-center justify-center shadow ring-2 ring-[#1a1a1e] z-10">
           <CheckCircle2 className="w-2.5 h-2.5" strokeWidth={3} />
@@ -1136,22 +1759,63 @@ function N8nEdgeLayer({ placed, edges }) {
 
   return (
     <svg className="absolute inset-0 w-full h-full pointer-events-none z-[1] overflow-visible" aria-hidden>
+      <defs>
+        <marker
+          id="n8n-arrow"
+          markerWidth="7"
+          markerHeight="7"
+          refX="6"
+          refY="3.5"
+          orient="auto"
+        >
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="#b0b4bc" />
+        </marker>
+      </defs>
       {edges.map((e, i) => {
         const a = byId[e.from];
         const b = byId[e.to];
         if (!a || !b) return null;
-        const p1 = e.fromPort === "bottom" ? n8nBottom(a) : n8nOut(a);
-        const p2 = e.toPort === "top" ? n8nTop(b) : n8nIn(b);
+        const p1 =
+          e.fromPort === "bottom"
+            ? e.fromAnchorX != null
+              ? { x: e.fromAnchorX, y: a.y + N8N_NODE_H }
+              : n8nBottom(a)
+            : e.fromPort === "top"
+              ? n8nTop(a)
+              : n8nOut(a);
+        const p2 =
+          e.toPort === "top"
+            ? n8nTop(b)
+            : e.toPort === "bottom"
+              ? n8nBottom(b)
+              : n8nIn(b);
         let d;
-        if (e.tone === "sub") {
+        if (e.viaY != null) {
+          const midX = p1.x + Math.max((p2.x - p1.x) * 0.4, 48);
+          d = `M ${p1.x} ${p1.y} L ${midX} ${p1.y} L ${midX} ${e.viaY} L ${p2.x} ${e.viaY} L ${p2.x} ${p2.y}`;
+        } else if (e.tone === "loop") {
+          const y = Math.max(p1.y, p2.y) + 78;
+          d = `M ${p1.x} ${p1.y} L ${p1.x} ${y} L ${p2.x} ${y} L ${p2.x} ${p2.y}`;
+        } else if (e.tone === "sub") {
           const dy = Math.max((p2.y - p1.y) * 0.55, 28);
           d = `M ${p1.x} ${p1.y} C ${p1.x} ${p1.y + dy}, ${p2.x} ${p2.y - dy}, ${p2.x} ${p2.y}`;
         } else {
           d = n8nBezier(p1.x, p1.y, p2.x, p2.y);
         }
-        const stroke = e.tone === "sub" ? "#7a7f88" : N8N_WIRE;
-        const midX = (p1.x + p2.x) / 2;
-        const midY = (p1.y + p2.y) / 2 - (e.tone === "branch" ? 0 : 8);
+        const stroke =
+          e.tone === "sub" ? "#7a7f88" : e.tone === "loop" ? "#8b9099" : "#b0b4bc";
+        const midX =
+          e.viaY != null
+            ? p1.x + Math.max((p2.x - p1.x) * 0.4, 48)
+            : (p1.x + p2.x) / 2;
+        const midY =
+          e.viaY != null
+            ? e.viaY
+            : e.tone === "loop"
+              ? Math.max(p1.y, p2.y) + 78
+              : (p1.y + p2.y) / 2 - (e.tone === "branch" ? 0 : 8);
+
+        const labelW = e.label ? Math.max(24, e.label.length * 6.2) : 0;
 
         return (
           <g key={`${e.from}-${e.to}-${i}`}>
@@ -1159,16 +1823,18 @@ function N8nEdgeLayer({ placed, edges }) {
               d={d}
               fill="none"
               stroke={stroke}
-              strokeWidth="1.75"
+              strokeWidth={e.tone === "loop" ? 1.5 : 1.75}
               strokeLinecap="round"
+              strokeLinejoin="round"
               strokeDasharray={e.tone === "sub" ? "4 4" : undefined}
+              markerEnd={e.tone === "sub" ? undefined : "url(#n8n-arrow)"}
             />
             {e.label && (
               <g transform={`translate(${midX}, ${midY})`}>
                 <rect
-                  x={-Math.max(12, e.label.length * 3.1)}
+                  x={-labelW / 2}
                   y={-6.5}
-                  width={Math.max(24, e.label.length * 6.2)}
+                  width={labelW}
                   height={13}
                   rx={3}
                   fill="#1e1e22"
@@ -1185,6 +1851,18 @@ function N8nEdgeLayer({ placed, edges }) {
                   {e.label}
                 </text>
               </g>
+            )}
+            {e.meta && (
+              <text
+                x={midX}
+                y={midY + 14}
+                textAnchor="middle"
+                fill="#a1a1aa"
+                fontSize="8"
+                fontFamily="ui-sans-serif, system-ui, sans-serif"
+              >
+                {e.meta}
+              </text>
             )}
           </g>
         );
@@ -1363,6 +2041,7 @@ function MakeModule({ node, version, animateDelay = 0 }) {
   const meta = nodeMeta(node.type);
   const Icon = meta.icon;
   const color = meta.makeColor || meta.color;
+  const logo = typeof node.logo === "string" ? node.logo : meta.logo;
 
   return (
     <div
@@ -1380,13 +2059,13 @@ function MakeModule({ node, version, animateDelay = 0 }) {
           className="w-[58px] h-[58px] rounded-full flex items-center justify-center"
           style={{ background: `${color}14` }}
         >
-          {meta.logo ? (
-            <img src={meta.logo} alt="" className="w-8 h-8 object-contain" />
+          {logo ? (
+            <img src={logo} alt="" className="w-8 h-8 object-contain" />
           ) : (
             <Icon className="w-8 h-8" style={{ color }} strokeWidth={2} />
           )}
         </div>
-        {node.type === "gmail" && (
+        {(node.type === "gmail" || node.type === "email") && /trigger|watch/i.test(node.sublabel || node.label || "") && (
           <span className="absolute -bottom-0.5 -left-0.5 w-5 h-5 rounded-full bg-white border border-zinc-200 flex items-center justify-center shadow">
             <Clock className="w-3 h-3 text-zinc-500" />
           </span>
