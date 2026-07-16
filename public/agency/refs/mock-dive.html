@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1440px; height: 900px; overflow: hidden;
+      font-family: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+      color: #0c4a6e; background: #f0f9ff;
+    }
+    .nav {
+      height: 64px; background: #0c4a6e; color: #fff;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand .mark {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #67e8f9, #0284c7);
+    }
+    .brand b { display: block; font-size: 14px; letter-spacing: 0.04em; }
+    .brand span { font-size: 11px; opacity: 0.8; }
+    .nav ul { display: flex; gap: 22px; list-style: none; font-size: 12px; font-weight: 700; }
+    .nav .book {
+      background: #22d3ee; color: #0c4a6e; border-radius: 10px; padding: 10px 16px;
+      font-size: 12px; font-weight: 800;
+    }
+    .hero {
+      display: grid; grid-template-columns: 1.25fr 0.75fr; height: 380px;
+    }
+    .hero-media { position: relative; overflow: hidden; color: #fff; }
+    .hero-media > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-media .shade {
+      position: absolute; inset: 0;
+      background: linear-gradient(100deg, rgba(12,74,110,0.78) 0%, rgba(8,47,73,0.3) 60%, transparent 100%);
+    }
+    .hero-copy {
+      position: absolute; left: 40px; top: 56px; z-index: 2; max-width: 520px;
+    }
+    .hero-copy .pill {
+      display: inline-block; background: rgba(34,211,238,0.2); border: 1px solid rgba(34,211,238,0.5);
+      border-radius: 999px; padding: 6px 12px; font-size: 11px; font-weight: 700; margin-bottom: 14px; color: #a5f3fc;
+    }
+    .hero-copy h1 {
+      font-family: Georgia, serif; font-size: 48px; line-height: 1.05; margin-bottom: 12px;
+    }
+    .hero-copy p { font-size: 14px; line-height: 1.45; max-width: 420px; opacity: 0.95; margin-bottom: 18px; }
+    .hero-copy .btns { display: flex; gap: 10px; }
+    .hero-copy button {
+      border: 0; border-radius: 10px; padding: 12px 16px; font-size: 13px; font-weight: 800;
+    }
+    .hero-copy .primary { background: #22d3ee; color: #0c4a6e; }
+    .hero-copy .ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.65); }
+    .book-panel {
+      background: #fff; padding: 26px 24px; border-left: 1px solid #bae6fd;
+      display: flex; flex-direction: column;
+    }
+    .book-panel h2 {
+      font-family: Georgia, serif; font-size: 24px; color: #0c4a6e; margin-bottom: 4px;
+    }
+    .book-panel .sub { font-size: 12px; color: #0369a1; margin-bottom: 16px; }
+    .slots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .slot {
+      border: 1px solid #bae6fd; border-radius: 10px; padding: 10px; font-size: 12px; font-weight: 700; color: #0c4a6e;
+      background: #f0f9ff; text-align: center;
+    }
+    .slot.active { background: #0c4a6e; color: #fff; border-color: #0c4a6e; }
+    .field { margin-bottom: 10px; }
+    .field label { display: block; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #0369a1; margin-bottom: 5px; }
+    .field .box {
+      border: 1px solid #7dd3fc; border-radius: 10px; padding: 11px 12px; font-size: 13px; background: #f0f9ff;
+    }
+    .book-panel .go {
+      margin-top: auto; width: 100%; border: 0; border-radius: 10px;
+      background: #0284c7; color: #fff; font-weight: 800; font-size: 13px; padding: 13px;
+    }
+    .packages {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      padding: 22px 40px 16px;
+    }
+    .pkg {
+      background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #bae6fd;
+      box-shadow: 0 8px 22px rgba(12,74,110,0.08);
+    }
+    .pkg img { width: 100%; height: 130px; object-fit: cover; display: block; }
+    .pkg .body { padding: 14px 14px 16px; }
+    .pkg .tag {
+      display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.08em;
+      color: #0369a1; background: #e0f2fe; border-radius: 999px; padding: 4px 8px; margin-bottom: 8px;
+    }
+    .pkg h3 { font-family: Georgia, serif; font-size: 17px; margin-bottom: 6px; }
+    .pkg p { font-size: 12px; color: #64748b; line-height: 1.35; margin-bottom: 12px; }
+    .pkg .row { display: flex; justify-content: space-between; align-items: center; }
+    .pkg .price { font-weight: 800; color: #0c4a6e; }
+    .pkg a { font-size: 11px; font-weight: 800; color: #0284c7; text-decoration: none; }
+    .footer {
+      margin: 0 40px; border-radius: 14px; background: #0c4a6e; color: #fff;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px 20px;
+    }
+    .footer b { display: block; font-size: 13px; margin-bottom: 2px; }
+    .footer span { font-size: 11px; opacity: 0.85; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">
+      <div class="mark"></div>
+      <div><b>AZURE DIVE SHOP</b><span>PADI Center · Philippines</span></div>
+    </div>
+    <ul>
+      <li>COURSES</li><li>FUN DIVES</li><li>GEAR RENTAL</li><li>CERTIFICATIONS</li>
+    </ul>
+    <div class="book">BOOK A DIVE</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-media">
+      <img src="./dive-1.jpg" alt="Scuba diving" />
+      <div class="shade"></div>
+      <div class="hero-copy">
+        <div class="pill">DISCOVER · OPEN WATER · ADVANCED</div>
+        <h1>Dive the Philippines with certified pros</h1>
+        <p>Reef dives, wreck sites, and PADI courses — gear included, small groups, and daily boat departures.</p>
+        <div class="btns">
+          <button class="primary">VIEW PACKAGES</button>
+          <button class="ghost">COURSE GUIDE</button>
+        </div>
+      </div>
+    </div>
+    <aside class="book-panel">
+      <h2>Book a dive day</h2>
+      <p class="sub">Select date · Choose package · Confirm slot</p>
+      <div class="slots">
+        <div class="slot">Aug 16 · AM</div>
+        <div class="slot active">Aug 16 · PM</div>
+        <div class="slot">Aug 17 · AM</div>
+        <div class="slot">Aug 17 · PM</div>
+      </div>
+      <div class="field"><label>PACKAGE</label><div class="box">2-Tank Fun Dive · Gear included</div></div>
+      <div class="field"><label>DIVERS</label><div class="box">2 Certified divers</div></div>
+      <button class="go">RESERVE · ₱3,200 / diver</button>
+    </aside>
+  </section>
+
+  <section class="packages">
+    <article class="pkg">
+      <img src="./dive-2.jpg" alt="Discover Scuba" />
+      <div class="body">
+        <span class="tag">BEGINNER</span>
+        <h3>Discover Scuba</h3>
+        <p>First-time divers with instructor — pool intro + shallow reef.</p>
+        <div class="row"><div class="price">₱4,500</div><a href="#">BOOK →</a></div>
+      </div>
+    </article>
+    <article class="pkg">
+      <img src="./dive-1.jpg" alt="Fun Dive" />
+      <div class="body">
+        <span class="tag">FUN DIVE</span>
+        <h3>2-Tank Fun Dive</h3>
+        <p>Boat dive for certified divers — walls, reefs &amp; marine life.</p>
+        <div class="row"><div class="price">₱3,200</div><a href="#">BOOK →</a></div>
+      </div>
+    </article>
+    <article class="pkg">
+      <img src="./dive-3.jpg" alt="Open Water" />
+      <div class="body">
+        <span class="tag">CERTIFICATION</span>
+        <h3>Open Water Course</h3>
+        <p>Full PADI Open Water — theory, confined water &amp; open dives.</p>
+        <div class="row"><div class="price">₱18,900</div><a href="#">ENROLL →</a></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="footer">
+    <div><b>PADI 5★ IDC</b><span>Certified instructors on staff</span></div>
+    <div><b>Gear included</b><span>BCD, regulator, wetsuit &amp; tanks</span></div>
+    <div><b>Daily departures</b><span>AM &amp; PM boat schedules</span></div>
+    <div><b>Nitrox available</b><span>For advanced / Enriched Air divers</span></div>
+  </section>
+</body>
+</html>

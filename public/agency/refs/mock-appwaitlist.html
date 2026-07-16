@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1440px; height: 900px; overflow: hidden;
+      font-family: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+      color: #0f172a; background: #f8fafc;
+    }
+    .shell {
+      height: 100%;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(45,212,191,0.35), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 100% 60%, rgba(14,165,233,0.2), transparent 55%),
+        linear-gradient(180deg, #ecfeff 0%, #f8fafc 45%, #f1f5f9 100%);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 48px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: 0.08em; font-size: 13px; }
+    .logo .orb {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: conic-gradient(from 180deg, #2dd4bf, #0ea5e9, #6366f1, #2dd4bf);
+      box-shadow: 0 0 24px rgba(45,212,191,0.45);
+    }
+    .nav ul { display: flex; gap: 24px; list-style: none; font-size: 12px; font-weight: 700; color: #475569; letter-spacing: 0.05em; }
+    .nav .ghost {
+      border: 1px solid #cbd5e1; border-radius: 999px; padding: 10px 16px;
+      font-size: 11px; font-weight: 800; color: #0f172a;
+    }
+    .hero {
+      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px;
+      padding: 20px 48px 0; align-items: center;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(15,23,42,0.06); border: 1px solid rgba(15,23,42,0.08);
+      border-radius: 999px; padding: 8px 14px; font-size: 11px; font-weight: 800;
+      letter-spacing: 0.12em; color: #0f766e; margin-bottom: 18px;
+    }
+    .pill i { width: 7px; height: 7px; border-radius: 50%; background: #14b8a6; box-shadow: 0 0 10px #14b8a6; }
+    h1 {
+      font-size: 58px; line-height: 1.02; font-weight: 900; letter-spacing: -0.04em; margin-bottom: 16px;
+    }
+    h1 span {
+      background: linear-gradient(90deg, #0d9488, #0284c7);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .lead { font-size: 16px; color: #64748b; max-width: 480px; line-height: 1.55; margin-bottom: 28px; }
+    .form {
+      background: rgba(255,255,255,0.75); border: 1px solid rgba(148,163,184,0.35);
+      border-radius: 20px; padding: 10px; display: flex; gap: 8px;
+      box-shadow: 0 20px 50px rgba(15,23,42,0.08); backdrop-filter: blur(12px);
+      max-width: 520px; margin-bottom: 18px;
+    }
+    .form input {
+      flex: 1; border: 0; background: transparent; padding: 14px 16px;
+      font-size: 14px; outline: none; color: #0f172a;
+    }
+    .form button {
+      border: 0; border-radius: 14px; padding: 14px 22px;
+      background: linear-gradient(90deg, #0d9488, #0284c7); color: #fff;
+      font-weight: 800; font-size: 13px; letter-spacing: 0.04em;
+      box-shadow: 0 10px 28px rgba(13,148,136,0.35);
+    }
+    .note { font-size: 12px; color: #94a3b8; margin-bottom: 28px; }
+    .note b { color: #0f766e; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 520px; }
+    .feat {
+      background: rgba(255,255,255,0.7); border: 1px solid rgba(148,163,184,0.25);
+      border-radius: 16px; padding: 14px;
+    }
+    .feat b { display: block; font-size: 13px; margin-bottom: 4px; }
+    .feat span { font-size: 11px; color: #64748b; line-height: 1.35; }
+    .phone-wrap {
+      position: relative; height: 620px; display: grid; place-items: center;
+    }
+    .glow {
+      position: absolute; width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,212,191,0.45), transparent 70%);
+      filter: blur(10px);
+    }
+    .phone {
+      position: relative; width: 300px; height: 580px; border-radius: 40px;
+      background: #0f172a; padding: 12px;
+      box-shadow: 0 40px 80px rgba(15,23,42,0.35), 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .phone-inner {
+      height: 100%; border-radius: 30px; overflow: hidden; background: #020617;
+      position: relative;
+    }
+    .phone-inner img { width: 100%; height: 55%; object-fit: cover; display: block; opacity: 0.85; }
+    .ui {
+      position: absolute; left: 0; right: 0; bottom: 0; top: 48%;
+      background: linear-gradient(180deg, transparent, #020617 18%);
+      padding: 40px 18px 22px;
+    }
+    .ui .live {
+      display: inline-flex; gap: 6px; align-items: center;
+      background: rgba(20,184,166,0.15); border: 1px solid rgba(45,212,191,0.4);
+      color: #5eead4; border-radius: 999px; padding: 5px 10px; font-size: 10px; font-weight: 800;
+      letter-spacing: 0.08em; margin-bottom: 12px;
+    }
+    .ui h3 { font-size: 22px; color: #f8fafc; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .ui p { font-size: 11px; color: #94a3b8; line-height: 1.4; margin-bottom: 16px; }
+    .progress {
+      height: 8px; border-radius: 999px; background: rgba(148,163,184,0.2); margin-bottom: 8px; overflow: hidden;
+    }
+    .progress i {
+      display: block; width: 68%; height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+      box-shadow: 0 0 12px rgba(45,212,191,0.6);
+    }
+    .ui .pct { font-size: 11px; color: #67e8f9; font-weight: 700; margin-bottom: 14px; }
+    .ui .slots {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .ui .slot {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 12px; padding: 10px; color: #e2e8f0;
+    }
+    .ui .slot b { display: block; font-size: 14px; margin-bottom: 2px; }
+    .ui .slot span { font-size: 10px; color: #64748b; }
+    .float {
+      position: absolute; right: 40px; top: 90px;
+      background: rgba(255,255,255,0.9); border: 1px solid rgba(148,163,184,0.3);
+      border-radius: 16px; padding: 14px 16px; box-shadow: 0 16px 40px rgba(15,23,42,0.12);
+      width: 190px;
+    }
+    .float b { display: block; font-size: 12px; margin-bottom: 4px; }
+    .float span { font-size: 11px; color: #64748b; }
+    .float .num { font-size: 28px; font-weight: 900; color: #0d9488; margin: 6px 0 2px; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="logo"><div class="orb"></div>NOVAFLOW</div>
+      <ul><li>PRODUCT</li><li>FEATURES</li><li>PRICING</li><li>MANIFESTO</li></ul>
+      <div class="ghost">SIGN IN</div>
+    </nav>
+    <section class="hero">
+      <div>
+        <div class="pill"><i></i> EARLY ACCESS · INVITE ONLY</div>
+        <h1>The OS for<br/><span>creator workflows</span></h1>
+        <p class="lead">Join the waitlist for a futuristic productivity app that syncs ideas, content calendars, and automations in one cinematic workspace.</p>
+        <div class="form">
+          <input type="text" value="you@studio.com" readonly />
+          <button>JOIN WAITLIST</button>
+        </div>
+        <p class="note"><b>12,480</b> creators ahead of you · Launching Q3</p>
+        <div class="features">
+          <div class="feat"><b>AI briefs</b><span>Auto outline from a single prompt</span></div>
+          <div class="feat"><b>Live sync</b><span>Team timelines in realtime</span></div>
+          <div class="feat"><b>Ship mode</b><span>One-click publish pipelines</span></div>
+        </div>
+      </div>
+      <div class="phone-wrap">
+        <div class="glow"></div>
+        <div class="float">
+          <b>Waitlist velocity</b>
+          <div class="num">+842</div>
+          <span>signups this week</span>
+        </div>
+        <div class="phone">
+          <div class="phone-inner">
+            <img src="./app-1.jpg" alt="App preview" />
+            <div class="ui">
+              <div class="live">● BETA BUILD 0.9</div>
+              <h3>NovaFlow Mobile</h3>
+              <p>Your creator OS — ideas, drafts, and ships in one flow.</p>
+              <div class="progress"><i></i></div>
+              <div class="pct">68% to public launch</div>
+              <div class="slots">
+                <div class="slot"><b>Priority</b><span>Founders tier</span></div>
+                <div class="slot"><b>Invite</b><span>3 referrals</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

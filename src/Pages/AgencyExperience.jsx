@@ -223,10 +223,12 @@ const AccordionSection = ({ section, isOpen, onToggle }) => {
                 responsibilities={section.responsibilities}
                 technologies={section.technologies}
                 showcaseLabel="Funnels & Sites Showcase"
+                autoPlay={false}
+                showCarouselNav={false}
                 highlight={{
-                  value: "50+",
+                  value: "70+",
                   label: "Funnels & websites built",
-                  note: "40+ industry verticals - Solar, Healthcare, Coaching, Real Estate, Fitness, Legal, Spa, Dental, Restaurant, Ecommerce, Auto, Insurance, Pets, Education, Accounting, Wedding, Mortgage, SaaS, Cleaning, Photography, Chiropractic, Interior Design, HVAC, Landscaping, Therapy, Daycare, Roofing, MedSpa, Barbershop, Yoga, Moving, Senior Care, Martial Arts, Bakery, PC Tech, Coffee Shop, Palawan Tourism & more",
+                  note: "40+ industry verticals - Solar, Healthcare, Coaching, Real Estate, Fitness, Legal, Spa, Dental, Restaurant, Ecommerce, Auto, Insurance, Pets, Education, Accounting, Wedding, Mortgage, SaaS, Cleaning, Photography, Chiropractic, Interior Design, HVAC, Landscaping, Therapy, Daycare, Roofing, MedSpa, Barbershop, Yoga, Moving, Senior Care, Martial Arts, Bakery, PC Tech, Coffee Shop, PH Tourism, Podcast Studios, YouTube Agencies, App Waitlists, NFT Creative Studios & more",
                 }}
               />
             ) : section.id === "integrations" && section.screenshots?.length ? (

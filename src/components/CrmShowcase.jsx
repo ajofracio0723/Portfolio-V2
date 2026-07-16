@@ -7,6 +7,8 @@ export default function CrmShowcase({
   technologies = [],
   showcaseLabel = "Live CRM Screens",
   highlight = null,
+  autoPlay = true,
+  showCarouselNav = true,
 }) {
   const [index, setIndex] = useState(0);
   const [lightbox, setLightbox] = useState(false);
@@ -18,16 +20,16 @@ export default function CrmShowcase({
   }, []);
 
   useEffect(() => {
-    if (lightbox || screenshots.length < 2) return undefined;
+    if (!autoPlay || lightbox || screenshots.length < 2) return undefined;
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % screenshots.length);
     }, 4500);
     return () => window.clearInterval(id);
-  }, [screenshots.length, lightbox]);
+  }, [autoPlay, screenshots.length, lightbox]);
 
   // Prefetch adjacent slides so next/prev feels instant
   useEffect(() => {
-    if (screenshots.length < 2) return undefined;
+    if (!showCarouselNav || screenshots.length < 2) return undefined;
     const next = screenshots[(index + 1) % screenshots.length];
     const prev = screenshots[(index - 1 + screenshots.length) % screenshots.length];
     [next, prev].forEach((s) => {
@@ -35,7 +37,7 @@ export default function CrmShowcase({
       img.src = `/agency/${s.file}`;
     });
     return undefined;
-  }, [index, screenshots]);
+  }, [showCarouselNav, index, screenshots]);
 
   const shot = screenshots[index];
   if (!shot) return null;
@@ -88,26 +90,28 @@ export default function CrmShowcase({
             <p className="text-xs uppercase tracking-wider text-indigo-400/80 font-medium">
               {showcaseLabel}
             </p>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() =>
-                  setIndex((i) => (i - 1 + screenshots.length) % screenshots.length)
-                }
-                className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white transition-colors"
-                aria-label="Previous screenshot"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setIndex((i) => (i + 1) % screenshots.length)}
-                className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white transition-colors"
-                aria-label="Next screenshot"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+            {showCarouselNav && (
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setIndex((i) => (i - 1 + screenshots.length) % screenshots.length)
+                  }
+                  className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white transition-colors"
+                  aria-label="Previous screenshot"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIndex((i) => (i + 1) % screenshots.length)}
+                  className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white transition-colors"
+                  aria-label="Next screenshot"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
           </div>
 
           <button
@@ -135,19 +139,21 @@ export default function CrmShowcase({
             </div>
           </button>
 
-          <div className="flex justify-center gap-2 mt-3">
-            {screenshots.map((s, i) => (
-              <button
-                key={s.file}
-                type="button"
-                onClick={() => setIndex(i)}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === index ? "w-6 bg-indigo-400" : "w-1.5 bg-white/20 hover:bg-white/40"
-                }`}
-                aria-label={`Show ${s.title}`}
-              />
-            ))}
-          </div>
+          {showCarouselNav && (
+            <div className="flex justify-center gap-2 mt-3">
+              {screenshots.map((s, i) => (
+                <button
+                  key={s.file}
+                  type="button"
+                  onClick={() => setIndex(i)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === index ? "w-6 bg-indigo-400" : "w-1.5 bg-white/20 hover:bg-white/40"
+                  }`}
+                  aria-label={`Show ${s.title}`}
+                />
+              ))}
+            </div>
+          )}
 
           <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-[220px] overflow-y-auto pr-1 custom-crm-scroll">
             {showThumbs &&

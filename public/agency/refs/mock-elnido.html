@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1440px; height: 900px; overflow: hidden;
+      font-family: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+      color: #134e4a; background: #ecfdf5;
+    }
+    .hero {
+      position: relative; height: 420px; color: #fff;
+    }
+    .hero > img { width: 100%; height: 100%; object-fit: cover; display: block; object-position: center 55%; }
+    .hero .shade {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(120deg, rgba(6,78,59,0.72) 0%, rgba(6,78,59,0.25) 50%, rgba(15,23,42,0.35) 100%),
+        linear-gradient(to top, rgba(6,78,59,0.55), transparent 45%);
+    }
+    .nav {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 3;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px;
+    }
+    .logo {
+      font-family: Georgia, serif; font-size: 22px; font-weight: 500; letter-spacing: 0.02em;
+    }
+    .logo span { display: block; font-size: 10px; letter-spacing: 0.18em; font-family: "Segoe UI", sans-serif; font-weight: 700; opacity: 0.85; }
+    .nav ul { display: flex; gap: 22px; list-style: none; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; }
+    .nav .book {
+      background: #fff; color: #065f46; border-radius: 999px; padding: 10px 18px;
+      font-size: 12px; font-weight: 800; letter-spacing: 0.04em;
+    }
+    .hero-copy {
+      position: absolute; left: 48px; bottom: 48px; z-index: 2; max-width: 620px;
+    }
+    .eyebrow {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.16em; margin-bottom: 10px; opacity: 0.9;
+    }
+    .hero-copy h1 {
+      font-family: Georgia, serif; font-size: 56px; line-height: 1; font-weight: 500; margin-bottom: 12px;
+    }
+    .hero-copy p { font-size: 15px; max-width: 460px; line-height: 1.45; opacity: 0.95; margin-bottom: 18px; }
+    .cta-row { display: flex; gap: 12px; }
+    .cta {
+      background: #10b981; color: #fff; border: 0; border-radius: 10px;
+      padding: 12px 18px; font-size: 13px; font-weight: 800; letter-spacing: 0.04em;
+    }
+    .cta.ghost {
+      background: transparent; border: 1px solid rgba(255,255,255,0.7); color: #fff;
+    }
+    .bar {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      background: #fff; margin: -36px 40px 0; position: relative; z-index: 4;
+      border-radius: 16px; box-shadow: 0 16px 40px rgba(6,78,59,0.12); overflow: hidden;
+    }
+    .bar .cell {
+      padding: 18px 20px; border-right: 1px solid #e2e8f0;
+    }
+    .bar .cell:last-child { border-right: 0; background: #065f46; color: #fff; }
+    .bar .cell label { display: block; font-size: 10px; letter-spacing: 0.1em; font-weight: 700; color: #64748b; margin-bottom: 6px; }
+    .bar .cell:last-child label { color: #a7f3d0; }
+    .bar .cell b { font-size: 14px; color: #134e4a; }
+    .bar .cell:last-child b { color: #fff; display: block; margin-bottom: 8px; }
+    .bar .cell button {
+      width: 100%; border: 0; border-radius: 8px; background: #10b981; color: #fff;
+      font-weight: 800; font-size: 12px; padding: 10px;
+    }
+    .rooms {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+      padding: 28px 40px 20px;
+    }
+    .room {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      border: 1px solid #d1fae5; box-shadow: 0 8px 24px rgba(6,78,59,0.08);
+    }
+    .room img { width: 100%; height: 150px; object-fit: cover; display: block; }
+    .room .body { padding: 14px 16px 16px; }
+    .room .tag {
+      display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.08em;
+      color: #059669; background: #d1fae5; border-radius: 999px; padding: 4px 8px; margin-bottom: 8px;
+    }
+    .room h3 { font-family: Georgia, serif; font-size: 18px; margin-bottom: 6px; }
+    .room p { font-size: 12px; color: #64748b; line-height: 1.4; margin-bottom: 12px; }
+    .room .meta { display: flex; justify-content: space-between; align-items: center; }
+    .room .price { font-size: 14px; font-weight: 800; color: #065f46; }
+    .room .price span { font-size: 11px; font-weight: 600; color: #64748b; }
+    .room a {
+      font-size: 11px; font-weight: 800; color: #059669; text-decoration: none; letter-spacing: 0.04em;
+    }
+    .perk {
+      margin: 0 40px; border-radius: 14px; background: #065f46; color: #fff;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px 20px;
+    }
+    .perk b { display: block; font-size: 13px; margin-bottom: 2px; }
+    .perk span { font-size: 11px; opacity: 0.85; }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <img src="./elnido-2.jpg" alt="El Nido resort" />
+    <div class="shade"></div>
+    <nav class="nav">
+      <div class="logo">
+        <span>EL NIDO · PALAWAN</span>
+        Lagoon Bay Resort
+      </div>
+      <ul>
+        <li>STAY</li><li>DINING</li><li>EXCURSIONS</li><li>WELLNESS</li><li>GALLERY</li>
+      </ul>
+      <div class="book">CHECK AVAILABILITY</div>
+    </nav>
+    <div class="hero-copy">
+      <div class="eyebrow">LUXURY ISLAND RESORT</div>
+      <h1>Wake up to limestone lagoons</h1>
+      <p>Beachfront villas, private island tours, and sunset dining on Bacuit Bay — book your El Nido escape.</p>
+      <div class="cta-row">
+        <button class="cta">BOOK YOUR STAY</button>
+        <button class="cta ghost">VIEW VILLAS</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="bar">
+    <div class="cell"><label>CHECK-IN</label><b>Fri, Aug 14</b></div>
+    <div class="cell"><label>CHECK-OUT</label><b>Mon, Aug 17</b></div>
+    <div class="cell"><label>GUESTS</label><b>2 Adults · 1 Villa</b></div>
+    <div class="cell">
+      <label>RESERVE</label>
+      <b>From ₱12,800 / night</b>
+      <button>Search Rooms</button>
+    </div>
+  </section>
+
+  <section class="rooms">
+    <article class="room">
+      <img src="./elnido-1.jpg" alt="Garden Villa" />
+      <div class="body">
+        <span class="tag">GARDEN</span>
+        <h3>Garden Villa</h3>
+        <p>King bed, outdoor shower, and tropical garden privacy.</p>
+        <div class="meta"><div class="price">₱12,800 <span>/ night</span></div><a href="#">BOOK →</a></div>
+      </div>
+    </article>
+    <article class="room">
+      <img src="./elnido-2.jpg" alt="Lagoon Suite" />
+      <div class="body">
+        <span class="tag">LAGOON VIEW</span>
+        <h3>Lagoon Suite</h3>
+        <p>Panoramic bay windows with limestone cliff views.</p>
+        <div class="meta"><div class="price">₱18,500 <span>/ night</span></div><a href="#">BOOK →</a></div>
+      </div>
+    </article>
+    <article class="room">
+      <img src="./elnido-3.jpg" alt="Overwater" />
+      <div class="body">
+        <span class="tag">PREMIUM</span>
+        <h3>Overwater Pavilion</h3>
+        <p>Private deck, breakfast included, island-hopping credit.</p>
+        <div class="meta"><div class="price">₱24,900 <span>/ night</span></div><a href="#">BOOK →</a></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="perk">
+    <div><b>Daily breakfast</b><span>Local &amp; international buffet</span></div>
+    <div><b>Island tours</b><span>A/B/C/D routes arranged</span></div>
+    <div><b>Airport transfer</b><span>Lio Airport pickup available</span></div>
+    <div><b>Free cancellation</b><span>Up to 72 hours before arrival</span></div>
+  </section>
+</body>
+</html>

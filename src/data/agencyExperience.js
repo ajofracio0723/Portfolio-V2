@@ -2,7 +2,7 @@ export const agencyStats = [
   { value: "5+", label: "Years GoHighLevel Experience" },
   { value: "20+", label: "Client Sub-Accounts Managed" },
   { value: "100+", label: "Workflows & Automations Built" },
-  { value: "50+", label: "Funnels & Websites" },
+  { value: "70+", label: "Funnels & Websites" },
   { value: "20+", label: "Third-Party Integrations" },
   { value: "100+", label: "CRM Optimizations" },
 ];
@@ -401,6 +401,51 @@ export const agencySections = [
         file: "funnel-bohol.png",
         title: "Bohol Destination Guide",
         caption: "Map, Chocolate Hills, best places & how to get there",
+      },
+      {
+        file: "funnel-baguio.png",
+        title: "Baguio Destination Guide",
+        caption: "City of Pines map, Burnham Park, Mines View & travel tips",
+      },
+      {
+        file: "funnel-cebu.png",
+        title: "Cebu Tourism Site",
+        caption: "Queen City tours, Mactan beaches & heritage trail booking",
+      },
+      {
+        file: "funnel-elnido.png",
+        title: "El Nido Resort Booking",
+        caption: "Luxury lagoon resort villas with stay availability search",
+      },
+      {
+        file: "funnel-manilafood.png",
+        title: "Manila Food Tour Site",
+        caption: "Binondo, Quiapo & Poblacion guided tasting tour booking",
+      },
+      {
+        file: "funnel-diveshop.png",
+        title: "Dive Shop Booking Site",
+        caption: "PADI courses, fun dives & gear packages with slot booking",
+      },
+      {
+        file: "funnel-podcast.png",
+        title: "Podcast Studio Site",
+        caption: "Futuristic recording studio with session booking & live meters",
+      },
+      {
+        file: "funnel-youtubeagency.png",
+        title: "YouTube Growth Agency",
+        caption: "Cinematic creator ops — editing, thumbnails & retention systems",
+      },
+      {
+        file: "funnel-appwaitlist.png",
+        title: "App Waitlist Landing",
+        caption: "Modern SaaS early-access waitlist with mobile product preview",
+      },
+      {
+        file: "funnel-nftstudio.png",
+        title: "NFT Creative Studio",
+        caption: "Generative art drops, gallery & wallet-connect mint experience",
       },
       {
         file: "funnel-languageschool.png",
@@ -804,7 +849,7 @@ export const agencySections = [
 export const agencyAchievements = [
   "Managed 20+ GoHighLevel Sub-Accounts",
   "Built 100+ Automations",
-  "Built 50+ Websites & Funnels",
+  "Built 70+ Websites & Funnels",
   "Configured 20+ Integrations",
   "Managed A2P Registrations",
   "Built AI-assisted Websites",

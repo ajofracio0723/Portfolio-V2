@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1440px; height: 900px; overflow: hidden;
+      font-family: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+      color: #1e293b; background: #f1f5f9;
+    }
+    .topnav {
+      height: 64px; background: #fff; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 36px; border-bottom: 1px solid #e2e8f0;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand .icon { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #0f766e, #5eead4); }
+    .brand b { display: block; font-size: 13px; letter-spacing: 0.04em; }
+    .brand span { font-family: Georgia, serif; font-style: italic; color: #0f766e; font-size: 12px; }
+    .topnav ul { display: flex; gap: 18px; list-style: none; font-size: 12px; font-weight: 600; color: #334155; }
+    .topnav ul li.active { color: #0f766e; border-bottom: 2px solid #0f766e; padding-bottom: 2px; }
+    .utils { display: flex; gap: 14px; align-items: center; font-size: 12px; color: #475569; font-weight: 600; }
+    .hero { position: relative; height: 340px; color: #fff; }
+    .hero > img { width: 100%; height: 100%; object-fit: cover; display: block; object-position: center 40%; }
+    .hero .shade {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(15,23,42,0.82) 0%, rgba(15,118,110,0.45) 55%, rgba(15,23,42,0.25) 100%);
+    }
+    .hero-inner {
+      position: absolute; inset: 0; display: grid; grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px; padding: 28px 36px;
+    }
+    .hero-copy h1 { font-size: 42px; line-height: 1.05; font-weight: 800; margin-bottom: 10px; }
+    .hero-copy h1 em { font-style: normal; color: #5eead4; }
+    .hero-copy p { font-size: 14px; max-width: 480px; opacity: 0.92; margin-bottom: 16px; line-height: 1.45; }
+    .quick { display: flex; gap: 10px; flex-wrap: wrap; }
+    .quick span {
+      background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px; padding: 8px 12px; font-size: 11px; font-weight: 600;
+    }
+    .map-card {
+      align-self: center; justify-self: end; width: 360px;
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    }
+    .map-card .map { height: 150px; position: relative; overflow: hidden; }
+    .map-card .map img { width: 100%; height: 100%; object-fit: cover; }
+    .map-card .about { background: #0f766e; color: #fff; padding: 14px 16px; }
+    .map-card .about h3 { font-size: 14px; margin-bottom: 6px; }
+    .map-card .about p { font-size: 11px; opacity: 0.9; line-height: 1.4; margin-bottom: 10px; }
+    .map-card .about a {
+      display: inline-block; background: #fff; color: #0f766e;
+      font-size: 11px; font-weight: 700; padding: 7px 12px; border-radius: 8px; text-decoration: none;
+    }
+    .pin {
+      position: absolute; background: #f43f5e; color: #fff; font-size: 10px; font-weight: 700;
+      padding: 4px 8px; border-radius: 999px;
+    }
+    .content {
+      display: grid; grid-template-columns: 1.15fr 0.95fr 0.95fr; gap: 16px;
+      padding: 18px 36px 16px;
+    }
+    .col h2 {
+      font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: #0f766e; margin-bottom: 10px; display: flex; justify-content: space-between;
+    }
+    .col h2 a { color: #64748b; text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 11px; text-decoration: none; }
+    .dest-card {
+      background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid #e2e8f0;
+      margin-bottom: 10px; display: grid; grid-template-columns: 110px 1fr;
+    }
+    .dest-card img { width: 110px; height: 86px; object-fit: cover; }
+    .dest-card .body { padding: 10px 12px; position: relative; }
+    .badge {
+      position: absolute; left: -102px; top: 8px; width: 22px; height: 22px; border-radius: 50%;
+      background: #0f766e; color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center;
+    }
+    .dest-card h3 { font-size: 13px; margin-bottom: 4px; }
+    .dest-card p { font-size: 11px; color: #64748b; line-height: 1.35; }
+    .place {
+      display: grid; grid-template-columns: 54px 1fr; gap: 10px; align-items: center;
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px; margin-bottom: 8px;
+    }
+    .place img { width: 54px; height: 54px; border-radius: 10px; object-fit: cover; }
+    .place h3 { font-size: 12px; }
+    .place small { color: #64748b; font-size: 10px; }
+    .stars { color: #f59e0b; font-size: 10px; margin-top: 2px; }
+    .view-all {
+      width: 100%; margin-top: 6px; border: 0; border-radius: 10px;
+      background: #0f766e; color: #fff; font-weight: 700; font-size: 12px; padding: 10px;
+    }
+    .transport { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px; margin-bottom: 10px; }
+    .transport .row { display: flex; gap: 10px; margin-bottom: 10px; }
+    .transport .ico {
+      width: 28px; height: 28px; border-radius: 8px; background: #ccfbf1; color: #0f766e;
+      display: grid; place-items: center; font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .transport h3 { font-size: 12px; }
+    .transport p { font-size: 10px; color: #64748b; line-height: 1.35; }
+    .tips { background: #ccfbf1; border-radius: 14px; padding: 12px; }
+    .tips h3 { font-size: 12px; margin-bottom: 8px; color: #115e59; }
+    .tips li { list-style: none; font-size: 11px; color: #334155; margin-bottom: 6px; padding-left: 14px; position: relative; }
+    .tips li::before { content: "✓"; position: absolute; left: 0; color: #0f766e; font-weight: 700; }
+    .footer {
+      margin: 0 36px; background: #ccfbf1; border-radius: 12px; padding: 12px 16px;
+      display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #134e4a;
+    }
+    .footer em { font-family: Georgia, serif; font-size: 16px; color: #0f766e; }
+  </style>
+</head>
+<body>
+  <header class="topnav">
+    <div class="brand">
+      <div class="icon"></div>
+      <div><b>BAGUIO PHILIPPINES</b><span>City of Pines</span></div>
+    </div>
+    <ul>
+      <li class="active">Home</li><li>About Baguio</li><li>Destinations</li><li>Things to Do</li>
+      <li>Travel Guide</li><li>Gallery</li>
+    </ul>
+    <div class="utils"><span>Trip Ideas</span><span>Travel Essentials</span></div>
+  </header>
+
+  <section class="hero">
+    <img src="./baguio-1.jpg" alt="Baguio" />
+    <div class="shade"></div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1>Explore <em>BAGUIO</em><br/>DESTINATION GUIDE</h1>
+        <p>Cool climate, pine forests, and mountain views — maps, tourist spots, and the best places to visit in Baguio City.</p>
+        <div class="quick">
+          <span>Top Destinations</span><span>Travel Guide</span><span>How to Get There</span><span>Local Tips</span>
+        </div>
+      </div>
+      <aside class="map-card">
+        <div class="map">
+          <img src="./baguio-2.jpg" alt="Map" />
+          <div class="pin" style="left:48%;top:38%;">Session Road</div>
+          <div class="pin" style="left:28%;top:62%;background:#0ea5e9;">Burnham</div>
+        </div>
+        <div class="about">
+          <h3>About Baguio</h3>
+          <p>The summer capital of the Philippines — pine-scented air, strawberry farms, and highland cafés in Benguet.</p>
+          <a href="#">Learn More</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="col">
+      <h2>Top Destinations <a href="#">View All →</a></h2>
+      <article class="dest-card">
+        <img src="./baguio-2.jpg" alt="Burnham Park" />
+        <div class="body"><div class="badge">1</div><h3>Burnham Park</h3><p>Boating, bike trails, and the heart of the city green.</p></div>
+      </article>
+      <article class="dest-card">
+        <img src="./baguio-3.jpg" alt="Mines View" />
+        <div class="body"><div class="badge">2</div><h3>Mines View Park</h3><p>Cliffside overlooks, souvenir stalls &amp; mountain air.</p></div>
+      </article>
+    </div>
+    <div class="col">
+      <h2>Best Places to Visit</h2>
+      <div class="place"><img src="./baguio-1.jpg" alt=""/><div><h3>Session Road</h3><small>City center</small><div class="stars">★★★★★</div></div></div>
+      <div class="place"><img src="./baguio-3.jpg" alt=""/><div><h3>Camp John Hay</h3><small>Pine forest walks</small><div class="stars">★★★★★</div></div></div>
+      <div class="place"><img src="./baguio-2.jpg" alt=""/><div><h3>Strawberry Farm</h3><small>La Trinidad</small><div class="stars">★★★★☆</div></div></div>
+      <button class="view-all">View All Places</button>
+    </div>
+    <div class="col">
+      <h2>How to Get There</h2>
+      <div class="transport">
+        <div class="row"><div class="ico">🚌</div><div><h3>By Bus</h3><p>Overnight or day buses from Manila to Baguio Terminal.</p></div></div>
+        <div class="row"><div class="ico">🚗</div><div><h3>By Car</h3><p>Via NLEX / SCTEX / TPLEX — about 5–6 hours drive.</p></div></div>
+        <div class="row"><div class="ico">🚕</div><div><h3>Getting Around</h3><p>Jeepneys, taxis, and walking around Session Road.</p></div></div>
+      </div>
+      <div class="tips">
+        <h3>Travel Tips</h3>
+        <ul>
+          <li>Bring a jacket — evenings get cold</li>
+          <li>Best months: Dec–Feb</li>
+          <li>Try strawberry taho &amp; longganisa</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div><b>BAGUIO</b> · Highland destination guide</div>
+    <em>Breathe the pines. Come and explore!</em>
+  </footer>
+</body>
+</html>

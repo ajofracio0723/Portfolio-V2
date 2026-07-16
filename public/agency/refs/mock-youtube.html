@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1440px; height: 900px; overflow: hidden;
+      font-family: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+      color: #f8fafc; background: #07070a;
+    }
+    .bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 70% 20%, rgba(248,113,113,0.22), transparent 40%),
+        radial-gradient(circle at 15% 80%, rgba(56,189,248,0.15), transparent 45%),
+        #07070a;
+    }
+    .wrap { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 44px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: 0.1em; font-size: 13px; }
+    .logo .dot {
+      width: 14px; height: 14px; border-radius: 4px; background: #f43f5e;
+      box-shadow: 0 0 18px rgba(244,63,94,0.7);
+    }
+    .nav ul { display: flex; gap: 26px; list-style: none; font-size: 12px; font-weight: 700; color: #94a3b8; letter-spacing: 0.06em; }
+    .nav .cta {
+      background: #f43f5e; color: #fff; border-radius: 10px; padding: 11px 18px;
+      font-size: 11px; font-weight: 800; letter-spacing: 0.06em;
+      box-shadow: 0 10px 30px rgba(244,63,94,0.4);
+    }
+    .main {
+      flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+      padding: 36px 44px 28px;
+    }
+    .badge {
+      display: inline-flex; gap: 8px; align-items: center;
+      border: 1px solid rgba(244,63,94,0.4); background: rgba(244,63,94,0.1);
+      border-radius: 999px; padding: 7px 14px; font-size: 11px; font-weight: 800;
+      letter-spacing: 0.12em; color: #fda4af; margin-bottom: 18px;
+    }
+    h1 {
+      font-size: 54px; line-height: 1.02; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 16px;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, #fb7185, #38bdf8);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .lead { font-size: 15px; color: #94a3b8; max-width: 460px; line-height: 1.55; margin-bottom: 26px; }
+    .row { display: flex; gap: 12px; margin-bottom: 34px; }
+    .btn {
+      border: 0; border-radius: 12px; padding: 14px 20px; font-size: 13px; font-weight: 800;
+    }
+    .btn.main { background: linear-gradient(90deg, #f43f5e, #fb7185); color: #fff; }
+    .btn.alt { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #e2e8f0; }
+    .metrics {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .m {
+      border-radius: 16px; padding: 16px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    }
+    .m b { display: block; font-size: 26px; margin-bottom: 4px; }
+    .m span { font-size: 11px; color: #64748b; letter-spacing: 0.06em; font-weight: 700; }
+    .stack { display: flex; flex-direction: column; gap: 14px; }
+    .card {
+      position: relative; border-radius: 20px; overflow: hidden; height: 210px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card .shade {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(7,7,10,0.85), rgba(7,7,10,0.2));
+    }
+    .card .info {
+      position: absolute; left: 20px; bottom: 18px; right: 20px;
+    }
+    .card .tag {
+      display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+      color: #fda4af; margin-bottom: 6px;
+    }
+    .card h3 { font-size: 20px; margin-bottom: 4px; }
+    .card p { font-size: 12px; color: #cbd5e1; }
+    .glass {
+      border-radius: 20px; padding: 18px 20px;
+      background: rgba(15,23,42,0.75); border: 1px solid rgba(56,189,248,0.25);
+      backdrop-filter: blur(12px);
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+    }
+    .glass .item b { display: block; font-size: 13px; margin-bottom: 4px; color: #7dd3fc; }
+    .glass .item span { font-size: 11px; color: #94a3b8; line-height: 1.35; }
+    .pipeline {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+      padding: 0 44px 28px;
+    }
+    .step {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 14px 12px; text-align: center;
+    }
+    .step .n {
+      width: 28px; height: 28px; border-radius: 8px; margin: 0 auto 8px;
+      background: rgba(244,63,94,0.15); color: #fb7185;
+      display: grid; place-items: center; font-size: 12px; font-weight: 900;
+    }
+    .step b { display: block; font-size: 12px; margin-bottom: 3px; }
+    .step span { font-size: 10px; color: #64748b; }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="logo"><div class="dot"></div>VELOCITY YT AGENCY</div>
+      <ul><li>GROWTH</li><li>EDITING</li><li>THUMBNAILS</li><li>CASE STUDIES</li></ul>
+      <div class="cta">GET A STRATEGY CALL</div>
+    </nav>
+    <section class="main">
+      <div>
+        <div class="badge">● YOUTUBE GROWTH SYSTEMS</div>
+        <h1>Scale your channel with <em>cinematic ops</em></h1>
+        <p class="lead">End-to-end YouTube agency — scripting, editing, thumbnails, SEO, and retention systems built for creator brands that want to look like media companies.</p>
+        <div class="row">
+          <button class="btn main">BOOK STRATEGY CALL</button>
+          <button class="btn alt">VIEW PLAYBOOK</button>
+        </div>
+        <div class="metrics">
+          <div class="m"><b>3.2×</b><span>AVG GROWTH</span></div>
+          <div class="m"><b>48h</b><span>EDIT SLA</span></div>
+          <div class="m"><b>120+</b><span>CHANNELS</span></div>
+        </div>
+      </div>
+      <div class="stack">
+        <div class="card">
+          <img src="./youtube-1.jpg" alt="Editing bay" />
+          <div class="shade"></div>
+          <div class="info">
+            <div class="tag">PRODUCTION</div>
+            <h3>Cinematic edit pipelines</h3>
+            <p>Color, sound design, captions, and A/B cut packages.</p>
+          </div>
+        </div>
+        <div class="glass">
+          <div class="item"><b>Retention maps</b><span>Hook tests every 30 days</span></div>
+          <div class="item"><b>Thumbnail lab</b><span>CTR-focused creative sprints</span></div>
+          <div class="item"><b>SEO engine</b><span>Titles, packs &amp; packaging</span></div>
+        </div>
+        <div class="card" style="height:160px;">
+          <img src="./youtube-2.jpg" alt="Creator set" />
+          <div class="shade"></div>
+          <div class="info">
+            <div class="tag">CREATOR OPS</div>
+            <h3>From idea → publish in days</h3>
+            <p>Calendar, briefs, and publishing automation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pipeline">
+      <div class="step"><div class="n">01</div><b>Audit</b><span>Channel diagnosis</span></div>
+      <div class="step"><div class="n">02</div><b>Strategy</b><span>Content system</span></div>
+      <div class="step"><div class="n">03</div><b>Produce</b><span>Edit + design</span></div>
+      <div class="step"><div class="n">04</div><b>Publish</b><span>SEO packaging</span></div>
+      <div class="step"><div class="n">05</div><b>Scale</b><span>Retention loops</span></div>
+    </section>
+  </div>
+</body>
+</html>
