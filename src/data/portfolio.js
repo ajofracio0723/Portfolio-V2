@@ -97,7 +97,7 @@ export const projects = [
     Description:
       "Perfect for Rick & Morty fans who want to explore character information, developers looking for a reference implementation of modern React patterns, and anyone interested in well-crafted user interfaces with attention to detail.",
     Img: "/projects/resource-explorer-1.png",
-    Link: "",
+    Link: "https://resource-explorer-one.vercel.app/",
     Github: "https://github.com/ajofracio0723/resource-explorer",
     TechStack: [
       "Next.js",

@@ -118,24 +118,14 @@ export const agencySections = [
     screenshotHint: "Funnels & Websites",
     screenshots: [
       {
-        file: "funnels-lovable-library.png",
-        title: "Lovable Sites Library",
-        caption: "Multi-project site & funnel builds in Lovable",
+        file: "funnel-sorsogon.png",
+        title: "Sorsogon Travel Guide",
+        caption: "Maps, destinations, tourist spots & best places to visit",
       },
       {
-        file: "funnel-booking-calendar.png",
-        title: "GHL Calendar Booking Page",
-        caption: "Embedded calendar widget with timezone & time slots",
-      },
-      {
-        file: "funnel-booking-coaching.png",
-        title: "Coaching Strategy Call Booking",
-        caption: "High-ticket discovery call calendar booking flow",
-      },
-      {
-        file: "funnel-booking-dental.png",
-        title: "Dental Appointment Calendar",
-        caption: "Clinic cleaning booking with date & time slots",
+        file: "funnel-palawan.png",
+        title: "Palawan Tourism Site",
+        caption: "Island paradise travel site with tours & booking CTA",
       },
       {
         file: "funnel-booking-spa.png",
@@ -301,6 +291,151 @@ export const agencySections = [
         file: "funnel-daycare.png",
         title: "Daycare & Preschool Site",
         caption: "Family center tours & enrollment CTA",
+      },
+      {
+        file: "funnel-roofing.png",
+        title: "Roofing Lead Funnel",
+        caption: "Roof replacement specials with free estimate form",
+      },
+      {
+        file: "funnel-medspa.png",
+        title: "MedSpa Aesthetics Site",
+        caption: "Injectables & facial services with consultation CTA",
+      },
+      {
+        file: "funnel-barbershop.png",
+        title: "Barbershop Booking Site",
+        caption: "Classic cuts & fades with online booking calendar",
+      },
+      {
+        file: "funnel-yoga.png",
+        title: "Yoga Studio Website",
+        caption: "Class schedule & membership flow for wellness studios",
+      },
+      {
+        file: "funnel-moving.png",
+        title: "Moving Company Funnel",
+        caption: "Local movers quote capture & booking CTA",
+      },
+      {
+        file: "funnel-seniorcare.png",
+        title: "Senior Care Living Site",
+        caption: "Assisted living tour scheduling & care inquiry",
+      },
+      {
+        file: "funnel-martialarts.png",
+        title: "Martial Arts Academy Funnel",
+        caption: "Kids & adult class schedules with free trial CTA",
+      },
+      {
+        file: "funnel-bakery.png",
+        title: "Bakery & Café Website",
+        caption: "Fresh baked menu, online orders & table reservations",
+      },
+      {
+        file: "funnel-pctech.png",
+        title: "PC Parts Shop",
+        caption: "Computer components store with build & shop CTAs",
+      },
+      {
+        file: "funnel-pcbuilder.png",
+        title: "Custom PC Builder Funnel",
+        caption: "Step-by-step PC configurator with live pricing",
+      },
+      {
+        file: "funnel-coffeeshop.png",
+        title: "Coffee Shop Website",
+        caption: "Specialty café menu, online orders & visit CTA",
+      },
+      {
+        file: "funnel-naturepark.png",
+        title: "Nature Park Guide",
+        caption: "Trails, wildlife viewing, camping & visitor map",
+      },
+      {
+        file: "funnel-botanical.png",
+        title: "Botanical Garden Site",
+        caption: "Seasonal gardens, conservatory & visit info",
+      },
+      {
+        file: "funnel-wildlife.png",
+        title: "Wildlife Sanctuary Site",
+        caption: "Habitats, conservation programs & visitor trails",
+      },
+      {
+        file: "funnel-hiking.png",
+        title: "Hiking Trails Guide",
+        caption: "Trail difficulty, gear checklist & trail maps",
+      },
+      {
+        file: "funnel-waterfall.png",
+        title: "Waterfall Destination Guide",
+        caption: "Falls trails, river spots & how to get there",
+      },
+      {
+        file: "funnel-ecoretreat.png",
+        title: "Eco Nature Retreat",
+        caption: "Forest cabins, guided walks & sustainable stays",
+      },
+      {
+        file: "funnel-airbnb.png",
+        title: "Vacation Rental Host Site",
+        caption: "Direct booking page for Airbnb-style villa stays",
+      },
+      {
+        file: "funnel-eventvenue.png",
+        title: "Event Venue & Function Hall",
+        caption: "Weddings, corporate events & venue tour inquiry",
+      },
+      {
+        file: "funnel-boracay.png",
+        title: "Boracay Destination Guide",
+        caption: "Island paradise hero, tours, booking widget & why visit",
+      },
+      {
+        file: "funnel-siargao.png",
+        title: "Siargao Destination Guide",
+        caption: "Map, Cloud 9 spots, best places & travel tips",
+      },
+      {
+        file: "funnel-bohol.png",
+        title: "Bohol Destination Guide",
+        caption: "Map, Chocolate Hills, best places & how to get there",
+      },
+      {
+        file: "funnel-languageschool.png",
+        title: "Language School Website",
+        caption: "English, IELTS & language courses with enrollment CTA",
+      },
+      {
+        file: "funnel-ivdrip.png",
+        title: "IV Drip Wellness Clinic",
+        caption: "Immunity, beauty & recovery drips with booking CTA",
+      },
+      {
+        file: "funnel-insurancecompare.png",
+        title: "Insurance Comparison Funnel",
+        caption: "Auto, home, life & health quote comparison lead form",
+      },
+      {
+        file: "funnel-tutoring.png",
+        title: "Online Tutoring & Review Center",
+        caption: "Live classes, exam review & free trial enrollment",
+      },
+      {
+        file: "funnel-booking-calendar.png",
+        title: "GHL Calendar Booking Page",
+        caption: "Embedded calendar widget with timezone & time slots",
+      },
+      {
+        file: "funnel-booking-coaching.png",
+        title: "Coaching Strategy Call Booking",
+        caption: "High-ticket discovery call calendar booking flow",
+      },
+      {
+        file: "funnel-booking-dental.png",
+        title: "Dental Appointment Calendar",
+        caption: "Clinic cleaning booking with date & time slots",
       },
     ],
   },

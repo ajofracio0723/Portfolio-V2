@@ -361,6 +361,7 @@ export default function FullWidthTabs() {
                 {displayedProjects.map((project, index) => (
                   <div
                     key={project.id || index}
+                    className="h-full"
                     data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
                     data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
                   >

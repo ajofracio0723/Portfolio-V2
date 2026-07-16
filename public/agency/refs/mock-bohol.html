@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1440px; height: 900px; overflow: hidden;
+      font-family: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+      color: #44403c; background: #fffaf3;
+    }
+    .topnav {
+      height: 64px; background: #fff; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 36px; border-bottom: 1px solid #f0e7db;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand .icon { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #92400e, #f59e0b); }
+    .brand b { display: block; font-size: 13px; letter-spacing: 0.04em; color: #1c1917; }
+    .brand span { font-family: Georgia, serif; font-style: italic; color: #d97706; font-size: 12px; }
+    .topnav ul { display: flex; gap: 18px; list-style: none; font-size: 12px; font-weight: 600; color: #57534e; }
+    .topnav ul li.active { color: #b45309; border-bottom: 2px solid #b45309; padding-bottom: 2px; }
+    .utils { display: flex; gap: 14px; align-items: center; font-size: 12px; color: #57534e; font-weight: 600; }
+    .hero { position: relative; height: 340px; color: #fff; }
+    .hero > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero .shade {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(69,26,3,0.78) 0%, rgba(69,26,3,0.38) 55%, rgba(28,25,23,0.2) 100%);
+    }
+    .hero-inner {
+      position: absolute; inset: 0; display: grid; grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px; padding: 28px 36px;
+    }
+    .hero-copy h1 { font-size: 42px; line-height: 1.05; font-weight: 800; margin-bottom: 10px; }
+    .hero-copy h1 em { font-style: normal; color: #fcd34d; }
+    .hero-copy p { font-size: 14px; max-width: 480px; opacity: 0.92; margin-bottom: 16px; line-height: 1.45; }
+    .quick { display: flex; gap: 10px; flex-wrap: wrap; }
+    .quick span {
+      background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px; padding: 8px 12px; font-size: 11px; font-weight: 600;
+    }
+    .map-card {
+      align-self: center; justify-self: end; width: 360px;
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    }
+    .map-card .map { height: 150px; position: relative; overflow: hidden; }
+    .map-card .map img { width: 100%; height: 100%; object-fit: cover; }
+    .map-card .about { background: #b45309; color: #fff; padding: 14px 16px; }
+    .map-card .about h3 { font-size: 14px; margin-bottom: 6px; }
+    .map-card .about p { font-size: 11px; opacity: 0.9; line-height: 1.4; margin-bottom: 10px; }
+    .map-card .about a {
+      display: inline-block; background: #fff; color: #b45309;
+      font-size: 11px; font-weight: 700; padding: 7px 12px; border-radius: 8px; text-decoration: none;
+    }
+    .pin {
+      position: absolute; background: #f43f5e; color: #fff; font-size: 10px; font-weight: 700;
+      padding: 4px 8px; border-radius: 999px;
+    }
+    .content {
+      display: grid; grid-template-columns: 1.15fr 0.95fr 0.95fr; gap: 16px;
+      padding: 18px 36px 16px;
+    }
+    .col h2 {
+      font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: #b45309; margin-bottom: 10px; display: flex; justify-content: space-between;
+    }
+    .col h2 a { color: #78716c; text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 11px; text-decoration: none; }
+    .dest-card {
+      background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid #e7e5e4;
+      margin-bottom: 10px; display: grid; grid-template-columns: 110px 1fr;
+    }
+    .dest-card img { width: 110px; height: 86px; object-fit: cover; }
+    .dest-card .body { padding: 10px 12px; position: relative; }
+    .badge {
+      position: absolute; left: -102px; top: 8px; width: 22px; height: 22px; border-radius: 50%;
+      background: #b45309; color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center;
+    }
+    .dest-card h3 { font-size: 13px; margin-bottom: 4px; }
+    .dest-card p { font-size: 11px; color: #78716c; line-height: 1.35; }
+    .place {
+      display: grid; grid-template-columns: 54px 1fr; gap: 10px; align-items: center;
+      background: #fff; border: 1px solid #e7e5e4; border-radius: 12px; padding: 8px; margin-bottom: 8px;
+    }
+    .place img { width: 54px; height: 54px; border-radius: 10px; object-fit: cover; }
+    .place h3 { font-size: 12px; }
+    .place small { color: #78716c; font-size: 10px; }
+    .stars { color: #f59e0b; font-size: 10px; margin-top: 2px; }
+    .view-all {
+      width: 100%; margin-top: 6px; border: 0; border-radius: 10px;
+      background: #b45309; color: #fff; font-weight: 700; font-size: 12px; padding: 10px;
+    }
+    .transport { background: #fff; border: 1px solid #e7e5e4; border-radius: 14px; padding: 12px; margin-bottom: 10px; }
+    .transport .row { display: flex; gap: 10px; margin-bottom: 10px; }
+    .transport .ico {
+      width: 28px; height: 28px; border-radius: 8px; background: #ffedd5; color: #b45309;
+      display: grid; place-items: center; font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .transport h3 { font-size: 12px; }
+    .transport p { font-size: 10px; color: #78716c; line-height: 1.35; }
+    .tips { background: #ffedd5; border-radius: 14px; padding: 12px; }
+    .tips h3 { font-size: 12px; margin-bottom: 8px; color: #9a3412; }
+    .tips li { list-style: none; font-size: 11px; color: #44403c; margin-bottom: 6px; padding-left: 14px; position: relative; }
+    .tips li::before { content: "✓"; position: absolute; left: 0; color: #c2410c; font-weight: 700; }
+    .footer {
+      margin: 0 36px; background: #ffedd5; border-radius: 12px; padding: 12px 16px;
+      display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #7c2d12;
+    }
+    .footer em { font-family: Georgia, serif; font-size: 16px; color: #b45309; }
+  </style>
+</head>
+<body>
+  <header class="topnav">
+    <div class="brand">
+      <div class="icon"></div>
+      <div><b>BOHOL PHILIPPINES</b><span>Chocolate Hills & Islands</span></div>
+    </div>
+    <ul>
+      <li class="active">Home</li><li>About Bohol</li><li>Destinations</li><li>Things to Do</li>
+      <li>Travel Guide</li><li>Gallery</li>
+    </ul>
+    <div class="utils"><span>♡ Trip Ideas</span><span>ⓘ Travel Essentials</span><span>⌕</span></div>
+  </header>
+
+  <section class="hero">
+    <img src="./bohol-1.jpg" alt="Bohol" />
+    <div class="shade"></div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1>Explore <em>BOHOL</em><br/>DESTINATION GUIDE</h1>
+        <p>Chocolate Hills, countryside tours, and Panglao beaches — maps, tourist spots, and best places to visit.</p>
+        <div class="quick">
+          <span>Top Destinations</span><span>Travel Guide</span><span>How to Get There</span><span>Local Tips</span>
+        </div>
+      </div>
+      <aside class="map-card">
+        <div class="map">
+          <img src="./bohol-2.jpg" alt="Map" />
+          <div class="pin" style="left:52%;top:38%;">Chocolate Hills</div>
+          <div class="pin" style="left:28%;top:68%;background:#0ea5e9;">Panglao</div>
+        </div>
+        <div class="about">
+          <h3>About Bohol</h3>
+          <p>A Visayan island famous for Chocolate Hills, tarsiers, Loboc river cruises, and Panglao beaches.</p>
+          <a href="#">Learn More</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="col">
+      <h2>Top Destinations <a href="#">View All →</a></h2>
+      <article class="dest-card">
+        <img src="./bohol-1.jpg" alt="Chocolate Hills" />
+        <div class="body"><div class="badge">1</div><h3>Chocolate Hills</h3><p>Hundreds of conical hills and viewpoint decks.</p></div>
+      </article>
+      <article class="dest-card">
+        <img src="./bohol-3.jpg" alt="Countryside" />
+        <div class="body"><div class="badge">2</div><h3>Countryside Tour</h3><p>Loboc river cruise, hanging bridges & villages.</p></div>
+      </article>
+    </div>
+    <div class="col">
+      <h2>Best Places to Visit</h2>
+      <div class="place"><img src="./bohol-1.jpg" alt=""/><div><h3>Carmen Viewpoint</h3><small>Chocolate Hills</small><div class="stars">★★★★★</div></div></div>
+      <div class="place"><img src="./bohol-2.jpg" alt=""/><div><h3>Loboc River</h3><small>River cruise</small><div class="stars">★★★★★</div></div></div>
+      <div class="place"><img src="./bohol-island.jpg" alt=""/><div><h3>Panglao Beaches</h3><small>Alona & diving</small><div class="stars">★★★★☆</div></div></div>
+      <button class="view-all">View All Places</button>
+    </div>
+    <div class="col">
+      <h2>How to Get There</h2>
+      <div class="transport">
+        <div class="row"><div class="ico">✈</div><div><h3>By Air</h3><p>Fly to Tagbilaran (TAG) or Panglao (Bohol-Panglao Intl).</p></div></div>
+        <div class="row"><div class="ico">⛵</div><div><h3>By Sea</h3><p>Ferry from Cebu to Tagbilaran is a popular route.</p></div></div>
+        <div class="row"><div class="ico">🚌</div><div><h3>Getting Around</h3><p>Join countryside tours or rent a private van/driver.</p></div></div>
+      </div>
+      <div class="tips">
+        <h3>Travel Tips</h3>
+        <ul>
+          <li>Visit hills early for clearer views</li>
+          <li>Combine Loboc + Chocolate Hills</li>
+          <li>Reserve Panglao diving slots</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div><b>BOHOL</b> · Nature & island destination guide</div>
+    <em>Bohol awaits. Come and explore!</em>
+  </footer>
+</body>
+</html>
