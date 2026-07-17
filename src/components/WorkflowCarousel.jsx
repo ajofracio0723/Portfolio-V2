@@ -4,8 +4,6 @@ import {
   ChevronRight,
   ChevronUp,
   ChevronDown,
-  Pause,
-  Play,
   Clock,
   CheckCircle2,
   TrendingUp,
@@ -721,7 +719,7 @@ export const WORKFLOW_SLIDES = [
     ],
   },
   {
-    title: "Cold Email Sender — Outreach",
+    title: "Cold Email Sender - Outreach",
     style: "n8n",
     accent: "#EA4335",
     branched: true,
@@ -1243,7 +1241,6 @@ export default function WorkflowCarousel({ responsibilities = [], technologies =
   );
 
   const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(true);
   const [fade, setFade] = useState(true);
   const [detailsOpen, setDetailsOpen] = useState(true);
   const [caseStudyOpen, setCaseStudyOpen] = useState(false);
@@ -1261,12 +1258,6 @@ export default function WorkflowCarousel({ responsibilities = [], technologies =
     [slides.length]
   );
 
-  useEffect(() => {
-    if (!playing || slides.length < 2) return undefined;
-    const id = window.setInterval(() => goTo(index + 1), 5000);
-    return () => window.clearInterval(id);
-  }, [playing, index, goTo, slides.length]);
-
   const slide = slides[index];
 
   return (
@@ -1283,10 +1274,7 @@ export default function WorkflowCarousel({ responsibilities = [], technologies =
                 <li key={item.title}>
                   <button
                     type="button"
-                    onClick={() => {
-                      setPlaying(false);
-                      goTo(i);
-                    }}
+                    onClick={() => goTo(i)}
                     className={`w-full text-left flex items-start gap-2.5 text-sm rounded-lg px-2.5 py-2 transition-all duration-300 ${
                       active
                         ? "bg-slate-800/80 text-white border border-slate-600 shadow-sm"
@@ -1355,14 +1343,6 @@ export default function WorkflowCarousel({ responsibilities = [], technologies =
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
-                onClick={() => setPlaying((p) => !p)}
-                className="p-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition-colors"
-                aria-label={playing ? "Pause carousel" : "Play carousel"}
-              >
-                {playing ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-              </button>
-              <button
-                type="button"
                 onClick={() => goTo(index - 1)}
                 className="p-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition-colors"
                 aria-label="Previous"
@@ -1399,14 +1379,8 @@ export default function WorkflowCarousel({ responsibilities = [], technologies =
             <WorkflowDetailsPanel
               title={slide.title}
               open={detailsOpen}
-              onToggle={() => {
-                setPlaying(false);
-                setDetailsOpen((o) => !o);
-              }}
-              onOpenCaseStudy={() => {
-                setPlaying(false);
-                setCaseStudyOpen(true);
-              }}
+              onToggle={() => setDetailsOpen((o) => !o)}
+              onOpenCaseStudy={() => setCaseStudyOpen(true)}
             />
           </div>
 
@@ -1415,10 +1389,7 @@ export default function WorkflowCarousel({ responsibilities = [], technologies =
               <button
                 key={s.title}
                 type="button"
-                onClick={() => {
-                  setPlaying(false);
-                  goTo(i);
-                }}
+                onClick={() => goTo(i)}
                 aria-label={`Go to ${s.title}`}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
                   i === index ? "w-6" : "w-1.5 bg-slate-600 hover:bg-slate-500"
@@ -1430,10 +1401,9 @@ export default function WorkflowCarousel({ responsibilities = [], technologies =
 
           <div className="mt-3 h-0.5 rounded-full bg-slate-800 overflow-hidden">
             <div
-              key={`prog-${index}-${playing}`}
-              className={`h-full rounded-full ${playing ? "wf-progress" : ""}`}
+              className="h-full rounded-full transition-all duration-300"
               style={{
-                width: playing ? undefined : `${((index + 1) / slides.length) * 100}%`,
+                width: `${((index + 1) / slides.length) * 100}%`,
                 background: `linear-gradient(90deg, ${slide.accent}, #3b82f6)`,
               }}
             />
@@ -1450,15 +1420,6 @@ export default function WorkflowCarousel({ responsibilities = [], technologies =
         .custom-wf-scroll::-webkit-scrollbar-thumb {
           background: rgba(71,85,105,0.8);
           border-radius: 6px;
-        }
-        .wf-progress {
-          width: 100%;
-          transform-origin: left;
-          animation: wfProgress 5s linear forwards;
-        }
-        @keyframes wfProgress {
-          from { transform: scaleX(0); }
-          to { transform: scaleX(1); }
         }
         .wf-anim {
           animation: wfIn 0.35s ease forwards;

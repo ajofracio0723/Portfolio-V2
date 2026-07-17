@@ -387,7 +387,7 @@ function useCanvasPan(animateKey) {
 }
 
 /* ═══════════════════════════════════════════
-   ZAPIER — light vertical zap (Paths A / B)
+   ZAPIER - light vertical zap (Paths A / B)
    ═══════════════════════════════════════════ */
 
 function ZapStepCard({ node, stepNumber, animateDelay = 0 }) {
@@ -623,7 +623,7 @@ export function ZapierCanvas({ nodes, branched, animateKey, title }) {
 }
 
 /* ═══════════════════════════════════════════
-   GOHIGHLEVEL — light Standard Builder
+   GOHIGHLEVEL - light Standard Builder
    Icons matched to GHL Actions menu (Recent / Contact / Communication / Internal / Send data)
    ═══════════════════════════════════════════ */
 
@@ -653,7 +653,7 @@ const GHL_NODE_VISUAL = {
     bg: "#EDE9FE",
     label: "If / Else",
   },
-  // Communication — Recent Actions soft green tiles
+  // Communication - Recent Actions soft green tiles
   email: {
     Icon: Mail,
     soft: true,
@@ -676,7 +676,7 @@ const GHL_NODE_VISUAL = {
     border: true,
     label: "Gmail",
   },
-  // Send data — blue webhook glyph
+  // Send data - blue webhook glyph
   webhook: {
     Icon: Rss,
     soft: true,
@@ -684,7 +684,7 @@ const GHL_NODE_VISUAL = {
     bg: "#DBEAFE",
     label: "Webhook",
   },
-  // Contact — blue soft boxes
+  // Contact - blue soft boxes
   crm: {
     Icon: Contact2,
     soft: true,
@@ -792,7 +792,7 @@ function resolveGhlVisual(node) {
     };
   }
 
-  // Wait — purple clock (canvas style)
+  // Wait - purple clock (canvas style)
   if (node.type === "wait") {
     return {
       Icon: Clock,
@@ -1327,7 +1327,7 @@ export function GhlCanvas({ nodes, branched, animateKey, title, branchLabels }) 
 }
 
 /* ═══════════════════════════════════════════
-   n8n — authentic LTR canvas + Bézier wires
+   n8n - authentic LTR canvas + Bézier wires
    ═══════════════════════════════════════════ */
 
 const N8N_NODE_W = 168;
@@ -1657,7 +1657,7 @@ function resolveN8nVisual(node) {
   const Icon =
     (iconKey && N8N_ICON_MAP[iconKey]) || meta.icon || Settings2;
 
-  // Lucide-only node kinds (HTTP, Wait, Set, Code, If, Schedule) — no brand logo.
+  // Lucide-only node kinds (HTTP, Wait, Set, Code, If, Schedule) - no brand logo.
   // Brand apps (Slack, Notion, OpenAI, GHL, …) keep TYPE_META.logo unless overridden.
   const lucideOnly = [
     "globe",
@@ -2034,7 +2034,7 @@ export function N8nCanvas({ nodes, branched, animateKey, title, branchLabels }) 
 }
 
 /* ═══════════════════════════════════════════
-   MAKE — horizontal scenario (circular modules)
+   MAKE - horizontal scenario (circular modules)
    ═══════════════════════════════════════════ */
 
 function MakeModule({ node, version, animateDelay = 0 }) {

@@ -95,7 +95,7 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "Webinar Lifecycle Automation",
       problem:
-        "Webinar hosts manually sent Zoom links, reminders, and post-event offers — attendees slipped through without next-step CTAs.",
+        "Webinar hosts manually sent Zoom links, reminders, and post-event offers - attendees slipped through without next-step CTAs.",
       solution:
         "Built a registration-to-post-event zap: confirms + SMS, timed reminders, then paths for attended vs missed with replay, offers, and CRM stage updates.",
       tools: [
@@ -147,9 +147,9 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "Win-Back Reactivation Campaign",
       problem:
-        "Inactive clients quietly churned — list pulls and one-off emails weren’t consistent enough to revive relationships.",
+        "Inactive clients quietly churned - list pulls and one-off emails weren’t consistent enough to revive relationships.",
       solution:
-        "Automated a 30+ day inactivity zap with win-back emails, discount SMS for cold contacts, and personal outreach for engagers — then paused junk sends for dormant tags.",
+        "Automated a 30+ day inactivity zap with win-back emails, discount SMS for cold contacts, and personal outreach for engagers - then paused junk sends for dormant tags.",
       tools: [
         { name: "Zapier", tone: "orange" },
         { name: "GoHighLevel", tone: "emerald" },
@@ -200,7 +200,7 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "Pipeline Stage Notification Router",
       problem:
-        "Critical stage changes lived only in CRM — sales, CS, and finance found out late or not at all.",
+        "Critical stage changes lived only in CRM - sales, CS, and finance found out late or not at all.",
       solution:
         "Built a stage-change router: Slack/email for booked paths, quiet logging for soft stages, and finance wins notifications with fulfillment tasks.",
       tools: [
@@ -226,7 +226,7 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "Multi-Path Lead Source Router",
       problem:
-        "All inbound leads got the same nurture — paid ads and VIP referrals sat behind organic volume.",
+        "All inbound leads got the same nurture - paid ads and VIP referrals sat behind organic volume.",
       solution:
         "Normalized inbound data then branched: instant SMS + senior closer for paid, standard nurture for organic, and founder assignment for VIP referrals before merging into one pipeline.",
       tools: [
@@ -278,7 +278,7 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "Automation Failure Recovery Loop",
       problem:
-        "Broken workflows failed quietly mid-run — clients only noticed when leads stopped progressing.",
+        "Broken workflows failed quietly mid-run - clients only noticed when leads stopped progressing.",
       solution:
         "Subscribed to workflow error events, auto-retried, validated fields, paused bad branches, opened tickets, and wrote recovery notes when paths healed.",
       tools: [
@@ -304,7 +304,7 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "Weekly Zap Optimization Cron",
       problem:
-        "Automations grew messy over time — overlapping waits, unused tags, and dead branches slowed everything down.",
+        "Automations grew messy over time - overlapping waits, unused tags, and dead branches slowed everything down.",
       solution:
         "Scheduled a weekly analytics cron to flag slow and duplicate steps, tighten entry conditions, archive dead paths, and publish an optimized v2 with a team changelog.",
       tools: [
@@ -332,14 +332,14 @@ export const WORKFLOW_DETAILS = {
       problem:
         "Live client contacts were used to “test” zaps, causing messy data and occasional production surprises.",
       solution:
-        "Cloned zaps into test mode with a draft contact, asserted tags/messages/waits/webhooks, then cleared data and enabled live — or blocked publish and alerted QA on failure.",
+        "Cloned zaps into test mode with a draft contact, asserted tags/messages/waits/webhooks, then cleared data and enabled live - or blocked publish and alerted QA on failure.",
       tools: [
         { name: "Zapier", tone: "orange" },
         { name: "GoHighLevel", tone: "emerald" },
         { name: "Slack", tone: "pink" },
       ],
       result:
-        "Safer shipping — only verified automation paths hit production.",
+        "Safer shipping - only verified automation paths hit production.",
     },
   },
   "AI Gmail Document Processing": {
@@ -356,7 +356,7 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "AI Gmail Document Processing",
       problem:
-        "Teams spent hours each week downloading email attachments, renaming files by hand, and filing them into the right folders — slow, inconsistent, and easy to miss.",
+        "Teams spent hours each week downloading email attachments, renaming files by hand, and filing them into the right folders - slow, inconsistent, and easy to miss.",
       solution:
         "Built a Make scenario that watches Gmail for new attachments, sends files to OpenAI for structured filename generation, uploads the renamed file to Google Drive, and logs each item in Google Sheets.",
       tools: [
@@ -409,7 +409,7 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "Customer Support AI Agent with Auto Response & Tracking",
       problem:
-        "Support threads in Circle piled up. Reps manually drafted replies, checked history, and updated Airtable — slow and inconsistent.",
+        "Support threads in Circle piled up. Reps manually drafted replies, checked history, and updated Airtable - slow and inconsistent.",
       solution:
         "Built an n8n workflow: webhook → Switch into (1) AI agent reply path with Airtable context + Gemini/tools + Circle post comment, (2) status-check LLM pipeline that aggregates comments and updates Airtable, (3) resolved path that posts final comments and updates the Circle post.",
       tools: [
@@ -436,7 +436,7 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "AI Invoice Processing",
       problem:
-        "Finance teams retyped invoice data from emails/PDFs, then decided which bills needed manager approval — slow and easy to miss high-value items.",
+        "Finance teams retyped invoice data from emails/PDFs, then decided which bills needed manager approval - slow and easy to miss high-value items.",
       solution:
         "Built an n8n flow: webhook receives the invoice → AI Invoice Agent extracts structured fields → Parse Invoice Fields → If High Value? logs to a flagged Google Sheet and requests Slack approval (else standard sheet log) → returns a webhook confirmation.",
       tools: [
@@ -476,7 +476,7 @@ export const WORKFLOW_DETAILS = {
         "Stale leads get timely, AI-written outreach with a Slack approval checkpoint before anything hits the inbox.",
     },
   },
-  "Cold Email Sender — Outreach": {
+  "Cold Email Sender - Outreach": {
     keyFunctions: [
       "Nightly schedule (10 PM PHT) + sheet lead pull",
       "Skip already-emailed leads",
@@ -488,9 +488,9 @@ export const WORKFLOW_DETAILS = {
       { icon: "clock", text: "~6 hrs/week saved on cold outreach ops" },
     ],
     caseStudy: {
-      title: "Cold Email Sender — Outreach",
+      title: "Cold Email Sender - Outreach",
       problem:
-        "Cold outreach depended on someone opening a sheet, writing each email, and tracking who already got a message — easy to miss rows or blast too fast.",
+        "Cold outreach depended on someone opening a sheet, writing each email, and tracking who already got a message - easy to miss rows or blast too fast.",
       solution:
         "Built an n8n outreach flow: daily 10 PM PHT trigger → email config → read leads from Google Sheets → If Not Yet Emailed? → compose personalized copy → Split In Batches → send via Gmail → wait 30s → mark emailed in sheet → wait 15s and loop until the batch is done.",
       tools: [
@@ -526,7 +526,7 @@ export const WORKFLOW_DETAILS = {
         { name: "Slack", tone: "pink" },
       ],
       result:
-        "Payments are categorized and tracked live, with Slack alerts when revenue looks off — and Stripe gets an acknowledgment every run.",
+        "Payments are categorized and tracked live, with Slack alerts when revenue looks off - and Stripe gets an acknowledgment every run.",
     },
   },
   "Missed Opportunity Recovery System (AI Follow-Up)": {
@@ -543,7 +543,7 @@ export const WORKFLOW_DETAILS = {
     caseStudy: {
       title: "Missed Opportunity Recovery System (AI Follow-Up)",
       problem:
-        "Reactivation leads and SMS replies sat in GHL without a consistent next step — warm contacts either waited too long or got generic blasts.",
+        "Reactivation leads and SMS replies sat in GHL without a consistent next step - warm contacts either waited too long or got generic blasts.",
       solution:
         "Built a GHL flow: Contact Tag (Reactivation Campaign) + Customer Replied (SMS) → initial reactivation SMS → wait / wait-for-reply → If Contact Replied? → AI classify intent, personalize SMS, booking email, assign closer, warm pipeline · else follow-up SMS → final SMS/email → cold tag + sales rescue task → log outcome and clear campaign tag.",
       tools: [

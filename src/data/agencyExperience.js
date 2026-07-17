@@ -75,7 +75,7 @@ export const agencySections = [
       "Customer Support AI Agent",
       "AI Invoice Processing",
       "GHL Stale Lead - AI Email + Slack Approval",
-      "Cold Email Sender — Outreach",
+      "Cold Email Sender - Outreach",
       "Stripe Revenue Tracking",
       "Missed Opportunity Recovery System (AI Follow-Up)",
     ],
@@ -133,7 +133,7 @@ export const agencySections = [
       {
         file: "funnel-freequote.png",
         title: "Free Instant Quote Funnel",
-        caption: "High-converting quote form — name, email, phone & service select",
+        caption: "High-converting quote form - name, email, phone & service select",
       },
       {
         file: "funnel-freecall.png",
@@ -483,7 +483,7 @@ export const agencySections = [
       {
         file: "funnel-youtubeagency.png",
         title: "YouTube Growth Agency",
-        caption: "Cinematic creator ops — editing, thumbnails & retention systems",
+        caption: "Cinematic creator ops - editing, thumbnails & retention systems",
       },
       {
         file: "funnel-appwaitlist.png",
