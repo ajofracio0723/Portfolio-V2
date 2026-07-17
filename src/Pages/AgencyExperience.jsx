@@ -226,9 +226,9 @@ const AccordionSection = ({ section, isOpen, onToggle }) => {
                 autoPlay={false}
                 showCarouselNav={false}
                 highlight={{
-                  value: "70+",
+                  value: "80+",
                   label: "Funnels & websites built",
-                  note: "40+ industry verticals - Solar, Healthcare, Coaching, Real Estate, Fitness, Legal, Spa, Dental, Restaurant, Ecommerce, Auto, Insurance, Pets, Education, Accounting, Wedding, Mortgage, SaaS, Cleaning, Photography, Chiropractic, Interior Design, HVAC, Landscaping, Therapy, Daycare, Roofing, MedSpa, Barbershop, Yoga, Moving, Senior Care, Martial Arts, Bakery, PC Tech, Coffee Shop, PH Tourism, Podcast Studios, YouTube Agencies, App Waitlists, NFT Creative Studios & more",
+                  note: "Webinar funnels · PH Tourism · Solar · Healthcare · Coaching · Real Estate · Fitness · Legal · Spa · Dental · Restaurant · Ecommerce · Auto · Insurance · Pets · Education · Accounting · Wedding · Mortgage · SaaS · Cleaning · Photography · Chiropractic · Interior Design · HVAC · Landscaping · Therapy · Daycare · Roofing · MedSpa · Barbershop · Yoga · Moving · Senior Care · Martial Arts · Bakery · PC Tech · Coffee Shop · Podcast · YouTube · App Waitlists · NFT Studios & more",
                 }}
               />
             ) : section.id === "integrations" && section.screenshots?.length ? (

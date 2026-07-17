@@ -2,7 +2,7 @@ export const agencyStats = [
   { value: "5+", label: "Years GoHighLevel Experience" },
   { value: "20+", label: "Client Sub-Accounts Managed" },
   { value: "100+", label: "Workflows & Automations Built" },
-  { value: "70+", label: "Funnels & Websites" },
+  { value: "80+", label: "Funnels & Websites" },
   { value: "20+", label: "Third-Party Integrations" },
   { value: "100+", label: "CRM Optimizations" },
 ];
@@ -105,6 +105,9 @@ export const agencySections = [
       "Built landing pages",
       "Sales funnels",
       "Lead capture funnels",
+      "High-converting opt-in forms (quote, estimate, challenge, ebook)",
+      "Webinar registration & masterclass funnels",
+      "Webinar replay & thank-you pages",
       "Booking pages with calendar widgets",
       "Appointment scheduling & tour booking",
       "Forms",
@@ -126,6 +129,56 @@ export const agencySections = [
         file: "funnel-palawan.png",
         title: "Palawan Tourism Site",
         caption: "Island paradise travel site with tours & booking CTA",
+      },
+      {
+        file: "funnel-freequote.png",
+        title: "Free Instant Quote Funnel",
+        caption: "High-converting quote form — name, email, phone & service select",
+      },
+      {
+        file: "funnel-freecall.png",
+        title: "Free Strategy Call Funnel",
+        caption: "Consultation booking form with best-time-to-call capture",
+      },
+      {
+        file: "funnel-challenge.png",
+        title: "5-Day Challenge Signup",
+        caption: "Challenge opt-in form with countdown & scarcity CTA",
+      },
+      {
+        file: "funnel-ebook.png",
+        title: "Free Ebook Lead Magnet",
+        caption: "Name + email download form for free business guide",
+      },
+      {
+        file: "funnel-freeestimate.png",
+        title: "Free Estimate Lead Funnel",
+        caption: "Home services estimate form with address & preferred date",
+      },
+      {
+        file: "funnel-webinar.png",
+        title: "Webinar Registration Funnel",
+        caption: "Live masterclass countdown + seat reservation opt-in",
+      },
+      {
+        file: "funnel-webinar-masterclass.png",
+        title: "Webinar Masterclass Site",
+        caption: "Video preview + free seat registration with countdown",
+      },
+      {
+        file: "funnel-webinar-saas.png",
+        title: "SaaS Product Webinar",
+        caption: "AI product webinar with save-my-seat registration",
+      },
+      {
+        file: "funnel-webinar-fitness.png",
+        title: "Fitness Webinar Funnel",
+        caption: "90-day body transform live webinar registration",
+      },
+      {
+        file: "funnel-webinar-replay.png",
+        title: "Webinar Replay Page",
+        caption: "Post-webinar replay + strategy call next-step CTA",
       },
       {
         file: "funnel-booking-spa.png",
@@ -156,11 +209,6 @@ export const agencySections = [
         file: "funnel-solar.png",
         title: "Solar Lead Funnel",
         caption: "High-converting quote capture for solar",
-      },
-      {
-        file: "funnel-webinar.png",
-        title: "Webinar Registration Funnel",
-        caption: "Countdown + opt-in registration flow",
       },
       {
         file: "funnel-healthcare.png",
@@ -466,6 +514,16 @@ export const agencySections = [
         file: "funnel-tutoring.png",
         title: "Online Tutoring & Review Center",
         caption: "Live classes, exam review & free trial enrollment",
+      },
+      {
+        file: "funnel-florist.png",
+        title: "Florist & Flower Shop Site",
+        caption: "Bouquet shop with seasonal arrangements & delivery CTA",
+      },
+      {
+        file: "funnel-pharmacy.png",
+        title: "Pharmacy & Wellness Site",
+        caption: "Prescription refill, OTC shop & pharmacist consult CTA",
       },
       {
         file: "funnel-booking-calendar.png",
@@ -849,7 +907,7 @@ export const agencySections = [
 export const agencyAchievements = [
   "Managed 20+ GoHighLevel Sub-Accounts",
   "Built 100+ Automations",
-  "Built 70+ Websites & Funnels",
+  "Built 80+ Websites & Funnels",
   "Configured 20+ Integrations",
   "Managed A2P Registrations",
   "Built AI-assisted Websites",
