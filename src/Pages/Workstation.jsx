@@ -84,9 +84,8 @@ export default function Workstation() {
             My Workstation
           </span>
         </h2>
-        <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
-          Comfortable working across both Windows and macOS, with the flexibility
-          to build funnels, automations, and web apps on either platform.
+        <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2 leading-relaxed">
+          Engineered for deep work and high-output days.
         </p>
       </div>
 
