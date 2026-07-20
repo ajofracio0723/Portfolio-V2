@@ -11,6 +11,7 @@ import {
   Sparkles,
   Wrench,
   FileText,
+  Palette,
   ChevronDown,
   ImagePlus,
   Building2,
@@ -42,6 +43,7 @@ const ICON_MAP = {
   Sparkles,
   Wrench,
   FileText,
+  Palette,
 };
 
 const StatCard = ({ value, label }) => (
@@ -229,6 +231,20 @@ const AccordionSection = ({ section, isOpen, onToggle }) => {
                   value: "80+",
                   label: "Funnels & websites built",
                   note: "Webinar funnels · PH Tourism · Solar · Healthcare · Coaching · Real Estate · Fitness · Legal · Spa · Dental · Restaurant · Ecommerce · Auto · Insurance · Pets · Education · Accounting · Wedding · Mortgage · SaaS · Cleaning · Photography · Chiropractic · Interior Design · HVAC · Landscaping · Therapy · Daycare · Roofing · MedSpa · Barbershop · Yoga · Moving · Senior Care · Martial Arts · Bakery · PC Tech · Coffee Shop · Podcast · YouTube · App Waitlists · NFT Studios & more",
+                }}
+              />
+            ) : section.id === "design" && section.screenshots?.length ? (
+              <CrmShowcase
+                screenshots={section.screenshots}
+                responsibilities={section.responsibilities}
+                technologies={section.technologies}
+                showcaseLabel="Graphic Design Showcase"
+                autoPlay={false}
+                showCarouselNav={true}
+                highlight={{
+                  value: "Design",
+                  label: "Brand, product & campaign visuals",
+                  note: "Food · Business · Digital · Tech products · Packaging · SaaS · Logos · Social · Flyers · Thumbnails",
                 }}
               />
             ) : section.id === "integrations" && section.screenshots?.length ? (

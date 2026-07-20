@@ -1,5 +1,5 @@
 import { useEffect, memo, useMemo, useState } from "react"
-import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles, Star, Monitor, Workflow, Layout, Plug, Building2, Bot } from "lucide-react"
+import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles, Star, Monitor, Workflow, Layout, Plug, Building2, Bot, Palette } from "lucide-react"
 
 // AOS Library (using CDN)
 const loadAOS = () => {
@@ -296,6 +296,13 @@ const AboutPage = () => {
       description:
         "High-converting sites, landing pages, and funnels across industries - from solar and healthcare to coaching, wellness, and local services.",
       color: "text-emerald-400",
+    },
+    {
+      icon: Palette,
+      title: "Graphic Design",
+      description:
+        "Brand marks, product ads, digital product creatives, packaging concepts, and visual systems that keep campaigns looking sharp and on-brand.",
+      color: "text-pink-400",
     },
     {
       icon: Plug,
