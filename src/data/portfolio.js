@@ -217,6 +217,37 @@ export const projects = [
     ],
   },
   {
+    id: 16,
+    Title: "Knowledge Desk",
+    Description:
+      "Ask your documents. Get answers with citations. An AI document Q&A app that lets users upload PDFs or text files, then ask questions and get grounded answers with source citations. Built as a deployable RAG product with auth, vector search, and a clean chat workspace.",
+    Img: "/projects/knowledge-desk-1.png",
+    Link: "https://knowledge-desk.vercel.app",
+    Github: "https://github.com/ajofracio0723/knowledge-desk",
+    TechStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Gemini",
+      "Turso",
+      "Zod",
+      "Lucide React",
+      "Vercel",
+    ],
+    Features: [
+      "Email/password auth with protected desk workspace",
+      "Upload PDF or text files into a private document library",
+      "Document chunking and Gemini embeddings for vector search",
+      "Turso cloud SQLite for deploy-ready demos, local SQLite for development",
+      "Retrieve the most relevant passages before generating an answer",
+      "Grounded chat replies with source citations and match scores",
+      "Document library management with upload status and delete",
+      "Clean desk chat workspace for asking across your library",
+      "Deployed on Vercel with a cloud database that stays available for demos",
+    ],
+  },
+  {
     id: 2,
     Title: "Pawstagram",
     Description:
