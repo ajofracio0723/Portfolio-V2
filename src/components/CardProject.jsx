@@ -36,15 +36,15 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
           </div>
 
           <div className="mt-4 flex min-h-0 flex-1 flex-col">
-            <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent line-clamp-2 min-h-[3.5rem]">
+            <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent line-clamp-2 min-h-[3rem] sm:min-h-[3.5rem]">
               {Title}
             </h3>
 
-            <p className="mt-2 text-gray-300/80 text-sm leading-relaxed line-clamp-3 min-h-[4.5rem]">
+            <p className="mt-2 text-gray-300/80 text-sm leading-relaxed line-clamp-3 min-h-[4rem] sm:min-h-[4.5rem]">
               {Description}
             </p>
 
-            <div className="mt-auto pt-4 flex items-center justify-between gap-2">
+            <div className="mt-auto pt-4 flex flex-wrap items-center justify-between gap-2">
               {ProjectLink ? (
                 <a
                   href={ProjectLink || "#"}
@@ -54,7 +54,7 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
                   className="inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors duration-200"
                 >
                   <span className="text-sm font-medium">Live Demo</span>
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-4 h-4 shrink-0" />
                 </a>
               ) : (
                 <span className="text-gray-500 text-sm">Demo Not Available</span>
@@ -67,7 +67,7 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
                   className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/90 transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                 >
                   <span className="text-sm font-medium">Details</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 shrink-0" />
                 </Link>
               ) : (
                 <span className="text-gray-500 text-sm">Details Not Available</span>

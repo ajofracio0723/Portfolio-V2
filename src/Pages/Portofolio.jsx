@@ -83,7 +83,7 @@ function TabPanel({ children, value, index, ...other }) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: { xs: 1, sm: 3 } }}>
+        <Box sx={{ p: { xs: 2, sm: 3 } }}>
           <Typography component="div">{children}</Typography>
         </Box>
       )}
@@ -299,16 +299,17 @@ export default function FullWidthTabs() {
             indicatorColor="secondary"
             variant="fullWidth"
             sx={{
-              minHeight: "70px",
+              minHeight: { xs: 56, md: 70 },
               "& .MuiTab-root": {
-                fontSize: { xs: "0.9rem", md: "1rem" },
+                fontSize: { xs: "0.75rem", sm: "0.9rem", md: "1rem" },
                 fontWeight: "600",
                 color: "#94a3b8",
                 textTransform: "none",
                 transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                padding: "20px 0",
+                padding: { xs: "10px 0", md: "20px 0" },
                 zIndex: 1,
-                margin: "8px",
+                margin: { xs: "4px", md: "8px" },
+                minHeight: { xs: 56, md: 70 },
                 borderRadius: "12px",
                 "&:hover": {
                   color: "#ffffff",
@@ -331,22 +332,22 @@ export default function FullWidthTabs() {
                 height: 0,
               },
               "& .MuiTabs-flexContainer": {
-                gap: "8px",
+                gap: { xs: "4px", md: "8px" },
               },
             }}
           >
             <Tab
-              icon={<Code className="mb-2 w-5 h-5 transition-all duration-300" />}
+              icon={<Code className="mb-1 md:mb-2 w-4 h-4 md:w-5 md:h-5 transition-all duration-300" />}
               label="Projects"
               {...a11yProps(0)}
             />
             <Tab
-              icon={<Award className="mb-2 w-5 h-5 transition-all duration-300" />}
+              icon={<Award className="mb-1 md:mb-2 w-4 h-4 md:w-5 md:h-5 transition-all duration-300" />}
               label="Certificates"
               {...a11yProps(1)}
             />
             <Tab
-              icon={<Boxes className="mb-2 w-5 h-5 transition-all duration-300" />}
+              icon={<Boxes className="mb-1 md:mb-2 w-4 h-4 md:w-5 md:h-5 transition-all duration-300" />}
               label="Tech Stack"
               {...a11yProps(2)}
             />
@@ -361,8 +362,8 @@ export default function FullWidthTabs() {
                 {displayedProjects.map((project, index) => (
                   <div
                     key={project.id || index}
-                    className="h-full"
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
+                    className="h-full min-w-0"
+                    data-aos={isMobile ? "fade-up" : index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
                     data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
                   >
                     <CardProject
@@ -377,7 +378,7 @@ export default function FullWidthTabs() {
               </div>
             </div>
             {projects.length > initialItems && (
-              <div className="mt-6 w-full flex justify-start">
+              <div className="mt-6 w-full flex justify-center md:justify-start">
                 <ToggleButton
                   onClick={() => toggleShowMore('projects')}
                   isShowingMore={showAllProjects}
@@ -388,11 +389,12 @@ export default function FullWidthTabs() {
 
           <TabPanel value={value} index={1}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4 w-full">
                 {displayedCertificates.map((certificate, index) => (
                   <div
                     key={certificate.id || index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
+                    className="min-w-0"
+                    data-aos={isMobile ? "fade-up" : index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
                     data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
                   >
                     <Certificate ImgSertif={certificate.Img} />
@@ -401,7 +403,7 @@ export default function FullWidthTabs() {
               </div>
             </div>
             {certificates.length > initialItems && (
-              <div className="mt-6 w-full flex justify-start">
+              <div className="mt-6 w-full flex justify-center md:justify-start">
                 <ToggleButton
                   onClick={() => toggleShowMore('certificates')}
                   isShowingMore={showAllCertificates}

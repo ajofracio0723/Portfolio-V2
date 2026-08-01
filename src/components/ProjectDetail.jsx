@@ -39,7 +39,7 @@ const FeatureItem = ({ feature }) => {
         <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full blur group-hover:opacity-100 opacity-0 transition-opacity duration-300" />
         <div className="relative w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 group-hover:scale-125 transition-transform duration-300" />
       </div>
-      <span className="text-sm md:text-base text-gray-300 group-hover:text-white transition-colors">
+      <span className="text-sm md:text-base text-gray-300 group-hover:text-white transition-colors break-words">
         {feature}
       </span>
     </li>
@@ -126,7 +126,7 @@ const ProjectDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#030014] px-[2%] sm:px-0 relative overflow-hidden">
+    <div className="min-h-screen bg-[#030014] px-0 relative overflow-x-hidden">
       {/* Background animations remain unchanged */}
       <div className="fixed inset-0">
         <div className="absolute -inset-[10px] opacity-20">
@@ -139,25 +139,25 @@ const ProjectDetails = () => {
 
       <div className="relative">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-16">
-          <div className="flex items-center space-x-2 md:space-x-4 mb-8 md:mb-12 animate-fadeIn">
+          <div className="flex items-center gap-2 md:gap-4 mb-8 md:mb-12 animate-fadeIn min-w-0">
             <button
-              onClick={() => navigate(-1)}
-              className="group inline-flex items-center space-x-1.5 md:space-x-2 px-3 md:px-5 py-2 md:py-2.5 bg-white/5 backdrop-blur-xl rounded-xl text-white/90 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 text-sm md:text-base"
+              onClick={() => navigate("/#Portfolio")}
+              className="group shrink-0 inline-flex items-center space-x-1.5 md:space-x-2 px-3 md:px-5 py-2 md:py-2.5 bg-white/5 backdrop-blur-xl rounded-xl text-white/90 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 text-sm md:text-base"
             >
               <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
               <span>Back</span>
             </button>
-            <div className="flex items-center space-x-1 md:space-x-2 text-sm md:text-base text-white/50">
-              <span>Projects</span>
-              <ChevronRight className="w-3 h-3 md:w-4 md:h-4" />
+            <div className="flex min-w-0 flex-1 items-center gap-1 md:gap-2 overflow-hidden text-sm md:text-base text-white/50">
+              <span className="shrink-0 hidden sm:inline">Projects</span>
+              <ChevronRight className="w-3 h-3 md:w-4 md:h-4 shrink-0 hidden sm:block" />
               <span className="text-white/90 truncate">{project.Title}</span>
             </div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 md:gap-16">
-            <div className="space-y-6 md:space-y-10 animate-slideInLeft">
+            <div className="space-y-6 md:space-y-10 animate-slideInLeft order-2 lg:order-1">
               <div className="space-y-4 md:space-y-6">
-                <h1 className="text-3xl md:text-6xl font-bold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent leading-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-6xl font-bold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent leading-tight break-words">
                   {project.Title}
                 </h1>
                 <div className="relative h-1 w-16 md:w-24">
@@ -167,7 +167,7 @@ const ProjectDetails = () => {
               </div>
 
               <div className="prose prose-invert max-w-none">
-                <p className="text-base md:text-lg text-gray-300/90 leading-relaxed">
+                <p className="text-sm sm:text-base md:text-lg text-gray-300/90 leading-relaxed">
                   {project.Description}
                 </p>
               </div>
@@ -201,7 +201,7 @@ const ProjectDetails = () => {
               </div>
 
               <div className="space-y-4 md:space-y-6">
-                <h3 className="text-lg md:text-xl font-semibold text-white/90 mt-[3rem] md:mt-0 flex items-center gap-2 md:gap-3">
+                <h3 className="text-lg md:text-xl font-semibold text-white/90 mt-6 md:mt-0 flex items-center gap-2 md:gap-3">
                   <Code2 className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
                   Technologies Used
                 </h3>
@@ -217,23 +217,23 @@ const ProjectDetails = () => {
               </div>
             </div>
 
-            <div className="space-y-6 md:space-y-10 animate-slideInRight">
+            <div className="space-y-6 md:space-y-10 animate-slideInRight order-1 lg:order-2">
               <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
               
                 <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <img
                   src={project.Img}
                   alt={project.Title}
-                  className="w-full  object-cover transform transition-transform duration-700 will-change-transform group-hover:scale-105"
+                  className="w-full max-h-[50vh] md:max-h-none object-cover object-top transform transition-transform duration-700 will-change-transform group-hover:scale-105"
                   onLoad={() => setIsImageLoaded(true)}
                 />
                 <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/10 transition-colors duration-300 rounded-2xl" />
               </div>
 
               {/* Fitur Utama */}
-              <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 border border-white/10 space-y-6 hover:border-white/20 transition-colors duration-300 group">
-                <h3 className="text-xl font-semibold text-white/90 flex items-center gap-3">
-                  <Star className="w-5 h-5 text-yellow-400 group-hover:rotate-[20deg] transition-transform duration-300" />
+              <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 sm:p-6 md:p-8 border border-white/10 space-y-4 md:space-y-6 hover:border-white/20 transition-colors duration-300 group">
+                <h3 className="text-lg md:text-xl font-semibold text-white/90 flex items-center gap-2 md:gap-3">
+                  <Star className="w-5 h-5 text-yellow-400 group-hover:rotate-[20deg] transition-transform duration-300 shrink-0" />
                   Key Features
                 </h3>
                 {project.Features.length > 0 ? (
