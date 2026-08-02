@@ -42,8 +42,6 @@ export default function CrmShowcase({
   const hasManyScreenshots = screenshots.length > 15;
   const showDots = showCarouselNav && !hasManyScreenshots;
   const showArrows = screenshots.length > 1 && (showCarouselNav || hasManyScreenshots);
-  const showThumbStrip = !hasManyScreenshots;
-  const showCompactThumbStrip = hasManyScreenshots;
 
   useEffect(() => {
     const id = window.requestAnimationFrame(() => setShowThumbs(true));
@@ -190,54 +188,32 @@ export default function CrmShowcase({
             </div>
           )}
 
-          {showThumbs && showThumbStrip && (
-            <div className="mt-3 w-full max-w-full overflow-hidden 2xl:hidden">
-              <div
-                className="grid grid-flow-col auto-cols-[140px] sm:auto-cols-[160px] gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain snap-x snap-mandatory pb-2 custom-crm-scroll-x"
-                style={{ WebkitOverflowScrolling: "touch" }}
-              >
+          {showThumbs && (
+            <div
+              className={`mt-3 w-full max-w-full min-w-0 overflow-hidden ${
+                hasManyScreenshots ? "" : "2xl:hidden"
+              }`}
+            >
+              <p className="text-[11px] text-slate-500 mb-2">
+                {hasManyScreenshots
+                  ? `Scroll down to browse all ${screenshots.length} examples`
+                  : "Scroll down to browse examples"}
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-[220px] overflow-y-auto overflow-x-hidden overscroll-y-contain pr-1 custom-crm-scroll">
                 {screenshots.map((s, i) => (
                   <ThumbButton
                     key={`thumb-scroll-${s.file}`}
                     screenshot={s}
                     isActive={i === index}
                     onClick={() => setIndex(i)}
-                    className="snap-start"
+                    className="w-full [&>div]:w-full [&>div]:h-[72px] sm:[&>div]:h-[80px]"
                   />
                 ))}
               </div>
             </div>
           )}
 
-          {showThumbs && showCompactThumbStrip && (
-            <div className="mt-3 w-full max-w-full overflow-hidden hidden xl:block">
-              <p className="text-[11px] text-slate-500 mb-2">
-                Scroll the gallery strip to browse all {screenshots.length} examples
-              </p>
-              <div
-                className="grid grid-flow-col auto-cols-[140px] xl:auto-cols-[160px] gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain snap-x snap-mandatory pb-2 custom-crm-scroll-x"
-                style={{ WebkitOverflowScrolling: "touch" }}
-              >
-                {screenshots.map((s, i) => (
-                  <ThumbButton
-                    key={`thumb-scroll-many-${s.file}`}
-                    screenshot={s}
-                    isActive={i === index}
-                    onClick={() => setIndex(i)}
-                    className="snap-start"
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {showCompactThumbStrip && (
-            <p className="mt-3 text-[11px] text-slate-500 text-center xl:hidden">
-              Use the arrows above to browse all {screenshots.length} examples
-            </p>
-          )}
-
-          {showThumbs && showThumbStrip && (
+          {showThumbs && !hasManyScreenshots && (
             <div className="mt-3 hidden 2xl:grid 2xl:grid-cols-3 gap-2">
               {screenshots.map((s, i) => (
                 <ThumbButton
@@ -275,17 +251,11 @@ export default function CrmShowcase({
           background: rgba(99,102,241,0.45);
           border-radius: 6px;
         }
-        .custom-crm-scroll-x::-webkit-scrollbar { height: 5px; }
-        .custom-crm-scroll-x::-webkit-scrollbar-thumb {
-          background: rgba(99,102,241,0.45);
-          border-radius: 6px;
-        }
-        .custom-crm-scroll-x {
+        .custom-crm-scroll {
           max-width: 100%;
-          width: 100%;
         }
-        .custom-crm-scroll-x > button {
-          flex: 0 0 auto;
+        .custom-crm-scroll > button {
+          min-width: 0;
         }
       `}</style>
     </div>
