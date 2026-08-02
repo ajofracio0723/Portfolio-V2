@@ -83,14 +83,17 @@ const WorkspaceImage = memo(() => (
   <div className="relative group" data-aos="fade-right" data-aos-duration="1000">
     <div className="absolute -inset-4 bg-gradient-to-r from-[#6366f1]/20 to-[#a855f7]/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
     <div className="relative bg-gray-900/50 backdrop-blur-lg rounded-2xl p-4 border border-white/10 overflow-hidden">
-      <div className="w-full h-64 rounded-xl overflow-hidden">
-        <img
-          src="/coder.gif"
-          alt="Developer workspace"
+      <div className="w-full h-64 rounded-xl overflow-hidden relative">
+        <video
+          src="/portfolio.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-label="My creative workspace"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
       </div>
       <div className="absolute bottom-8 left-8 text-white">
         <p className="text-sm font-medium">My Creative Space</p>
